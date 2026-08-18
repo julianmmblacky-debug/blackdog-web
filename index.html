@@ -9,6 +9,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-53VWX8G');</script>
 <!-- End Google Tag Manager -->
+<!-- Google Analytics 4 — G-26M8MHTW9L -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-26M8MHTW9L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-26M8MHTW9L', {
+    'page_title': document.title,
+    'send_page_view': true,
+    'anonymize_ip': true
+  });
+
+  // Conversiones — se disparan cuando el usuario hace clic
+  function trackGA4(evento, params) {
+    gtag('event', evento, params);
+  }
+</script>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://reparacion-cremallera-direccion.com/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1974,6 +1991,89 @@ document.addEventListener('DOMContentLoaded', function() {
     el.addEventListener('click', function() {
       trackContact('email', 'email');
     });
+  });
+});
+</script>
+<!-- Tracking eventos de contacto — GA4 + GTM -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function trackContact(tipo, destino, pagina) {
+  // GTM dataLayer
+  window.dataLayer.push({
+    'event': 'contacto',
+    'tipo_contacto': tipo,
+    'destino': destino,
+    'pagina_origen': pagina || window.location.hash || 'inicio'
+  });
+  // GA4 directo
+  if(typeof gtag === 'function') {
+    gtag('event', 'contacto_' + tipo, {
+      'event_category': 'Conversión',
+      'event_label': destino,
+      'pagina_origen': pagina || window.location.hash || 'inicio',
+      'value': 1
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // WhatsApp — evento principal de conversión
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var pagina = document.querySelector('.page.active') ? 
+                   document.querySelector('.page.active').id : 'inicio';
+      trackContact('whatsapp', 'WhatsApp 697501984', pagina);
+    });
+  });
+
+  // Teléfono
+  document.querySelectorAll('a[href*="tel:"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var pagina = document.querySelector('.page.active') ? 
+                   document.querySelector('.page.active').id : 'inicio';
+      trackContact('telefono', '697501984', pagina);
+    });
+  });
+
+  // Email
+  document.querySelectorAll('a[href*="mailto:"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      trackContact('email', 'julianmmblacky@gmail.com', '');
+    });
+  });
+
+  // Scroll depth (cuánto lee el usuario antes de contactar)
+  var scrollMarcas = [25, 50, 75, 90];
+  var marcasEnviadas = {};
+  window.addEventListener('scroll', function() {
+    var pct = Math.round((window.scrollY + window.innerHeight) / 
+              document.body.scrollHeight * 100);
+    scrollMarcas.forEach(function(m) {
+      if(pct >= m && !marcasEnviadas[m]) {
+        marcasEnviadas[m] = true;
+        if(typeof gtag === 'function') {
+          gtag('event', 'scroll', {
+            'event_category': 'Engagement',
+            'event_label': m + '%',
+            'value': m
+          });
+        }
+      }
+    });
+  }, {passive: true});
+
+  // Tiempo en página antes de contactar
+  var tiempoInicio = Date.now();
+  window.addEventListener('beforeunload', function() {
+    var segundos = Math.round((Date.now() - tiempoInicio) / 1000);
+    if(typeof gtag === 'function' && segundos > 5) {
+      gtag('event', 'tiempo_pagina', {
+        'event_category': 'Engagement',
+        'event_label': segundos + 's',
+        'value': segundos,
+        'transport_type': 'beacon'
+      });
+    }
   });
 });
 </script>
