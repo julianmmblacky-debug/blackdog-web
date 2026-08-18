@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- build:20260818220237 -->
+<!DOCTYPE html><!-- build:20260818220515 -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -75,7 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
   .foto-item{margin:0;background:#1a1d22;border:1px solid #2a2c32;border-radius:8px;overflow:hidden}
-  .foto-item img{width:100%;height:220px;object-fit:cover;display:block}
+  .foto-item img{width:100%;height:auto;max-height:280px;object-fit:contain;display:block;background:#111316}
   .foto-item figcaption{padding:10px 14px;font-size:.82rem;color:var(--muted);line-height:1.4}
   @media(max-width:860px){.foto-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:500px){.foto-grid{grid-template-columns:1fr}}
