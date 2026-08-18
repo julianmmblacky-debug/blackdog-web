@@ -293,7 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
   html,body{max-width:100%;overflow-x:hidden}
-  .page-inner,.wrap,section{overflow-x:hidden}
+  .page-inner,.wrap{overflow-x:hidden}
   .sec-test{background:linear-gradient(180deg,#0f1012,#0B0B0C)}
   .test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:clamp(24px,4vw,40px)}
   .test-card{background:linear-gradient(160deg,#1e2025,#16181c);border:1px solid #2a2c32;border-left:3px solid var(--yellow);border-radius:8px;padding:20px 22px}
@@ -353,7 +353,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 </header>
 <main>
-  <div id="page-inicio"  class="page"><div class="page-inner">
+  <div id="page-inicio"  class="page"><div class="page-inner"><section class="sec sec-test"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Lo que dicen los clientes</span><h2>Casos reales · Palabras reales</h2><p>Sin filtros — incluyendo los que no salieron perfectos.</p></div>
+  <div class="test-grid">
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Ya llegó la cremallera y la bomba y están montadas y funcionando."</p><div class="test-meta"><span class="test-nombre">Autoprisco · Taller</span><span class="test-modelo">Toyota Land Cruiser 90 · Murcia</span></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Felicitarle por la reparación. Se ha montado y funciona correctamente."</p><div class="test-meta"><span class="test-nombre">Francisco</span><span class="test-modelo">Mitsubishi Montero · Cáceres</span></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Se montó bien y funciona bien, a día de hoy no tiene pérdida de líquido. ¡Perfecto!"</p><div class="test-meta"><span class="test-nombre">Roberto</span><span class="test-modelo">Audi A3</span></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Monté la cremallera y va de lujo."</p><div class="test-meta"><span class="test-nombre">Francisco Cuesta</span><span class="test-modelo">Citroën Berlingo · Pilas (Sevilla)</span></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"¡Ya está probada y va estupendamente! Es un precio de escándalo."</p><div class="test-meta"><span class="test-nombre">Javier</span><span class="test-modelo">Toyota Land Cruiser · Aracena (Sevilla)</span></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"La dirección ha quedado de cine. Mi enhorabuena por un trabajo bien hecho."</p><div class="test-meta"><span class="test-nombre">Gabriel</span><span class="test-modelo">Microcar · Menorca (Baleares)</span></div></div>
+    <div class="test-card test-neg reveal"><div class="test-stars" style="color:#e07c4f">★★☆☆☆</div><p class="test-texto">"La dirección ha mejorado pero no como nueva. Con menos de 200 kilómetros ya suena."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Caso con desgaste muy avanzado</span></div><p class="test-respuesta">Hay casos donde el desgaste es tan extremo que la mejora es parcial. Lo advierto siempre antes.</p></div>
+    <div class="test-card test-neg reveal"><div class="test-stars" style="color:#e07c4f">★☆☆☆☆</div><p class="test-texto">"El casquillo central ni siquiera fue sustituido... ha vuelto a romper."</p><div class="test-meta"><span class="test-nombre">Roberto Adán</span><span class="test-modelo">Mercedes ML 55 AMG</span></div><p class="test-respuesta">El ML 55 AMG es uno de los casos más complejos. No siempre sale bien a la primera — es la realidad con piezas en este estado.</p></div>
+    <div class="test-card test-neg reveal"><div class="test-stars" style="color:#e07c4f">★★☆☆☆</div><p class="test-texto">"En enero me reparasteis y nada más ponerla me empezó a fugar."</p><div class="test-meta"><span class="test-nombre">Álvaro</span><span class="test-modelo">Toyota Land Cruiser 95</span></div><p class="test-respuesta">Incidencia real. Se revisó y resolvió bajo garantía. Estas cosas pasan — lo importante es responder.</p></div>
+  </div>
+  <p class="test-nota reveal">Publico también los casos que no salieron perfectos. Trabajar con piezas muy deterioradas tiene riesgos reales — prefiero que lo sepas antes.</p>
+</div></section>
 ============================================================================ -->
 
 <section class="sec about"><div class="wrap" style="text-align:center;padding:clamp(40px,6vw,72px) 0">
@@ -419,7 +433,7 @@ Antes del envío, el cliente puede enviar fotos, modelo y referencia para recibi
 una valoración orientativa gratuita. Julián Márquez, 20 años de especialización
 en dirección hidráulica, tradición familiar de más de 40 años en el oficio. -->
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"BLACKDOG Direcciones Asistidas","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","reviewCount":"11","bestRating":"5"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"BLACKDOG Direcciones Asistidas","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","reviewCount":"9","bestRating":"5"}}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1196,12 +1210,12 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
     <section class="sec" id="raros"><div class="wrap">
       <div class="sec-head reveal"><span class="eyebrow">Los casos más difíciles</span><h2>Coches que otros no tocan</h2><p>Clásicos, exóticos y rarezas. Cuando no existe recambio, fabricamos la pieza a medida.</p></div>
       <div class="modelos-grid reveal">
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Clásicos · Época</span><span class="marca-tag">Artesanía pura</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Citroën DS</strong> "Tiburón" 21/23 — LHM/LHS</div><div class="modelo-item"><strong>Mercedes-Benz</strong> W111 (1960) · "Ponton" (1956)</div><div class="modelo-item"><strong>Citroën Avant</strong> 11 BL (1950)</div><div class="modelo-item"><strong>Renault</strong> 4CV (1956) · Supercinco GT Turbo</div><div class="modelo-item"><strong>Ford V8</strong> (1937)</div></div></div>
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Deportivos · Exóticos</span><span class="marca-tag">Alta precisión</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Audi R8</strong> — agua en motor cremallera</div><div class="modelo-item"><strong>Porsche</strong> 928 (1990) · 944 (1986)</div><div class="modelo-item"><strong>Mitsubishi 3000GT</strong> — dirección trasera</div><div class="modelo-item"><strong>Lancia Delta Integrale</strong> (86–89)</div><div class="modelo-item"><strong>BMW</strong> Serie 8 E31 · Serie 7 E32</div><div class="modelo-item"><strong>Nissan Silvia</strong> S14 · 200SX</div></div></div>
+        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Clásicos · Época</span><span class="marca-tag">Artesanía pura</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Citroën DS</strong> "Tiburón" 21/23</div><div class="modelo-item"><strong>Mercedes-Benz</strong> W111 (1960) · "Ponton" (1956)</div><div class="modelo-item"><strong>Citroën Avant</strong> 11 BL (1950)</div><div class="modelo-item"><strong>Renault</strong> 4CV (1956) · Supercinco GT Turbo</div><div class="modelo-item"><strong>Ford V8</strong> (1937)</div></div></div>
+        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Deportivos · Exóticos</span><span class="marca-tag">Alta precisión</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Audi R8</strong></div><div class="modelo-item"><strong>Porsche</strong> 928 (1990) · 944 (1986)</div><div class="modelo-item"><strong>Mitsubishi 3000GT</strong></div><div class="modelo-item"><strong>Lancia Delta Integrale</strong> (86–89)</div><div class="modelo-item"><strong>BMW</strong> Serie 8 E31 · Serie 7 E32</div><div class="modelo-item"><strong>Nissan Silvia</strong> S14 · 200SX</div></div></div>
         <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Americanos · 4x4</span><span class="marca-tag">Mecánicas poco comunes</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Ford Mustang</strong> (1972 · 2000)</div><div class="modelo-item"><strong>Corvette</strong> (1986)</div><div class="modelo-item"><strong>Toyota Supra</strong> (1989) · FJ Cruiser</div><div class="modelo-item"><strong>Pontiac Firebird</strong> (1995)</div><div class="modelo-item"><strong>Mitsubishi Galant V</strong> (1985)</div></div></div>
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Rarezas únicas</span><span class="marca-tag">Casos que no se olvidan</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Ford Capri</strong> 2.8i V6 (1983)</div><div class="modelo-item"><strong>Rover 2400 SD Turbo</strong> (1984)</div><div class="modelo-item"><strong>Daihatsu Rocky</strong></div><div class="modelo-item"><strong>Microcar</strong> — coches sin carnet</div><div class="modelo-item"><strong>Tesla Model S</strong> P85 — error EPAS_w002</div></div></div>
+        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Rarezas</span><span class="marca-tag">Casos que no se olvidan</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Ford Capri</strong> 2.8i V6 (1983)</div><div class="modelo-item"><strong>Rover 2400 SD Turbo</strong> (1984)</div><div class="modelo-item"><strong>Daihatsu Rocky</strong></div><div class="modelo-item"><strong>Microcar</strong></div><div class="modelo-item"><strong>Tesla Model S</strong> P85 — error EPAS_w002</div></div></div>
       </div>
-      <p class="modelos-nota reveal">Para todos estos vehículos la estrategia es la misma: reparar la original fabricando casquillos a medida. El desguace es una lotería.</p>
+      <p class="modelos-nota reveal">Para todos estos la estrategia es la misma: reparar la original fabricando casquillos a medida. El desguace es una lotería.</p>
     </div></section>
 <section class="final"><div class="final-glow"></div><div class="wrap">
   <h2>¿Tu coche podría ser el siguiente?</h2>
