@@ -60,7 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--ink);color:var(--bone);font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:clamp(16px,1.05vw + 13px,18px);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  html{overflow-x:hidden}body{overflow-x:hidden;background:var(--ink);color:var(--bone);font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:clamp(16px,1.05vw + 13px,18px);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   .metal{background:linear-gradient(180deg,var(--steel-hi),var(--steel) 42%,var(--steel-lo));position:relative}
   .metal::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 3px),linear-gradient(105deg,rgba(255,255,255,.10),transparent 30%,transparent 70%,rgba(0,0,0,.25));mix-blend-mode:overlay}
   h1,h2,h3,.display{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.95;letter-spacing:.005em}
@@ -264,6 +264,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .test-nombre{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow)}
   .test-modelo{font-size:.82rem;color:var(--muted)}
   @media(max-width:700px){.test-grid{grid-template-columns:1fr}}
+  @media(max-width:768px){.modelos-grid{grid-template-columns:1fr}.marca-bloque{overflow:hidden}.wrap{overflow-x:hidden}}
   .sec-modelos{background:linear-gradient(180deg,#0f1012,#0B0B0C)}
   .modelos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:clamp(28px,4vw,44px)}
   .marca-bloque{background:linear-gradient(160deg,#1e2025,#16181c);border:1px solid #2a2c32;border-radius:8px;overflow:hidden}
@@ -301,6 +302,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .page{display:none}
   .page.active{display:block}
 
+
+  @media(max-width:480px){.hero-inner img{max-width:100%;height:auto}.hero-inner{overflow:hidden}}
 </style>
 </head>
 <body>
