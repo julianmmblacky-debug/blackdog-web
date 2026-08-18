@@ -2326,91 +2326,131 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-// BLACKDOG — Encuentra tu caso
+// BLACKDOG — Encuentra tu caso (v2 — seguro)
 (function() {
   var input = document.getElementById('finder-input');
   var counter = document.getElementById('finder-count');
-  if (input && counter) {
-    input.addEventListener('input', function() {
-      counter.textContent = this.value.length;
-    });
-    // Allow Enter+Shift for newline, Enter alone to submit
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        finderSearch();
-      }
-    });
-  }
+  if (!input) return;
+  input.addEventListener('input', function() {
+    if (counter) counter.textContent = this.value.length;
+  });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      finderSearch();
+    }
+  });
 })();
 
 async function finderSearch() {
-  var input = document.getElementById('finder-input');
-  var btn = document.getElementById('finder-btn');
-  var btnText = document.getElementById('finder-btn-text');
-  var result = document.getElementById('finder-result');
-  
-  var query = input ? input.value.trim() : '';
-  if (!query || query.length < 10) {
+  var input    = document.getElementById('finder-input');
+  var btn      = document.getElementById('finder-btn');
+  var btnText  = document.getElementById('finder-btn-text');
+  var result   = document.getElementById('finder-result');
+  if (!input || !btn || !result) return;
+
+  var query = input.value.trim();
+
+  if (query.length < 10) {
     result.style.display = 'block';
-    result.innerHTML = '<p class="finder-error">Cuéntame un poco más sobre el problema — marca, modelo y síntoma si puedes.</p>';
+    result.innerHTML = '<p class="finder-error">Cuéntame un poco más — marca, modelo y síntoma si puedes.</p>';
     return;
   }
-  
-  // Loading state
+
+  // GA4 — solo datos estructurados, sin texto libre
+  var hasModel   = /bmw|mercedes|toyota|audi|seat|vw|volkswagen|ford|nissan|mitsubishi|volvo|land rover|jaguar|citro|peugeot|renault|opel|kia|suzuki|subaru|mazda|honda|iveco|sprinter|transit/i.test(query);
+  var hasSymptom = /pierde|fuga|gotea|aceite|holgura|juego|ruido|clac|dura|tiesa|reparad|vuelve|recambio|descatalog/i.test(query);
+
+  if (typeof trackGA4 === 'function') {
+    trackGA4('finder_search', {
+      query_length: query.length,
+      has_model:    hasModel,
+      has_symptom:  hasSymptom
+    });
+  }
+
   btn.disabled = true;
   btnText.textContent = 'Analizando...';
   result.style.display = 'none';
-  
-  // Log to GA4
-  if (typeof trackGA4 === 'function') {
-    trackGA4('finder_search', { search_term: query.substring(0, 200) });
-  }
-  
+
   try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
+    var resp = await fetch('/api/finder', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 300,
-        system: 'Eres el asistente de BLACKDOG Direcciones Asistidas, especialistas en reparación de cremalleras y cajas de dirección hidráulica. Responde en español en máximo 3 frases cortas. Primero identifica qué tipo de avería o pieza describe el usuario. Luego indica si es el tipo de trabajo que hace BLACKDOG (cremalleras y cajas de dirección hidráulica, piezas descatalogadas, sin recambio, casos complejos). Termina con una frase animando a consultar por WhatsApp. No uses listas ni markdown. Si no es claramente un problema de dirección hidráulica, dilo honestamente.',
-        messages: [{ role: 'user', content: query }]
-      })
+      body: JSON.stringify({ query: query })
     });
-    
-    var data = await response.json();
-    
-    if (data.content && data.content[0] && data.content[0].text) {
-      var text = data.content[0].text;
-      
-      // Build WA URL with pre-filled message
-      var waText = encodeURIComponent('Hola Julián, ' + query.substring(0, 200));
-      var waUrl = 'https://wa.me/34697501984?text=' + waText;
-      
-      result.style.display = 'block';
-      result.innerHTML =
-        '<div class="fr-label">Análisis de tu caso</div>' +
-        '<div class="fr-text">' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
-        '<a class="fr-cta" href="' + waUrl + '" target="_blank" rel="noopener" ' +
-        'onclick="trackGA4('whatsapp_click',{location:'finder',search_term:'' + 
-        query.substring(0,100).replace(/'/g, '') + ''})">' +
-        '📲 Consultar mi caso por WhatsApp</a>';
-      
-      // Log successful analysis
-      if (typeof trackGA4 === 'function') {
-        trackGA4('finder_result', { search_term: query.substring(0, 200) });
-      }
-    } else {
-      throw new Error('No response');
+
+    var data = await resp.json();
+
+    if (!resp.ok || data.error) {
+      throw new Error(data.message || 'Error del servidor');
     }
-  } catch(e) {
+
+    // GA4 — resultado estructurado
+    if (typeof trackGA4 === 'function') {
+      trackGA4('finder_result', { success: true });
+    }
+
+    // Construir enlace WA por DOM (sin onclick inline)
+    var waText = encodeURIComponent(
+      'Hola Julián, ' + query.substring(0, 200)
+    );
+    var waUrl = 'https://wa.me/34697501984?text=' + waText;
+
+    var waLink = document.createElement('a');
+    waLink.className = 'fr-cta';
+    waLink.href = waUrl;
+    waLink.target = '_blank';
+    waLink.rel = 'noopener noreferrer';
+    waLink.textContent = '📲 Consultar mi caso por WhatsApp';
+    waLink.addEventListener('click', function() {
+      if (typeof trackGA4 === 'function') {
+        trackGA4('whatsapp_click', { location: 'finder' });
+      }
+    });
+
+    var labelEl = document.createElement('div');
+    labelEl.className = 'fr-label';
+    labelEl.textContent = 'Análisis de tu caso';
+
+    var textEl = document.createElement('div');
+    textEl.className = 'fr-text';
+    textEl.textContent = data.text; // textContent = safe, no XSS
+
+    result.innerHTML = '';
+    result.appendChild(labelEl);
+    result.appendChild(textEl);
+    result.appendChild(waLink);
     result.style.display = 'block';
-    result.innerHTML = '<p class="finder-error">No he podido analizar el caso ahora mismo. ' +
-      '<a href="https://wa.me/34697501984" style="color:var(--yellow)">Escríbeme directamente por WhatsApp</a> ' +
-      'y te respondo en persona.</p>';
+
+  } catch (e) {
+    if (typeof trackGA4 === 'function') {
+      trackGA4('finder_result', { success: false });
+    }
+
+    // Fallback WA link por DOM
+    var waFallback = document.createElement('a');
+    waFallback.href = 'https://wa.me/34697501984';
+    waFallback.target = '_blank';
+    waFallback.rel = 'noopener noreferrer';
+    waFallback.style.color = 'var(--yellow)';
+    waFallback.textContent = 'Escríbeme directamente por WhatsApp';
+    waFallback.addEventListener('click', function() {
+      if (typeof trackGA4 === 'function') {
+        trackGA4('whatsapp_click', { location: 'finder-fallback' });
+      }
+    });
+
+    var errorP = document.createElement('p');
+    errorP.className = 'finder-error';
+    errorP.textContent = 'No he podido analizar el caso ahora mismo. ';
+    errorP.appendChild(waFallback);
+
+    result.innerHTML = '';
+    result.appendChild(errorP);
+    result.style.display = 'block';
   }
-  
+
   btn.disabled = false;
   btnText.textContent = 'Analizar mi caso';
 }
