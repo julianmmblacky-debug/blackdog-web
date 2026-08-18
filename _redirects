@@ -1,0 +1,11 @@
+# Redirecciones 301 desde URLs antiguas de Wix
+/bombas                                                    /    301
+/caja-de-direccion                                         /    301
+/cremalleras-o-direcciones-hidraulicas                     /    301
+/product-page/cremallera-de-direccion-iveco-daily-reaparada /   301
+/product-page/direccion-asistida-bmw-320-318               /    301
+/product-page/blackdog-direcciones-asistidas               /    301
+/product-page/caja-direccion-nissan                        /    301
+
+# www → sin www
+https://www.reparacion-cremallera-direccion.com/*   https://reparacion-cremallera-direccion.com/:splat   301!
