@@ -77,6 +77,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .foto-item figcaption{padding:10px 14px;font-size:.82rem;color:var(--muted);line-height:1.4}
   @media(max-width:860px){}
   @media(max-width:500px){.foto-grid{grid-template-columns:1fr}}
+
+  .sec-finder{background:linear-gradient(180deg,#0d0f11,#0B0B0C)}
+  .finder-box{max-width:640px;margin:32px auto 0}
+  .finder-input-wrap{position:relative}
+  .finder-input{width:100%;background:#1a1d22;border:1px solid var(--yellow);border-radius:6px;
+    color:var(--bone);font-family:'Hanken Grotesk',sans-serif;font-size:1rem;padding:14px 16px;
+    resize:none;outline:none;transition:border-color .2s;box-sizing:border-box}
+  .finder-input:focus{border-color:#F2C200;box-shadow:0 0 0 2px rgba(242,194,0,.15)}
+  .finder-input::placeholder{color:var(--muted)}
+  .finder-chars{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:.68rem;
+    color:var(--muted);margin-top:4px;letter-spacing:.06em}
+  .finder-btn{width:100%;margin-top:12px;background:var(--yellow);color:#0B0B0C;
+    font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.12em;
+    text-transform:uppercase;padding:14px;border:none;border-radius:6px;
+    cursor:pointer;transition:opacity .2s}
+  .finder-btn:hover{opacity:.9}
+  .finder-btn:disabled{opacity:.5;cursor:not-allowed}
+  .finder-result{margin-top:20px;padding:20px 22px;background:#1a1d22;
+    border:1px solid #2a2c32;border-left:3px solid var(--yellow);border-radius:6px}
+  .finder-result .fr-label{font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px}
+  .finder-result .fr-text{color:var(--bone);line-height:1.6;margin-bottom:16px}
+  .finder-result .fr-cta{display:inline-flex;align-items:center;gap:8px;
+    background:var(--yellow);color:#0B0B0C;padding:12px 20px;border-radius:4px;
+    font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.08em;
+    text-transform:uppercase;text-decoration:none;font-weight:700}
+  .finder-error{color:#e07c4f;font-size:.9rem;margin-top:12px}
+  @media(max-width:600px){.finder-input{font-size:.95rem}}
 </style>
 <title>Reparación de cremalleras de dirección hidráulica · Desde 135€ · BLACKDOG</title>
 <meta name="description" content="Reparación de cremalleras y cajas de dirección hidráulica. Incluso descatalogadas o sin recambio. Consulta por WhatsApp, envía fotos y recibe precio orientativo antes de enviarla.">
@@ -448,6 +476,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="modcta-nota reveal">¿No aparece tu modelo? No significa que no pueda repararlo. Envíame la referencia de la cremallera y lo compruebo.</p>
   <div class="cta-row" style="justify-content:center;margin-top:20px">
     <a onclick="trackGA4('whatsapp_click',{location:'inline'})" class="btn btn-sec" href="https://wa.me/34697501984?text=Hola%20Juli%C3%A1n%2C%20tengo%20una%20cremallera%20de%20un%20" target="_blank" rel="noopener">Consultar mi caso →</a>
+  </div>
+</div></section>
+
+
+<section class="sec sec-finder" id="encuentra-tu-caso"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">¿No estás seguro?</span>
+    <h2>Encuentra tu caso</h2>
+    <p>Cuéntame qué le pasa a tu dirección en tus propias palabras.</p>
+  </div>
+  <div class="finder-box">
+    <div class="finder-input-wrap">
+      <textarea
+        id="finder-input"
+        class="finder-input"
+        placeholder="Ej: Tengo un BMW E46 y la dirección hace ruido al girar y pierde líquido..."
+        rows="3"
+        maxlength="400"
+      ></textarea>
+      <div class="finder-chars"><span id="finder-count">0</span>/400</div>
+    </div>
+    <button class="btn finder-btn" id="finder-btn" onclick="finderSearch()">
+      <span id="finder-btn-text">Analizar mi caso</span>
+    </button>
+    <div id="finder-result" class="finder-result" style="display:none"></div>
   </div>
 </div></section>
 
@@ -2270,6 +2323,97 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+</script>
+
+<script>
+// BLACKDOG — Encuentra tu caso
+(function() {
+  var input = document.getElementById('finder-input');
+  var counter = document.getElementById('finder-count');
+  if (input && counter) {
+    input.addEventListener('input', function() {
+      counter.textContent = this.value.length;
+    });
+    // Allow Enter+Shift for newline, Enter alone to submit
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        finderSearch();
+      }
+    });
+  }
+})();
+
+async function finderSearch() {
+  var input = document.getElementById('finder-input');
+  var btn = document.getElementById('finder-btn');
+  var btnText = document.getElementById('finder-btn-text');
+  var result = document.getElementById('finder-result');
+  
+  var query = input ? input.value.trim() : '';
+  if (!query || query.length < 10) {
+    result.style.display = 'block';
+    result.innerHTML = '<p class="finder-error">Cuéntame un poco más sobre el problema — marca, modelo y síntoma si puedes.</p>';
+    return;
+  }
+  
+  // Loading state
+  btn.disabled = true;
+  btnText.textContent = 'Analizando...';
+  result.style.display = 'none';
+  
+  // Log to GA4
+  if (typeof trackGA4 === 'function') {
+    trackGA4('finder_search', { search_term: query.substring(0, 200) });
+  }
+  
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 300,
+        system: 'Eres el asistente de BLACKDOG Direcciones Asistidas, especialistas en reparación de cremalleras y cajas de dirección hidráulica. Responde en español en máximo 3 frases cortas. Primero identifica qué tipo de avería o pieza describe el usuario. Luego indica si es el tipo de trabajo que hace BLACKDOG (cremalleras y cajas de dirección hidráulica, piezas descatalogadas, sin recambio, casos complejos). Termina con una frase animando a consultar por WhatsApp. No uses listas ni markdown. Si no es claramente un problema de dirección hidráulica, dilo honestamente.',
+        messages: [{ role: 'user', content: query }]
+      })
+    });
+    
+    var data = await response.json();
+    
+    if (data.content && data.content[0] && data.content[0].text) {
+      var text = data.content[0].text;
+      
+      // Build WA URL with pre-filled message
+      var waText = encodeURIComponent('Hola Julián, ' + query.substring(0, 200));
+      var waUrl = 'https://wa.me/34697501984?text=' + waText;
+      
+      result.style.display = 'block';
+      result.innerHTML =
+        '<div class="fr-label">Análisis de tu caso</div>' +
+        '<div class="fr-text">' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+        '<a class="fr-cta" href="' + waUrl + '" target="_blank" rel="noopener" ' +
+        'onclick="trackGA4('whatsapp_click',{location:'finder',search_term:'' + 
+        query.substring(0,100).replace(/'/g, '') + ''})">' +
+        '📲 Consultar mi caso por WhatsApp</a>';
+      
+      // Log successful analysis
+      if (typeof trackGA4 === 'function') {
+        trackGA4('finder_result', { search_term: query.substring(0, 200) });
+      }
+    } else {
+      throw new Error('No response');
+    }
+  } catch(e) {
+    result.style.display = 'block';
+    result.innerHTML = '<p class="finder-error">No he podido analizar el caso ahora mismo. ' +
+      '<a href="https://wa.me/34697501984" style="color:var(--yellow)">Escríbeme directamente por WhatsApp</a> ' +
+      'y te respondo en persona.</p>';
+  }
+  
+  btn.disabled = false;
+  btnText.textContent = 'Analizar mi caso';
+}
 </script>
 </body>
 </html>
