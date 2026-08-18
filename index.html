@@ -294,22 +294,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   html,body{max-width:100%;overflow-x:hidden}
   .page-inner,.wrap{overflow-x:hidden}
-  .sec-test{background:linear-gradient(180deg,#0f1012,#0B0B0C)}
-  .test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:clamp(24px,4vw,40px)}
-  .test-card{background:linear-gradient(160deg,#1e2025,#16181c);border:1px solid #2a2c32;border-left:3px solid var(--yellow);border-radius:8px;padding:20px 22px}
-  .test-neg{border-left-color:rgba(224,124,79,.6)!important}
-  .test-stars{color:var(--yellow);font-size:1rem;margin-bottom:10px;letter-spacing:2px}
-  .test-texto{font-size:.95rem;color:var(--bone);line-height:1.6;font-style:italic;margin-bottom:12px}
-  .test-respuesta{font-size:.82rem;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid #2a2c32}
-  .test-meta{display:flex;flex-direction:column;gap:3px;margin-top:12px}
-  .test-nombre{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow)}
-  .test-modelo{font-size:.82rem;color:var(--muted)}
-  .test-nota{margin-top:20px;padding:14px 18px;background:rgba(242,194,0,.05);border:1px solid rgba(242,194,0,.15);border-radius:6px;color:var(--muted);font-size:.88rem;font-style:italic}
-  @media(max-width:700px){.test-grid{grid-template-columns:1fr}.modelos-grid{grid-template-columns:1fr}}
-
-  .btn-ver-mas{background:transparent;border:1px solid #2a2c32;color:var(--bone-dim);font-family:"IBM Plex Mono",monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:12px 24px;border-radius:4px;cursor:pointer;transition:border-color .2s,color .2s}
-  .btn-ver-mas:hover{border-color:var(--yellow);color:var(--yellow)}
-  .test-ocultas{margin-top:16px}
 </style>
 </head>
 <body>
@@ -357,7 +341,134 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 </header>
 <main>
-  <div id="page-inicio"  class="page"><div class="page-inner">
+  <div id="page-inicio"  class="page"><div class="page-inner"><section class="hero" id="top">
+  <div class="hero-tex"></div>
+  <div class="wrap hero-inner">
+    <div class="plate-wrap"><img class="hero-logo" src="data:image/webp;base64,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" width="900" height="225" fetchpriority="high" decoding="async" alt="BLACKDOG · Julián Márquez — Direcciones asistidas, especialista en cremalleras y cajas de dirección"></div>
+    <div><span class="eyebrow">Cremalleras y cajas de dirección · Casos sin recambio</span></div>
+    <h1>Reparo cremalleras y cajas <br>de dirección hidráulica <span class="stroke">sin recambio</span></h1>
+    <p class="hero-sub"><b>Especialista en cremalleras y cajas de dirección descatalogadas, clásicas o sin intercambio.</b> Trabajo sobre tu pieza original. Envíame fotos por WhatsApp y te digo si tiene arreglo — antes de que la envíes, sin compromiso.</p>
+    <div class="hero-cta">
+      <a class="btn btn-wa" href="https://wa.me/34697501984?text=Hola%20Juli%C3%A1n%2C%20tengo%20una%20cremallera%2Fcaja%20de%20direcci%C3%B3n%20de%20un%20%5Bmarca%2C%20modelo%2C%20a%C3%B1o%5D.%20El%20problema%20es%20%5Bs%C3%ADntoma%5D.%20%C2%BFPuedes%20decirme%20si%20tiene%20reparaci%C3%B3n%20y%20darme%20una%20orientaci%C3%B3n%20de%20precio%3F"><svg><use href="#wa"/></svg> Enviar fotos y consultar mi caso</a>
+      <a class="btn btn-ghost" href="javascript:void(0)" onclick="nav('trabajos');return false">Ver todos los trabajos</a>
+    </div>
+    <p class="hero-hint">Envíame fotos de la pieza, marca, modelo y síntoma. Te doy una valoración orientativa antes de enviarla.</p>
+    <p class="hero-trust">TRADICIÓN FAMILIAR · +40 AÑOS · <b>LO REPARO YO MISMO</b> · SIN INTERCAMBIOS · ENVÍO A TODA ESPAÑA</p>
+  </div>
+</section>
+
+<div class="strip metal"><div class="wrap strip-inner"><div class="strip-row">
+  <span>Desde 135€ · valoración gratuita</span><span>Si no tiene arreglo, no pagas</span><span>Recogida con MRW en tu puerta</span><span>1 año de garantía</span>
+</div></div></div>
+
+<section class="sec" id="resuelvo"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Lo que resuelvo</span><h2>En qué te puedo ayudar</h2><p>Estos son los casos en los que más me piden ayuda con la cremallera de dirección hidráulica. Si el tuyo es alguno de ellos, cuéntamelo y lo vemos juntos.</p></div>
+  <div class="cards">
+    <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">01</div><h3>Sin recambio o descatalogada</h3><p>Tu cremallera o caja de dirección ya no se fabrica, no la encuentras en ningún sitio, o el intercambio no existe. La reconstruyo sobre tu propia pieza.</p></div>
+    <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">02</div><h3>Rara, antigua o especial</h3><p>Clásicos, 4x4, furgonetas, modelos poco comunes donde nadie más se mete. En esos me siento como en casa.</p></div>
+    <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">03</div><h3>Ya reparada y sigue fallando</h3><p>Te la arreglaron en otro sitio y volvió a perder aceite, a hacer ruido o a tener holgura. La dejo bien, probada y a punto.</p></div>
+    <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">04</div><h3>Ruido, holgura, fugas o tirones</h3><p>Dirección que hace ruido, tiene juego, pierde aceite o da tirones al girar. Son los síntomas que más veo, y casi siempre tienen solución.</p></div>
+      <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">05</div><h3>Compra equivocada en un intercambio</h3><p>¿Te han mandado una pieza que no es la correcta y te tienen dando vueltas? Te ayudo a identificar qué necesitas de verdad y a salir del bucle.</p></div>
+      <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">06</div><h3>Solo la vende el concesionario, y carísima</h3><p>Si te han dicho que esa pieza "solo existe nueva, en el concesionario" y el precio es abusivo, antes de resignarte pregúntame. Muchas veces sí tiene arreglo, y sale bastante más barato.</p></div>
+      <div class="panel card reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span><div class="num">07</div><h3>Camiones, furgonetas y vehículos de trabajo</h3><p>Iveco Daily, Ford Transit, VW Transporter, Mercedes Sprinter y similares. Las cajas de dirección de vehículos de trabajo tienen sus propias particularidades — presiones más altas, retenes calcinados por uso intensivo. También las reparo.</p></div>
+  </div>
+</div></section>
+
+<div class="cta-row"><a class="btn btn-wa" href="https://wa.me/34697501984?text=Hola%20Juli%C3%A1n%2C%20tengo%20una%20cremallera%2Fcaja%20de%20direcci%C3%B3n%20de%20un%20%5Bmarca%2C%20modelo%2C%20a%C3%B1o%5D.%20El%20problema%20es%20%5Bs%C3%ADntoma%5D.%20%C2%BFPuedes%20decirme%20si%20tiene%20reparaci%C3%B3n%20y%20darme%20una%20orientaci%C3%B3n%20de%20precio%3F"><svg><use href="#wa"/></svg> Enviar fotos y consultar mi caso</a></div>
+
+
+<section class="sec sec-modelos" id="modelos"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Modelos documentados</span>
+    <h2>¿Está tu coche en esta lista?</h2>
+    <p>Estos son los modelos que más pasan por el taller. Si el tuyo no aparece, escríbeme — lo más probable es que lo haya visto antes.</p>
+  </div>
+  <div class="modelos-grid reveal">
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">BMW</span><span class="marca-tag">Hidráulica · Activa · Eléctrica</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Serie 3:</strong> E36, E46, E90 / E91 / E92, F30</div>
+        <div class="modelo-item"><strong>Serie 5:</strong> E39, E60 (dirección activa), F10</div>
+        <div class="modelo-item"><strong>Serie 6:</strong> E63, E64 — sistemas AFS</div>
+        <div class="modelo-item"><strong>Serie X:</strong> X1 E84, X3 E83, X5 E53 / E70, X6 E71</div>
+        <div class="modelo-item"><strong>Serie Z / Serie 1:</strong> Z3, Z4 E85/E86, E81, E82, E87, E88</div>
+        <div class="modelo-ref">Refs: ZF 7882..., TRW, Bosch</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Mercedes-Benz</span><span class="marca-tag">Servotronic · Electrónica</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Clase ML / GL:</strong> W163, W164, W166</div>
+        <div class="modelo-item"><strong>Clase E:</strong> W210, W211, W212</div>
+        <div class="modelo-item"><strong>Clase C:</strong> W202, W203, W204, W205</div>
+        <div class="modelo-item"><strong>Clase S:</strong> W220, W221</div>
+        <div class="modelo-item"><strong>Industriales:</strong> Vito W638/W639, Sprinter, Vaneo</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Toyota</span><span class="marca-tag">4x4 · Industrial · Descatalogada</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Land Cruiser:</strong> KZJ90/KZJ95, HDJ100, KDJ120, Serie 150</div>
+        <div class="modelo-item"><strong>Hilux:</strong> varias generaciones, uso agrícola e industrial</div>
+        <div class="modelo-item"><strong>RAV4:</strong> hidráulicas y eléctricas con fallos de sensor</div>
+        <div class="modelo-item"><strong>Avensis / Auris:</strong> columnas eléctricas</div>
+        <div class="modelo-ref">Ref frecuente: Koyo</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Grupo VAG</span><span class="marca-tag">Audi · VW · Seat · Skoda</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Audi:</strong> A3 8L/8P/8V · A4 B5/B6/B7/B8 · A6 C5/C6/C7 · A5, A8, Q3, Q5, Q7, TT</div>
+        <div class="modelo-item"><strong>Volkswagen:</strong> Golf II–VI · Passat · Touareg · Transporter T4/T5/T6 · Tiguan · Touran · Caddy</div>
+        <div class="modelo-item"><strong>Seat:</strong> Ibiza · Córdoba · León · Toledo · Altea · Alhambra 1.9 TDI</div>
+        <div class="modelo-item"><strong>Skoda:</strong> Octavia · Fabia · Superb</div>
+        <div class="modelo-ref">Refs: TRW, ZF, Adwest</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Mitsubishi · Nissan · Ford</span><span class="marca-tag">4x4 · Comerciales</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Mitsubishi:</strong> Montero V20/V60/V80 · L200 · ASX</div>
+        <div class="modelo-item"><strong>Nissan:</strong> Patrol GR Y60/Y61 · Terrano II · Navara · Qashqai</div>
+        <div class="modelo-item"><strong>Ford:</strong> Transit · Focus · Mondeo · Ranger · Tourneo Connect</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Renault · Peugeot · Citroën</span><span class="marca-tag">Hidráulica · LHM</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Renault:</strong> Megane · Laguna · Kangoo · Master · Trafic</div>
+        <div class="modelo-item"><strong>Peugeot:</strong> 206 · 307 · 407 · Partner · Boxer</div>
+        <div class="modelo-item"><strong>Citroën:</strong> DS Tiburón (LHM) · CX · XM · C15 · Berlingo · C5 Hydroactive · Xsara</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Clásicos · Exclusivos</span><span class="marca-tag">Ingeniería de rescate</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item"><strong>Jaguar:</strong> XJS V12 · XJ6 · XJ8 · S-Type · X-Type</div>
+        <div class="modelo-item"><strong>Saab:</strong> 9-3 · 9-5</div>
+        <div class="modelo-item"><strong>Porsche:</strong> 944</div>
+        <div class="modelo-item"><strong>Subaru:</strong> Forester (Koyo)</div>
+        <div class="modelo-item"><strong>Jeep:</strong> Grand Cherokee</div>
+        <div class="modelo-item"><strong>Fiat / Iveco:</strong> Ducato · Daily — cajas de alta presión</div>
+      </div>
+    </div>
+    <div class="marca-bloque">
+      <div class="marca-head"><span class="marca-logo">Problemas que resuelvo</span><span class="marca-tag">En cualquiera de estos modelos</span></div>
+      <div class="marca-modelos">
+        <div class="modelo-item">Ejes picados u oxidados — rectificado o sustitución</div>
+        <div class="modelo-item">Holgura en cremallera — casquillos a medida o sustitución de eje</div>
+        <div class="modelo-item">Ruido tipo "clac" al girar — detección con la pieza en mano</div>
+        <div class="modelo-item">Pérdida de líquido por retenes — sellado completo</div>
+        <div class="modelo-item">Fallos de sensor de par o ángulo en eléctricas</div>
+        <div class="modelo-item">Bloqueos en direcciones activas (BMW, Mercedes Servotronic)</div>
+        <div class="modelo-item">Piezas descatalogadas — fabricación de sellos y casquillos a medida</div>
+      </div>
+    </div>
+  </div>
+  <p class="modelos-nota reveal">Si tu modelo no aparece, escríbeme con la referencia de la pieza — es muy probable que lo haya visto antes o que pueda fabricar lo que necesitas.</p>
+</div></section>
+
+
 
 <!-- ===========================================================================
      SECCIÓN OPINIONES — descoméntala cuando tengas 3+ reseñas REALES.
@@ -365,40 +476,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      AutoRepair (ver plantilla en el <head>). No publiques reseñas inventadas.
      Sustituye NOMBRE, COCHE y el texto por reseñas verdaderas.
 ============================================================================
-<section class="sec sec-test"><div class="wrap">
-  <div class="sec-head reveal"><span class="eyebrow">Lo que dicen los clientes</span><h2>Casos reales · Palabras reales</h2><p>Sin filtros — incluyendo los que no salieron perfectos.</p></div>
-  <div class="test-grid" id="test-visible">
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Ya llegó la cremallera y la bomba y están montadas y funcionando. Quería darte las gracias por el trabajo."</p><div class="test-meta"><span class="test-nombre">Autoprisco · Taller</span><span class="test-modelo">Toyota Land Cruiser 90 · Murcia</span></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Felicitarle por la reparación de la cremallera del Mitsubishi Montero. Se ha montado y funciona correctamente."</p><div class="test-meta"><span class="test-nombre">Francisco</span><span class="test-modelo">Mitsubishi Montero · Cáceres</span></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Se montó bien y funciona bien, a día de hoy no tiene pérdida de líquido. ¡Perfecto!"</p><div class="test-meta"><span class="test-nombre">Roberto</span><span class="test-modelo">Audi A3</span></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"Monté la cremallera y va de lujo. Si hay algo te aviso."</p><div class="test-meta"><span class="test-nombre">Francisco Cuesta</span><span class="test-modelo">Citroën Berlingo · Pilas (Sevilla)</span></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"¡Ya está probada y va estupendamente! Es un precio de escándalo."</p><div class="test-meta"><span class="test-nombre">Javier</span><span class="test-modelo">Toyota Land Cruiser · Aracena (Sevilla)</span></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-texto">"La dirección ha quedado de cine. La he montado y todo ha ido perfecto. Mi enhorabuena por un trabajo bien hecho."</p><div class="test-meta"><span class="test-nombre">Gabriel</span><span class="test-modelo">Microcar · Menorca (Baleares)</span></div></div>
+<section class="sec opiniones" id="opiniones"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Lo que dicen mis clientes</span><h2>No te fíes solo de mi palabra</h2><p>Reparaciones reales de gente que llegó con un caso que otros no querían.</p></div>
+  <div class="reviews">
+    <figure class="panel review reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="stars">★★★★★</div>
+      <blockquote>«TEXTO REAL DE LA RESEÑA — qué coche traía, qué problema tenía y cómo quedó.»</blockquote>
+      <figcaption><b>NOMBRE DEL CLIENTE</b><span>Coche · Provincia</span></figcaption>
+    </figure>
+    <figure class="panel review reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="stars">★★★★★</div>
+      <blockquote>«TEXTO REAL DE LA RESEÑA.»</blockquote>
+      <figcaption><b>NOMBRE DEL CLIENTE</b><span>Coche · Provincia</span></figcaption>
+    </figure>
+    <figure class="panel review reveal"><span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+      <div class="stars">★★★★★</div>
+      <blockquote>«TEXTO REAL DE LA RESEÑA.»</blockquote>
+      <figcaption><b>NOMBRE DEL CLIENTE</b><span>Coche · Provincia</span></figcaption>
+    </figure>
   </div>
-  <div class="test-grid test-ocultas" id="test-ocultas" style="display:none;margin-top:16px">
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Esas cosas las arregla poca gente y menos que queden como tú has dejado las mías, que están perfectas."</p><div class="test-meta"><span class="test-nombre">Juan</span><span class="test-modelo">Direcciones varias</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Antes me reparasteis una cremallera de Land Cruiser kzj90 y de momento va bien. Ahora tengo la bomba que me saca ruido..."</p><div class="test-meta"><span class="test-nombre">Xabi · Oñate (Gipuzkoa)</span><span class="test-modelo">Toyota Land Cruiser KZJ90</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Ya nos ha llegado Julián, muchas gracias y estamos en contacto para futuras reparaciones."</p><div class="test-meta"><span class="test-nombre">Pepe · Cuero Mobil</span><span class="test-modelo">Alfa 146 · Ubrique (Cádiz)</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Ya he recibido la cremallera, parece nueva. Te recomendaré a mis amigos."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Dirección asistida</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Se ha quedado de lujo y encima el volante se ha quedado derecho."</p><div class="test-meta"><span class="test-nombre">Miguel · Tall Flores</span><span class="test-modelo">Vehículo con volante desviado</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"¡Hoy montamos la pieza y el coche quedó de lujo!"</p><div class="test-meta"><span class="test-nombre">Sara</span><span class="test-modelo">Land Rover Discovery 4</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Ayer recibí la dirección, todo bien."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">BMW M3 1997</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Ya está probada y funciona perfecta. Quería enviarte la bomba para que la repararas."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Toyota Land Cruiser 90 · Vigo</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Ya nos ha llegado, va de lujo."</p><div class="test-meta"><span class="test-nombre">Rafael</span><span class="test-modelo">Toyota Land Cruiser · Cortegana (Huelva)</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Okey muchas gracias... yo por mi parte contento contigo, ya sé de ti, si me sale otra ya te la mandaré."</p><div class="test-meta"><span class="test-nombre">Pepe</span><span class="test-modelo">Jaguar · Extremadura</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Recibí la bomba todo perfecto."</p><div class="test-meta"><span class="test-nombre">Salvador</span><span class="test-modelo">Bomba de dirección</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Muchas gracias y muy buen trabajo."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Audi A4</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Es magnífico, funciona increíble. Resultado perfecto."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Subaru de competición</span></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-texto">"Coche arreglado. Se ha puesto nuevo rodamiento... de momento parece que sí va perfecto."</p><div class="test-meta"><span class="test-nombre">Don Limpio</span><span class="test-modelo">Vehículo · Sevilla</span></div></div>
-    <div class="test-card test-neg"><div class="test-stars" style="color:#e07c4f">★★☆☆☆</div><p class="test-texto">"La dirección ha mejorado pero no como nueva. Con menos de 200 kilómetros ya suena."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Caso con desgaste muy avanzado</span></div><p class="test-respuesta">Hay casos donde el desgaste es tan extremo que la mejora es parcial. Lo advierto siempre antes.</p></div>
-    <div class="test-card test-neg"><div class="test-stars" style="color:#e07c4f">★☆☆☆☆</div><p class="test-texto">"El casquillo central ni siquiera fue sustituido... ha vuelto a romper con los perjuicios consiguientes."</p><div class="test-meta"><span class="test-nombre">Roberto Adán</span><span class="test-modelo">Mercedes ML 55 AMG</span></div><p class="test-respuesta">El ML 55 AMG es uno de los casos más complejos. No siempre sale bien a la primera — es la realidad con piezas en este estado.</p></div>
-    <div class="test-card test-neg"><div class="test-stars" style="color:#e07c4f">★★☆☆☆</div><p class="test-texto">"En enero me reparasteis y nada más ponerla me empezó a fugar."</p><div class="test-meta"><span class="test-nombre">Álvaro</span><span class="test-modelo">Toyota Land Cruiser 95</span></div><p class="test-respuesta">Incidencia real. Se revisó y resolvió bajo garantía. Estas cosas pasan — lo importante es responder.</p></div>
-    <div class="test-card test-neg"><div class="test-stars" style="color:#e07c4f">★☆☆☆☆</div><p class="test-texto">"Sigo esperando que me den una explicación... me está amargando las vacaciones."</p><div class="test-meta"><span class="test-nombre">Cliente</span><span class="test-modelo">Problema con embalaje y plazos</span></div><p class="test-respuesta">Hubo un problema con los tiempos de entrega. Es una crítica legítima — cuando algo falla en los plazos, hay que decirlo.</p></div>
-  </div>
-  <div style="text-align:center;margin-top:28px">
-    <button class="btn-ver-mas" id="btn-ver-mas" onclick="var o=document.getElementById('test-ocultas');var b=document.getElementById('btn-ver-mas');if(o.style.display==='none'){o.style.display='grid';b.textContent='Mostrar menos ↑'}else{o.style.display='none';b.textContent='Ver todas las reseñas (18) ↓'}">Ver todas las reseñas (18) ↓</button>
-  </div>
-  <p class="test-nota">Publico también los casos que no salieron perfectos. Trabajar con piezas muy deterioradas o casos extremos tiene riesgos reales — prefiero que lo sepas antes.</p>
 </div></section>
 ============================================================================ -->
 
@@ -1237,17 +1333,6 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
   </div>
 </div></section>
 
-
-    <section class="sec" id="raros"><div class="wrap">
-      <div class="sec-head reveal"><span class="eyebrow">Los casos más difíciles</span><h2>Coches que otros no tocan</h2><p>Clásicos, exóticos y rarezas. Cuando no existe recambio, fabricamos la pieza a medida.</p></div>
-      <div class="modelos-grid reveal">
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Clásicos · Época</span><span class="marca-tag">Artesanía pura</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Citroën DS</strong> "Tiburón" 21/23</div><div class="modelo-item"><strong>Mercedes-Benz</strong> W111 (1960) · "Ponton" (1956)</div><div class="modelo-item"><strong>Citroën Avant</strong> 11 BL (1950)</div><div class="modelo-item"><strong>Renault</strong> 4CV (1956) · Supercinco GT Turbo</div><div class="modelo-item"><strong>Ford V8</strong> (1937)</div></div></div>
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Deportivos · Exóticos</span><span class="marca-tag">Alta precisión</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Audi R8</strong></div><div class="modelo-item"><strong>Porsche</strong> 928 · 944</div><div class="modelo-item"><strong>Mitsubishi 3000GT</strong></div><div class="modelo-item"><strong>Lancia Delta Integrale</strong> (86–89)</div><div class="modelo-item"><strong>BMW</strong> Serie 8 E31 · Serie 7 E32</div><div class="modelo-item"><strong>Nissan Silvia</strong> S14 · 200SX</div></div></div>
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Americanos · 4x4</span><span class="marca-tag">Mecánicas poco comunes</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Ford Mustang</strong> (1972 · 2000)</div><div class="modelo-item"><strong>Corvette</strong> (1986)</div><div class="modelo-item"><strong>Toyota Supra</strong> (1989) · FJ Cruiser</div><div class="modelo-item"><strong>Pontiac Firebird</strong> (1995)</div><div class="modelo-item"><strong>Mitsubishi Galant V</strong> (1985)</div></div></div>
-        <div class="marca-bloque"><div class="marca-head"><span class="marca-logo">Rarezas</span><span class="marca-tag">Casos que no se olvidan</span></div><div class="marca-modelos"><div class="modelo-item"><strong>Ford Capri</strong> 2.8i V6 (1983)</div><div class="modelo-item"><strong>Rover 2400 SD Turbo</strong> (1984)</div><div class="modelo-item"><strong>Daihatsu Rocky</strong></div><div class="modelo-item"><strong>Microcar</strong></div><div class="modelo-item"><strong>Tesla Model S</strong> P85 — error EPAS_w002</div></div></div>
-      </div>
-      <p class="modelos-nota reveal">Para todos estos la estrategia es la misma: reparar la original fabricando casquillos a medida.</p>
-    </div></section>
 <section class="final"><div class="final-glow"></div><div class="wrap">
   <h2>¿Tu coche podría ser el siguiente?</h2>
   <p>Mándame una foto de la pieza y el modelo. En muchos casos hay solución.</p>
