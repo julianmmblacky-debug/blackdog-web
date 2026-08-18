@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- build:20260818214003 -->
+<!DOCTYPE html><!-- build:20260818220237 -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -72,6 +72,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero-garantia strong{color:var(--bone)}
 
   .museo-sub{font-family:"IBM Plex Mono",monospace;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);opacity:.7;margin-top:8px}
+
+  .foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .foto-item{margin:0;background:#1a1d22;border:1px solid #2a2c32;border-radius:8px;overflow:hidden}
+  .foto-item img{width:100%;height:220px;object-fit:cover;display:block}
+  .foto-item figcaption{padding:10px 14px;font-size:.82rem;color:var(--muted);line-height:1.4}
+  @media(max-width:860px){.foto-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:500px){.foto-grid{grid-template-columns:1fr}}
 </style>
 <title>Reparación de cremalleras de dirección hidráulica · Desde 135€ · BLACKDOG</title>
 <meta name="description" content="Reparación de cremalleras y cajas de dirección hidráulica. Incluso descatalogadas o sin recambio. Consulta por WhatsApp, envía fotos y recibe precio orientativo antes de enviarla.">
@@ -845,8 +852,7 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
   <div class="caso-grid-full">
 
     <div class="caso-card reveal" data-cat="activa">
-      <div class="caso-img-wrap">
-        <img class="caso-photo" src="img/cremallera_direccion_reparada_mercedes_sprinter_por_nosotros.jpg" loading="lazy" decoding="async" alt="Cremallera Mercedes Sprinter reparada" width="600" height="400"></div>
+      <div class="caso-img-wrap"></div>
       <div class="caso-body">
         <div class="caso-model">BMW E60 / X5 E70</div>
         <div class="caso-sub">Las 150 bolas que el concesionario da por irreparables</div>
@@ -933,8 +939,7 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
     </div>
 
     <div class="caso-card reveal" data-cat="descatalogada">
-      <div class="caso-img-wrap">
-        <img class="caso-photo" src="img/cremallera_direccion_reparada_japonesa_clasico.jpg" loading="lazy" decoding="async" alt="Cremallera dirección clásica reparada por BLACKDOG" width="600" height="400"></div>
+      <div class="caso-img-wrap"></div>
       <div class="caso-body">
         <div class="caso-model">Citroën DS / Jaguar XJS</div>
         <div class="caso-sub">Cuando ya no existe stock de fábrica en ningún sitio</div>
@@ -946,8 +951,7 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
     </div>
 
     <div class="caso-card reveal" data-cat="descatalogada">
-      <div class="caso-img-wrap">
-        <img class="caso-photo" src="img/cliente_que_le_envian_o_compra_cremallera_parecida_pero_no_es_la_misma.jpg" loading="lazy" decoding="async" alt="Dos cremalleras similares pero incompatibles — intercambio equivocado" width="600" height="400"></div>
+      <div class="caso-img-wrap"></div>
       <div class="caso-body">
         <div class="caso-model">Carcasas remachadas de fábrica</div>
         <div class="caso-sub">La cirugía que otros dicen que no se puede hacer</div>
@@ -959,8 +963,7 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
     </div>
 
     <div class="caso-card reveal" data-cat="descatalogada">
-      <div class="caso-img-wrap">
-        <img class="caso-photo" src="img/cremallera_desmontada_para_reparar_japonesa.jpg" loading="lazy" decoding="async" alt="Cremallera japonesa clásica desmontada para reparar" width="600" height="400"></div>
+      <div class="caso-img-wrap"></div>
       <div class="caso-body">
         <div class="caso-model">Toyota Supra 1989 / Golf GTI MK2</div>
         <div class="caso-sub">Restauración que mantiene la originalidad</div>
@@ -1084,8 +1087,7 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
     </div>
 
     <div class="caso-card reveal" data-cat="fuga">
-      <div class="caso-img-wrap">
-        <img class="caso-photo" src="img/cremallera_direccion_reparada_por_nosotros_para_mercedes_w205_con_servotronic.jpg" loading="lazy" decoding="async" alt="Cremallera Mercedes reparada por BLACKDOG" width="600" height="400"></div>
+      <div class="caso-img-wrap"></div>
       <div class="caso-body">
         <div class="caso-model">Mercedes ML 320 CDI</div>
         <div class="caso-sub">Eje oxidado, bomba gripada en caliente</div>
@@ -1142,8 +1144,7 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
     </div>
 
     <div class="caso-card reveal" data-cat="fuga">
-      <div class="caso-img-wrap">
-        <img class="caso-photo" src="img/bolas_eje_direccion_sin_fin_de_caja_de_direccion_4x4.jpg" loading="lazy" decoding="async" alt="Caja de dirección 4x4 con bolas del eje sinfín en mal estado" width="600" height="400"></div>
+      <div class="caso-img-wrap"></div>
       <div class="caso-body">
         <div class="caso-model">Land Rover (caja de dirección)</div>
         <div class="caso-sub">Se montó bien, funciona bien, no pierde</div>
@@ -1413,7 +1414,58 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
   </div>
 </div></section>
 
-<section class="final"><div class="final-glow"></div><div class="wrap">
+
+<section class="sec" id="galeria-fotos"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Trabajo real</span>
+    <h2>Fotos del taller</h2>
+    <p>Piezas reales que han pasado por el taller. Cada foto tiene su historia.</p>
+  </div>
+  <div class="foto-grid reveal">
+    <figure class="foto-item">
+      <img src="img/cremallera_con_eje_oxidado_para_rectificar.jpg" loading="lazy" alt="Cremallera con eje oxidado para rectificar" width="600" height="450">
+      <figcaption>Eje oxidado para rectificar — antes de la reparación</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_audi_golf_seat_vag_reparada_por_nosotros.jpg" loading="lazy" alt="Cremallera Audi Golf Seat VAG reparada" width="600" height="450">
+      <figcaption>Cremallera Audi / Golf / Seat — reparada y lista</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_bmw_activa_mal_embalada_y_conectores_rotos.jpg" loading="lazy" alt="Cremallera BMW activa llegó mal embalada con conectores rotos" width="600" height="450">
+      <figcaption>Cremallera BMW activa — llegó mal embalada y con conectores rotos</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_bmw_activa_pocedente_de_otro_taller_para_que_la_reparemos_nosotros.jpg" loading="lazy" alt="Cremallera BMW activa procedente de otro taller" width="600" height="450">
+      <figcaption>Cremallera BMW activa de otro taller — reparación previa fallida</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cliente_que_le_envian_o_compra_cremallera_parecida_pero_no_es_la_misma.jpg" loading="lazy" alt="Dos cremalleras parecidas pero no son la misma" width="600" height="450">
+      <figcaption>Dos cremalleras que parecen iguales pero no lo son — por eso reparar la original es la mejor opción</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_desmontada_para_reparar_japonesa.jpg" loading="lazy" alt="Cremallera japonesa desmontada para reparar" width="600" height="450">
+      <figcaption>Cremallera japonesa clásica — desmontada antes de la reparación</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_direccion_reparada_japonesa_clasico.jpg" loading="lazy" alt="Cremallera dirección japonesa clásica reparada" width="600" height="450">
+      <figcaption>Caja de dirección japonesa clásica — reparada y probada</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_direccion_reparada_mercedes_sprinter_por_nosotros.jpg" loading="lazy" alt="Cremallera dirección Mercedes Sprinter reparada" width="600" height="450">
+      <figcaption>Cremallera Mercedes Sprinter — reparada por nosotros</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/cremallera_direccion_reparada_por_nosotros_para_mercedes_w205_con_servotronic.jpg" loading="lazy" alt="Cremallera Mercedes W205 con Servotronic reparada" width="600" height="450">
+      <figcaption>Cremallera Mercedes W205 con Servotronic — reparada</figcaption>
+    </figure>
+    <figure class="foto-item">
+      <img src="img/bolas_eje_direccion_sin_fin_de_caja_de_direccion_4x4.jpg" loading="lazy" alt="Bolas del eje sinfín de caja de dirección 4x4" width="600" height="450">
+      <figcaption>Bolas del eje sinfín de caja de dirección 4x4 — desgastadas</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+    <section class="final"><div class="final-glow"></div><div class="wrap">
   <h2>¿Tu coche podría ser el siguiente?</h2>
   <p>Mándame una foto de la pieza y el modelo. En muchos casos hay solución.</p>
   <div class="hero-cta"><a class="btn btn-wa" href="https://wa.me/34697501984?text=Hola%20Juli%C3%A1n%2C%20tengo%20una%20cremallera%2Fcaja%20de%20direcci%C3%B3n%20de%20un%20%5Bmarca%2C%20modelo%2C%20a%C3%B1o%5D.%20El%20problema%20es%20%5Bs%C3%ADntoma%5D.%20%C2%BFPuedes%20decirme%20si%20tiene%20reparaci%C3%B3n%20y%20darme%20una%20orientaci%C3%B3n%20de%20precio%3F"><svg><use href="#wa"/></svg> Consultar mi cremallera por WhatsApp</a></div>
