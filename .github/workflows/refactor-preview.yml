@@ -1,7 +1,8 @@
 name: Refactor preview safely
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [seo-migracion-preview]
 
 permissions:
   contents: write
@@ -18,18 +19,18 @@ jobs:
         run: |
           python3 <<'PY'
           from pathlib import Path
-          import base64, hashlib, html, re
+          import base64, hashlib, re
           index=Path('index.html'); text=index.read_text(encoding='utf-8')
           css=Path('css'); js=Path('js'); img=Path('img')
           css.mkdir(exist_ok=True); js.mkdir(exist_ok=True); img.mkdir(exist_ok=True)
-          tmp=css/'refactor-test.css'
-          if tmp.exists(): tmp.unlink()
           n=[0]
           def style(m):
               body=m.group('body')
               if not body.strip(): return ''
               n[0]+=1; p=css/f'style-{n[0]:02d}.css'; p.write_text(body,encoding='utf-8')
-              return f'<link rel="stylesheet" href="/css/{p.name}">'
+              attrs=m.group('attrs')
+              media=re.search(r'\bmedia\s*=\s*(["\'])(.*?)\1',attrs,re.I|re.S)
+              return f'<link rel="stylesheet" href="/css/{p.name}"'+(f' media="{media.group(2)}"' if media else '')+'>'
           text=re.sub(r'<style(?P<attrs>[^>]*)>(?P<body>.*?)</style>',style,text,flags=re.I|re.S)
           j=[0]
           def script(m):
@@ -55,12 +56,10 @@ jobs:
           grep -qi 'canonical' index.html
           grep -q 'application/ld+json' index.html
           ! grep -q 'data:image/webp;base64,' index.html
-      - name: Commit
+      - name: Commit refactor
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add index.html css js img
-          git add -u
           git commit -m "refactor(preview): extract CSS JS and embedded images"
           git push origin HEAD:seo-migracion-preview
-          rm -f .github/workflows/refactor-preview.yml
