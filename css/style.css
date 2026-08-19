@@ -401,3 +401,22 @@ html{scroll-behavior:auto}}
 .legal-item h3{font-size:1.02rem;margin:0 0 8px;color:var(--bone)}
 .legal-item p{color:var(--bone-dim);font-size:.88rem;line-height:1.6;margin:0}
 .legal-item p+p{margin-top:12px}
+
+/* ── Hero móvil: CTA de WhatsApp visible cuanto antes ──
+   Solo reordena visualmente (CSS order dentro de flex); el DOM y el
+   orden de lectura/SEO no cambian. No afecta a escritorio (>640px). */
+@media(max-width:640px){
+  .hero-inner{display:flex;flex-direction:column}
+  .plate-wrap{order:1}
+  .hero-eyebrow-wrap{order:2}
+  .hero-h1{order:3}
+  .hero-strip-mini{order:4;margin-top:16px}
+  .hero-cta{order:5;margin-top:20px}
+  .hero-hint{order:6;margin-top:12px}
+  .hero-garantia{order:7}
+  .hero-h1-sub{order:8;margin-top:20px}
+  .hero-sub{order:9}
+  .hero-mini-gallery{order:10}
+  .hero-trust{order:11}
+  .hero .eyebrow{margin-top:16px}
+}
