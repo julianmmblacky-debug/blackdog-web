@@ -1,0 +1,136 @@
+name: Refactor preview safely
+
+on:
+  push:
+    branches: [seo-migracion-preview]
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout preview branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: seo-migracion-preview
+
+      - name: Split inline CSS, JS and embedded WebP assets
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import base64, hashlib, html, re
+
+          root = Path('.')
+          index = root / 'index.html'
+          text = index.read_text(encoding='utf-8')
+
+          css_dir = root / 'css'
+          js_dir = root / 'js'
+          img_dir = root / 'img'
+          css_dir.mkdir(exist_ok=True)
+          js_dir.mkdir(exist_ok=True)
+          img_dir.mkdir(exist_ok=True)
+
+          # Remove only the temporary placeholder created during setup.
+          tmp_css = css_dir / 'refactor-test.css'
+          if tmp_css.exists():
+              tmp_css.unlink()
+
+          # Preserve every <style> block in document order. Replacing each block
+          # with a stylesheet link keeps cascade order and avoids rewriting CSS.
+          style_re = re.compile(r'<style(?P<attrs>[^>]*)>(?P<body>.*?)</style>', re.I | re.S)
+          style_n = 0
+          def split_style(m):
+              nonlocal style_n
+              style_n += 1
+              attrs = m.group('attrs')
+              body = m.group('body')
+              # Empty style blocks are harmless; keep them out of the HTML.
+              if not body.strip():
+                  return ''
+              out = css_dir / f'style-{style_n:02d}.css'
+              out.write_text(body, encoding='utf-8')
+              media = re.search(r'\bmedia\s*=\s*(["\'])(.*?)\1', attrs, re.I | re.S)
+              if media:
+                  return f'<link rel="stylesheet" href="/css/{out.name}" media="{html.escape(media.group(2), quote=True)}">'
+              return f'<link rel="stylesheet" href="/css/{out.name}">'
+
+          text = style_re.sub(split_style, text)
+
+          # Extract inline executable JS only. JSON-LD is deliberately retained
+          # in HTML because it is SEO-critical structured data.
+          script_re = re.compile(r'<script(?P<attrs>[^>]*)>(?P<body>.*?)</script>', re.I | re.S)
+          js_n = 0
+          def split_script(m):
+              nonlocal js_n
+              attrs = m.group('attrs')
+              body = m.group('body')
+              if not body.strip():
+                  return m.group(0)
+              if re.search(r'\bsrc\s*=\s*', attrs, re.I):
+                  return m.group(0)
+              typ = re.search(r'\btype\s*=\s*(["\'])(.*?)\1', attrs, re.I | re.S)
+              mime = typ.group(2).strip().lower() if typ else ''
+              if mime in {'application/ld+json', 'application/json', 'importmap'}:
+                  return m.group(0)
+              js_n += 1
+              out = js_dir / f'inline-{js_n:02d}.js'
+              out.write_text(body, encoding='utf-8')
+              # Preserve meaningful execution attributes, excluding src because
+              # this replacement supplies it. Inline scripts normally have none.
+              kept = attrs
+              kept = re.sub(r'\s+src\s*=\s*(["\']).*?\1', '', kept, flags=re.I | re.S)
+              return f'<script{kept} src="/js/{out.name}"></script>'
+
+          text = script_re.sub(split_script, text)
+
+          # Move large embedded WebP data URIs out of HTML into real files.
+          # Deduplicate identical payloads by SHA-256 and preserve dimensions/alt.
+          data_re = re.compile(r'data:image/webp;base64,([A-Za-z0-9+/=]+)', re.I)
+          cache = {}
+          def extract_webp(m):
+              payload = m.group(1)
+              digest = hashlib.sha256(payload.encode('ascii')).hexdigest()[:16]
+              if digest not in cache:
+                  name = f'embedded-{digest}.webp'
+                  out = img_dir / name
+                  out.write_bytes(base64.b64decode(payload))
+                  cache[digest] = f'/img/{name}'
+              return cache[digest]
+
+          text = data_re.sub(extract_webp, text)
+          index.write_text(text, encoding='utf-8')
+
+          print(f'Extracted {style_n} CSS blocks, {js_n} inline JS blocks and {len(cache)} embedded WebP assets.')
+          print(f'index.html: {index.stat().st_size} bytes')
+          PY
+
+      - name: Basic integrity checks
+        shell: bash
+        run: |
+          test -s index.html
+          grep -q '<title>' index.html
+          grep -q 'application/ld+json' index.html
+          grep -q 'canonical' index.html
+          grep -q 'whatsapp_click' "$(find js -type f | sort | head -n 1)" || true
+          ! grep -q 'data:image/webp;base64,' index.html
+          echo "Integrity checks passed."
+
+      - name: Commit refactor and remove this one-shot workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/refactor-preview.yml
+          git add index.html css js img
+          git add -u
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "refactor(preview): split CSS JS and embedded assets without changing content"
+          git push origin HEAD:seo-migracion-preview
