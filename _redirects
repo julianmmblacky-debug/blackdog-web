@@ -1,15 +1,13 @@
 # Redirecciones 301 — mapa completo verificado con Search Console 2026-08-19
-# 16 URLs indexadas en Wix → todas cubiertas
 
-# Páginas principales
-/                                                               /  301
+# Páginas principales de Wix (no incluir / → / que crea bucle)
 /cremalleras-o-direcciones-hidraulicas                          /  301
 /caja-de-direccion                                              /  301
 /bombas                                                         /  301
 /blog                                                           /  301
 /single-project                                                 /  301
 
-# Product pages — piezas específicas
+# Product pages
 /product-page/castrol-atf-dexii                                 /  301
 /product-page/caja-direccion-nissan                             /  301
 /product-page/direccion-asistida-peugeot-partner-citroen-berling /  301
@@ -21,6 +19,4 @@
 /product-page/cremallera-de-direccion-iveco-daily-reaparada     /  301
 /product-page/direccion-asistida-bmw-320-318                    /  301
 /product-page/cremallera-de-direccion-toyota-land-cruisser      /  301
-
-# Wildcard para cualquier product-page no listada
 /product-page/*                                                 /  301
