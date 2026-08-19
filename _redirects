@@ -1,29 +1,26 @@
-# Redirecciones 301 desde URLs antiguas de Wix → BLACKDOG nueva web
-# Actualizado 2026-08-19 con mapa completo de URLs conocidas
+# Redirecciones 301 — mapa completo verificado con Search Console 2026-08-19
+# 16 URLs indexadas en Wix → todas cubiertas
 
 # Páginas principales
-/cremalleras-o-direcciones-hidraulicas  /  301
-/bombas                                 /  301
-/caja-de-direccion                      /  301
-/blog                                   /  301
-/single-project                         /  301
-/contacto                               /  301
-/sobre-nosotros                         /  301
+/                                                               /  301
+/cremalleras-o-direcciones-hidraulicas                          /  301
+/caja-de-direccion                                              /  301
+/bombas                                                         /  301
+/blog                                                           /  301
+/single-project                                                 /  301
 
-# Product pages — aceites (redirigen a inicio, ya no vendemos productos)
-/product-page/aceite-hidráulico-dexrom-ii-d4    /  301
-/product-page/aceite-hidraulico-dexrom-ii-d4    /  301
-/product-page/castrol-atf-dexii                 /  301
-/product-page/blackdog-direcciones-asistidas    /  301
+# Product pages — piezas específicas
+/product-page/castrol-atf-dexii                                 /  301
+/product-page/caja-direccion-nissan                             /  301
+/product-page/direccion-asistida-peugeot-partner-citroen-berling /  301
+/product-page/cremallera-renault-kangoo-y-clio                  /  301
+/product-page/blackdog-direcciones-asistidas                    /  301
+/product-page/cremallera-seat-cordoba-ibiza-passat-toledo       /  301
+/product-page/aceite-hidráulico-dexrom-ii-d4                    /  301
+/product-page/aceite-hidraulico-dexrom-ii-d4                    /  301
+/product-page/cremallera-de-direccion-iveco-daily-reaparada     /  301
+/product-page/direccion-asistida-bmw-320-318                    /  301
+/product-page/cremallera-de-direccion-toyota-land-cruisser      /  301
 
-# Product pages — piezas (redirigen a inicio)
-/product-page/cremallera-de-direccion-iveco-daily-reaparada  /  301
-/product-page/direccion-asistida-bmw-320-318                 /  301
-/product-page/caja-direccion-nissan                          /  301
-
-# Variantes con y sin www (Cloudflare gestiona www → sin www automáticamente)
-# pero por si acaso
-/product-page/*  /  301
-
-# Catch-all para cualquier URL de Wix no listada
-# (Cloudflare Pages devuelve 404 por defecto para rutas no existentes)
+# Wildcard para cualquier product-page no listada
+/product-page/*                                                 /  301
