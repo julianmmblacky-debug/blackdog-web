@@ -1,8 +1,29 @@
-# Redirecciones 301 desde URLs antiguas de Wix
-/bombas /
-/caja-de-direccion /
-/cremalleras-o-direcciones-hidraulicas /
-/product-page/cremallera-de-direccion-iveco-daily-reaparada /
-/product-page/direccion-asistida-bmw-320-318 /
-/product-page/blackdog-direcciones-asistidas /
-/product-page/caja-direccion-nissan /
+# Redirecciones 301 desde URLs antiguas de Wix → BLACKDOG nueva web
+# Actualizado 2026-08-19 con mapa completo de URLs conocidas
+
+# Páginas principales
+/cremalleras-o-direcciones-hidraulicas  /  301
+/bombas                                 /  301
+/caja-de-direccion                      /  301
+/blog                                   /  301
+/single-project                         /  301
+/contacto                               /  301
+/sobre-nosotros                         /  301
+
+# Product pages — aceites (redirigen a inicio, ya no vendemos productos)
+/product-page/aceite-hidráulico-dexrom-ii-d4    /  301
+/product-page/aceite-hidraulico-dexrom-ii-d4    /  301
+/product-page/castrol-atf-dexii                 /  301
+/product-page/blackdog-direcciones-asistidas    /  301
+
+# Product pages — piezas (redirigen a inicio)
+/product-page/cremallera-de-direccion-iveco-daily-reaparada  /  301
+/product-page/direccion-asistida-bmw-320-318                 /  301
+/product-page/caja-direccion-nissan                          /  301
+
+# Variantes con y sin www (Cloudflare gestiona www → sin www automáticamente)
+# pero por si acaso
+/product-page/*  /  301
+
+# Catch-all para cualquier URL de Wix no listada
+# (Cloudflare Pages devuelve 404 por defecto para rutas no existentes)
