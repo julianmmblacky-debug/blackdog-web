@@ -37,6 +37,7 @@ html,body,main,.page,.page-inner,.wrap,section{max-width:100vw;overflow-x:hidden
   @media(max-width:700px){.info-grid{grid-template-columns:1fr}}
 
   .hero-garantia{text-align:center;margin-top:10px;font-size:.88rem;color:var(--muted)}
+  .hero-filtro{text-align:center;margin-top:10px;font-size:.88rem;color:var(--muted)}
   .hero-garantia strong{color:var(--bone)}
 
   .museo-sub{font-family:"IBM Plex Mono",monospace;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);opacity:.7;margin-top:8px}
@@ -414,9 +415,10 @@ html{scroll-behavior:auto}}
   .hero-cta{order:5;margin-top:20px}
   .hero-hint{order:6;margin-top:12px}
   .hero-garantia{order:7}
-  .hero-h1-sub{order:8;margin-top:20px}
-  .hero-sub{order:9}
-  .hero-mini-gallery{order:10}
-  .hero-trust{order:11}
+  .hero-filtro{order:8}
+  .hero-h1-sub{order:9;margin-top:20px}
+  .hero-sub{order:10}
+  .hero-mini-gallery{order:11}
+  .hero-trust{order:12}
   .hero .eyebrow{margin-top:16px}
 }
