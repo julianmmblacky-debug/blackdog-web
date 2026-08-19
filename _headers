@@ -4,7 +4,6 @@
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  X-Robots-Tag: noindex, nofollow, noarchive
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
