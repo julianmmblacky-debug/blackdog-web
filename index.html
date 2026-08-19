@@ -92,6 +92,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .bd-conviction{border-left:3px solid var(--yellow);margin:28px 0;padding:18px 24px;background:rgba(242,194,0,.04)}
   .bd-conviction p{font-family:'Hanken Grotesk',sans-serif;font-size:clamp(1.05rem,2vw,1.2rem);color:var(--bone);line-height:1.6;margin:0 0 8px}
   .bd-conviction p:last-child{margin-bottom:0}
+
+  .trab-mini-gallery{display:flex;align-items:center;gap:12px;
+    padding:10px clamp(16px,4vw,40px);background:#080a0d;
+    border-bottom:1px solid #1a1d22}
+  .trab-mini-foto{flex-shrink:0;width:90px;height:62px;border-radius:4px;
+    overflow:hidden;border:1px solid #2a2c32;transition:border-color .2s;display:block}
+  .trab-mini-foto:hover{border-color:var(--yellow)}
+  .trab-mini-foto img{width:100%;height:100%;object-fit:cover;display:block}
+  .trab-mini-ver{margin-left:auto;font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--yellow);text-decoration:none;white-space:nowrap;
+    padding:6px 14px;border:1px solid rgba(242,194,0,.3);border-radius:4px;
+    transition:all .2s;flex-shrink:0}
+  .trab-mini-ver:hover{background:rgba(242,194,0,.08)}
+  @media(max-width:500px){
+    .trab-mini-foto:last-of-type{display:none}
+    .trab-mini-foto{width:70px;height:50px}
+  }
 </style>
 <title>Reparación de cremalleras de dirección hidráulica · Desde 135€ · BLACKDOG</title>
 <meta name="description" content="Reparación de cremalleras y cajas de dirección hidráulica. Incluso descatalogadas o sin recambio. Consulta por WhatsApp, envía fotos y recibe precio orientativo antes de enviarla.">
@@ -828,7 +846,21 @@ en dirección hidráulica, tradición familiar de más de 40 años en el oficio.
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Casos resueltos — BLACKDOG Direcciones Asistidas",
-  "description": "Galería de reparaciones reales de cremalleras y cajas de dirección hidráulica por Julián Márquez (Blackdog), organizadas por tipo de avería.",
+  "description": "Galería de reparaciones reales d
+<div class="trab-mini-gallery">
+  <a class="trab-mini-foto" onclick="nav('trabajos');setTimeout(function(){var el=document.getElementById('galeria-fotos');if(el)el.scrollIntoView({behavior:'smooth'})},200);return false" href="#">
+    <img src="/img/cremallera_audi_golf_seat_vag_reparada_por_nosotros.jpg" alt="Cremallera VAG reparada" loading="lazy">
+  </a>
+  <a class="trab-mini-foto" onclick="nav('trabajos');setTimeout(function(){var el=document.getElementById('galeria-fotos');if(el)el.scrollIntoView({behavior:'smooth'})},200);return false" href="#">
+    <img src="/img/cremallera_direccion_reparada_por_nosotros_para_mercedes_w205_con_servotronic.jpg" alt="Mercedes W205 reparada" loading="lazy">
+  </a>
+  <a class="trab-mini-foto" onclick="nav('trabajos');setTimeout(function(){var el=document.getElementById('galeria-fotos');if(el)el.scrollIntoView({behavior:'smooth'})},200);return false" href="#">
+    <img src="/img/cremallera_con_eje_oxidado_para_rectificar.jpg" alt="Eje oxidado para rectificar" loading="lazy">
+  </a>
+  <a class="trab-mini-ver" onclick="nav('trabajos');setTimeout(function(){var el=document.getElementById('galeria-fotos');if(el)el.scrollIntoView({behavior:'smooth'})},200);return false" href="#">
+    Ver todas las fotos →
+  </a>
+</div>e cremalleras y cajas de dirección hidráulica por Julián Márquez (Blackdog), organizadas por tipo de avería.",
   "url": "https://reparacion-cremallera-direccion.com/trabajos.html",
   "numberOfItems": 12
 }</script>
