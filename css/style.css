@@ -387,7 +387,7 @@ html{scroll-behavior:auto}}
 /* FAQ: lista de una columna, más ligera que el panel metálico con remaches */
 .faq-list{display:flex;flex-direction:column;gap:10px}
 .faq-item{background:#1a1d22;border:1px solid #2a2c32;border-radius:6px;padding:20px 24px}
-.faq-item h3{font-size:1.1rem;margin:0 0 8px;color:var(--bone)}
+.faq-item h3{font-size:1.1rem;margin:0 0 18px;color:var(--bone)}
 .faq-item p{color:var(--bone-dim);font-size:.92rem;line-height:1.6;margin:0}
 
 /* Garantía: borde superior de color para distinguir cobertura de un vistazo */
