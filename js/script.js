@@ -44,7 +44,14 @@ function nav(id){
   if(bg){bg.setAttribute('aria-expanded','false');}
 }
 // show inicio on load (solo si esta pagina es la SPA principal)
-if(document.getElementById('page-inicio')){nav('inicio');}
+if(document.getElementById('page-inicio')){
+  var hashId = window.location.hash.replace('#','');
+  if(hashId && document.getElementById('page-'+hashId)){
+    nav(hashId);
+  } else {
+    nav('inicio');
+  }
+}
 
 // Tracking eventos de contacto
 window.dataLayer = window.dataLayer || [];
