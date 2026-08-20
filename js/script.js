@@ -43,8 +43,8 @@ function nav(id){
   if(mn){mn.classList.remove('open');}
   if(bg){bg.setAttribute('aria-expanded','false');}
 }
-// show inicio on load
-nav('inicio');
+// show inicio on load (solo si esta pagina es la SPA principal)
+if(document.getElementById('page-inicio')){nav('inicio');}
 
 // Tracking eventos de contacto
 window.dataLayer = window.dataLayer || [];
