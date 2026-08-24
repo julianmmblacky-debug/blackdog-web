@@ -140,12 +140,26 @@ foreach ($grupo in $porMarca) {
 
   $tarjetas = foreach ($c in $grupo.Group) {
     $catsAttr = ($c.categorias -join ' ')
+
+    $extraFotos = @()
+    if ($c.llegada_fotos) { $extraFotos += $c.llegada_fotos }
+    if ($c.galeria) { $extraFotos += $c.galeria }
+
+    $extraHtml = ''
+    if ($extraFotos.Count -gt 0) {
+      $mostrar = $extraFotos | Select-Object -First 3
+      $resto = $extraFotos.Count - $mostrar.Count
+      $miniImgs = foreach ($ef in $mostrar) { "<img src=""$($ef.src)"" loading=""lazy"" alt=""$($ef.alt)"">" }
+      $masBadge = if ($resto -gt 0) { "<span class=""caso-mini-extra-more"">+$resto</span>" } else { '' }
+      $extraHtml = "<div class=""caso-mini-extra"">" + ($miniImgs -join '') + $masBadge + "</div>"
+    }
 @"
     <a class="caso-mini reveal" href="/cremallera-$marca/caso-$($c.id)/" data-modelo="$($c.modelo_slug)" data-cat="$catsAttr">
       <div class="caso-mini-img foto-wm"><img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)"></div>
       <div class="caso-mini-body">
         <div class="caso-mini-model">$($c.modelo)</div>
         <div class="caso-mini-tag">$($c.tag)</div>
+        $extraHtml
         <span class="caso-mini-link">Ver caso →</span>
       </div>
     </a>
