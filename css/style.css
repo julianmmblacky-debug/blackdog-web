@@ -406,6 +406,42 @@ html{scroll-behavior:auto}}
 /* ── Hero móvil: CTA de WhatsApp visible cuanto antes ──
    Solo reordena visualmente (CSS order dentro de flex); el DOM y el
    orden de lectura/SEO no cambian. No afecta a escritorio (>640px). */
+/* ── Sistema de casos (archivo + caso individual) ── */
+
+.caso-hero-img{border-radius:8px;overflow:hidden;border:1px solid #2a2c32;background:#1a1d22}
+.caso-hero-img img{width:100%;max-height:640px;object-fit:contain;display:block;background:#111316}
+@media(max-width:640px){.caso-hero-img img{max-height:420px}}
+
+.caso-quote{margin:24px 0;padding:20px 24px;border-radius:6px;background:#1a1d22;border:1px solid #2a2c32;border-left:3px solid var(--yellow)}
+.caso-quote .caso-quote-label{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;display:block}
+.caso-quote p{color:var(--bone-dim);font-size:1rem;line-height:1.6;font-style:italic;margin:0}
+
+.caso-llegada-fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.caso-llegada-fotos figure{margin:0;border-radius:6px;overflow:hidden;border:1px solid #2a2c32;background:#1a1d22}
+.caso-llegada-fotos img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.caso-llegada-fotos figcaption{padding:6px 10px;font-size:.72rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;text-align:center}
+@media(max-width:600px){.caso-llegada-fotos{grid-template-columns:1fr 1fr}}
+
+.caso-galeria-extra{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.caso-galeria-extra img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:6px;border:1px solid #2a2c32}
+@media(max-width:600px){.caso-galeria-extra{grid-template-columns:1fr 1fr}}
+
+.caso-mini{display:flex;flex-direction:column;background:linear-gradient(180deg,#1e2025,#16181c);border:1px solid #2a2c32;border-radius:8px;overflow:hidden;text-decoration:none;transition:transform .2s ease,border-color .2s ease}
+.caso-mini:hover{transform:translateY(-3px);border-color:var(--yellow)}
+.caso-mini-img{aspect-ratio:4/3;max-height:300px;overflow:hidden;background:#1a1d22}
+.caso-mini-img img{width:100%;height:100%;object-fit:cover;display:block}
+.caso-mini-body{padding:16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.caso-mini-model{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.15rem;color:var(--bone);line-height:1.1}
+.caso-mini-tag{font-size:.85rem;color:var(--bone-dim)}
+.caso-mini-link{margin-top:auto;padding-top:10px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow)}
+
+.caso-filtros{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.filtro-row{display:flex;flex-wrap:wrap;gap:8px}
+.filtro-btn{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:20px;border:1px solid #45484e;color:var(--bone-dim);background:linear-gradient(180deg,#26282c,#1a1c1f);cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+.filtro-btn:hover{color:var(--yellow);border-color:var(--yellow)}
+.filtro-btn.active{color:#141110;background:var(--yellow);border-color:var(--yellow);font-weight:700}
+.caso-sin-resultados{display:none;text-align:center;padding:40px 0;color:var(--muted);font-size:.95rem}
+
 @media(max-width:640px){
   .hero-inner{display:flex;flex-direction:column}
   .plate-wrap{order:1}

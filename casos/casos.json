@@ -1,0 +1,50 @@
+[
+  {
+    "id": "xc70-fuga-holgura-distribuidor",
+    "marca": "volvo",
+    "marca_nombre": "Volvo",
+    "modelo": "Volvo XC70",
+    "modelo_slug": "xc70",
+    "referencia": "P30723807",
+    "titulo": "Fuga y holgura en el distribuidor",
+    "tag": "Fuga · Holgura en el distribuidor",
+    "categorias": ["fuga", "holgura"],
+    "fecha": "2026-08-24",
+    "foto_portada": "/img/cremallera_reparada_volvo_xc70_fuga_holgura_distribuidor_terminada.jpg",
+    "foto_portada_alt": "Cremallera de dirección Volvo XC70 reparada, terminada",
+    "cliente_conto": "\"Por lo visto rezuma líquido hidráulico por los fuelles, según el taller.\" En principio sin golpes. Antes de enviárnosla había pedido presupuesto en el concesionario oficial: 1.800€ + IVA — \"una locura\".",
+    "respondimos": "\"Estas cremalleras suelen dar problemas en los tubos de conexión — hay que tener cuidado de no golpearlos, los racores de entrada son de conexión rápida a presión. Y en la cabeza suelen coger una holgura considerable.\"",
+    "llegada_texto": "Al revisarla, el problema no era solo la fuga que había avisado el otro taller: el distribuidor tenía una holgura considerable.",
+    "llegada_fotos": [
+      { "src": "/img/cremallera_volvo_xc70_distribuidor_antes_oxidado.jpg", "alt": "Distribuidor Volvo XC70 antes de reparar, oxidado", "caption": "Antes" },
+      { "src": "/img/cremallera_volvo_xc70_referencia_p30723807.jpg", "alt": "Referencia Volvo P30723807 en la etiqueta de la pieza", "caption": "Referencia P30723807" },
+      { "src": "/img/cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg", "alt": "Distribuidor Volvo XC70 terminado, detalle", "caption": "Después" }
+    ],
+    "resultado": "Se sustituyó el distribuidor (aprovechando uno compatible de otra unidad ya reparada en el taller, para no alargar el plazo) y se hizo una reparación completa con cambio de aceite. Comprobada antes de devolverla.",
+    "cita_final": "\"Se ve como nueva.\"",
+    "galeria": []
+  },
+  {
+    "id": "xc90-holgura-caja-valvulas",
+    "marca": "volvo",
+    "marca_nombre": "Volvo",
+    "modelo": "Volvo XC90",
+    "modelo_slug": "xc90",
+    "referencia": "",
+    "titulo": "Holgura en la caja de válvulas",
+    "tag": "Holgura · Caja de válvulas",
+    "categorias": ["holgura"],
+    "fecha": "2026-08-20",
+    "foto_portada": "/img/cremallera_reparada_volvo_xc90_holgura_caja_valvulas.jpg",
+    "foto_portada_alt": "Cremallera de dirección Volvo XC90 reparada",
+    "cliente_conto": "El volante se notaba inestable al coger rotondas — la presión se iba hacia el lado incorrecto, con intervalos de dureza y rebote en la dirección.",
+    "respondimos": "",
+    "llegada_texto": "Al revisarla, el problema estaba en la caja de válvulas del distribuidor de presión.",
+    "llegada_fotos": [
+      { "src": "/img/cremallera_reparada_volvo_xc90_holgura_caja_valvulas.jpg", "alt": "Cremallera de dirección Volvo XC90, antes de la reparación", "caption": "" }
+    ],
+    "resultado": "Reconstrucción de la caja de válvulas del distribuidor de presión, comprobando el reparto de presión en ambos sentidos de giro antes de devolverla.",
+    "cita_final": "",
+    "galeria": []
+  }
+]

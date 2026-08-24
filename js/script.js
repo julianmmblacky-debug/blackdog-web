@@ -1,6 +1,39 @@
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+// Filtros del archivo de casos (por modelo y por problema)
+document.querySelectorAll('.caso-filtros').forEach(function(filtrosEl){
+  var grid = document.getElementById(filtrosEl.dataset.target);
+  if(!grid) return;
+  var state = {};
+  filtrosEl.querySelectorAll('.filtro-row').forEach(function(row){
+    state[row.dataset.filtroGroup] = 'todos';
+  });
+  function apply(){
+    var visible = 0;
+    grid.querySelectorAll('.caso-mini').forEach(function(card){
+      var show = Object.keys(state).every(function(group){
+        if(state[group] === 'todos') return true;
+        var val = card.dataset[group] || '';
+        return (' ' + val + ' ').indexOf(' ' + state[group] + ' ') !== -1;
+      });
+      card.style.display = show ? '' : 'none';
+      if(show) visible++;
+    });
+    var empty = grid.parentElement.querySelector('.caso-sin-resultados');
+    if(empty) empty.style.display = visible ? 'none' : 'block';
+  }
+  filtrosEl.querySelectorAll('.filtro-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.filtro-row');
+      row.querySelectorAll('.filtro-btn').forEach(function(b){b.classList.remove('active')});
+      btn.classList.add('active');
+      state[row.dataset.filtroGroup] = btn.dataset.filtro;
+      apply();
+    });
+  });
+});
+
 const burger=document.getElementById('hdBurger');
 const mnav=document.getElementById('hdMobileNav');
 if(burger && mnav){
