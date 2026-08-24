@@ -18,6 +18,7 @@
     "llegada_texto": "Al revisarla, el problema no era solo la fuga que había avisado el otro taller: el distribuidor tenía una holgura considerable.",
     "llegada_fotos": [
       { "src": "/img/cremallera_volvo_xc70_distribuidor_antes_oxidado.jpg", "alt": "Distribuidor Volvo XC70 antes de reparar, oxidado", "caption": "Antes" },
+      { "src": "/img/cremallera_volvo_xc70_fuga_liquido_hidraulico.jpg", "alt": "Fuga de líquido hidráulico en cremallera Volvo XC70", "caption": "La fuga que avisó el cliente" },
       { "src": "/img/cremallera_volvo_xc70_referencia_p30723807.jpg", "alt": "Referencia Volvo P30723807 en la etiqueta de la pieza", "caption": "Referencia P30723807" },
       { "src": "/img/cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg", "alt": "Distribuidor Volvo XC70 terminado, detalle", "caption": "Después" }
     ],
