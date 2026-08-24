@@ -50,6 +50,7 @@ $plantilla = Read-Utf8 (Join-Path $root 'templates\caso.html')
 foreach ($c in $casos) {
   $html = $plantilla
   $waLink = WaLink $c.marca_nombre
+  $wmClass = if ($c.marca_agua) { 'foto-wm' } else { '' }
 
   $referenciaBlock = ''
   if ($c.referencia) {
@@ -70,7 +71,7 @@ foreach ($c in $casos) {
   if ($c.llegada_fotos -and $c.llegada_fotos.Count -gt 0) {
     $figs = foreach ($f in $c.llegada_fotos) {
       $cap = if ($f.caption) { "<figcaption>$($f.caption)</figcaption>" } else { '' }
-      "<figure><div class=""foto-wm""><img class=""lightbox-img"" src=""$($f.src)"" loading=""lazy"" alt=""$($f.alt)""></div>$cap</figure>"
+      "<figure><div class=""$wmClass""><img class=""lightbox-img"" src=""$($f.src)"" loading=""lazy"" alt=""$($f.alt)""></div>$cap</figure>"
     }
     $llegadaFotosHtml = "<div class=""caso-llegada-fotos reveal"">" + ($figs -join "`n") + "</div>"
   }
@@ -82,7 +83,7 @@ foreach ($c in $casos) {
 
   $galeriaBlock = ''
   if ($c.galeria -and $c.galeria.Count -gt 0) {
-    $imgs = foreach ($g in $c.galeria) { "<div class=""foto-wm""><img class=""lightbox-img"" src=""$($g.src)"" loading=""lazy"" alt=""$($g.alt)""></div>" }
+    $imgs = foreach ($g in $c.galeria) { "<div class=""$wmClass""><img class=""lightbox-img"" src=""$($g.src)"" loading=""lazy"" alt=""$($g.alt)""></div>" }
     $galeriaBlock = "<div class=""sec-head"" style=""margin-top:40px""><span class=""eyebrow"">Más fotos del caso</span></div><div class=""caso-galeria-extra reveal"">" + ($imgs -join "`n") + "</div>"
   }
 
@@ -106,6 +107,7 @@ foreach ($c in $casos) {
     '__CITA_FINAL_BLOCK__'      = $citaFinalBlock
     '__GALERIA_BLOCK__'         = $galeriaBlock
     '__WA_LINK__'                = $waLink
+    '__WM_CLASS__'                = $wmClass
   }
   foreach ($k in $tokens.Keys) { $html = $html.Replace($k, [string]$tokens[$k]) }
 
@@ -140,6 +142,7 @@ foreach ($grupo in $porMarca) {
 
   $tarjetas = foreach ($c in $grupo.Group) {
     $catsAttr = ($c.categorias -join ' ')
+    $wmClassMini = if ($c.marca_agua) { ' foto-wm' } else { '' }
 
     $extraFotos = @()
     if ($c.llegada_fotos) { $extraFotos += $c.llegada_fotos }
@@ -155,7 +158,7 @@ foreach ($grupo in $porMarca) {
     }
 @"
     <a class="caso-mini reveal" href="/cremallera-$marca/caso-$($c.id)/" data-modelo="$($c.modelo_slug)" data-cat="$catsAttr">
-      <div class="caso-mini-img foto-wm"><img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)"></div>
+      <div class="caso-mini-img$wmClassMini"><img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)"></div>
       <div class="caso-mini-body">
         <div class="caso-mini-model">$($c.modelo)</div>
         <div class="caso-mini-tag">$($c.tag)</div>

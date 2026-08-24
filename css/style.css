@@ -432,11 +432,12 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
 .filtro-btn.active{color:#141110;background:var(--yellow);border-color:var(--yellow);font-weight:700}
 .caso-sin-resultados{display:none;text-align:center;padding:40px 0;color:var(--muted);font-size:.95rem}
 
-/* Marca de agua desactivada: la mayoría de las fotos ya la traen incrustada
-   de origen (proceso habitual del usuario) — una capa CSS encima duplicaba
-   el logo en esas fotos. La clase .foto-wm se deja en el HTML por si se
-   reactiva más adelante (p.ej. solo para fotos nuevas sin marca propia). */
+/* Marca de agua — SOLO para fotos que no la traen ya incrustada de origen.
+   El generador anade la clase .foto-wm unicamente cuando el caso tiene
+   "marca_agua": true en casos.json (por defecto false, porque la mayoria
+   de las fotos reales ya vienen marcadas del proceso habitual del usuario). */
 .foto-wm{position:relative}
+.foto-wm::after{content:"";position:absolute;right:5px;bottom:5px;width:16%;min-width:26px;max-width:48px;aspect-ratio:571/642;background-image:url(/img/watermark-blackdog.png);background-size:contain;background-repeat:no-repeat;background-position:center;filter:drop-shadow(0 1px 3px rgba(0,0,0,.8));opacity:.95;pointer-events:none}
 
 /* Lightbox — ampliar fotos secundarias de un caso al pulsarlas */
 .lightbox-img{cursor:zoom-in}
