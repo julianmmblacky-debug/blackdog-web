@@ -35,7 +35,7 @@ $etiquetasCategoria = @{
 
 function Etiqueta($slug) {
   if ($etiquetasCategoria.ContainsKey($slug)) { return $etiquetasCategoria[$slug] }
-  return (Get-Culture).TextInfo.ToTitleCase($slug -replace '-', ' ')
+  return (Get-Culture).TextInfo.ToTitleCase(($slug -replace '-', ' '))
 }
 
 function WaLink($marcaNombre) {
@@ -70,7 +70,7 @@ foreach ($c in $casos) {
   if ($c.llegada_fotos -and $c.llegada_fotos.Count -gt 0) {
     $figs = foreach ($f in $c.llegada_fotos) {
       $cap = if ($f.caption) { "<figcaption>$($f.caption)</figcaption>" } else { '' }
-      "<figure><img src=""$($f.src)"" loading=""lazy"" alt=""$($f.alt)"">$cap</figure>"
+      "<figure><div class=""foto-wm""><img class=""lightbox-img"" src=""$($f.src)"" loading=""lazy"" alt=""$($f.alt)""></div>$cap</figure>"
     }
     $llegadaFotosHtml = "<div class=""caso-llegada-fotos reveal"">" + ($figs -join "`n") + "</div>"
   }
@@ -82,7 +82,7 @@ foreach ($c in $casos) {
 
   $galeriaBlock = ''
   if ($c.galeria -and $c.galeria.Count -gt 0) {
-    $imgs = foreach ($g in $c.galeria) { "<img src=""$($g.src)"" loading=""lazy"" alt=""$($g.alt)"">" }
+    $imgs = foreach ($g in $c.galeria) { "<div class=""foto-wm""><img class=""lightbox-img"" src=""$($g.src)"" loading=""lazy"" alt=""$($g.alt)""></div>" }
     $galeriaBlock = "<div class=""sec-head"" style=""margin-top:40px""><span class=""eyebrow"">Más fotos del caso</span></div><div class=""caso-galeria-extra reveal"">" + ($imgs -join "`n") + "</div>"
   }
 
@@ -120,7 +120,7 @@ $porMarca = $casos | Group-Object marca
 foreach ($grupo in $porMarca) {
   $marca = $grupo.Name
   $marcaNombre = $grupo.Group[0].marca_nombre
-  $marcaUpper = $marca.ToUpper() -replace '-', ''
+  $marcaUpper = $marca.ToUpper()
   $indexPath = Join-Path $root "cremallera-$marca\index.html"
   if (-not (Test-Path $indexPath)) {
     Write-Host "AVISO: no existe $indexPath, salto marca '$marca'"
@@ -142,7 +142,7 @@ foreach ($grupo in $porMarca) {
     $catsAttr = ($c.categorias -join ' ')
 @"
     <a class="caso-mini reveal" href="/cremallera-$marca/caso-$($c.id)/" data-modelo="$($c.modelo_slug)" data-cat="$catsAttr">
-      <div class="caso-mini-img"><img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)"></div>
+      <div class="caso-mini-img foto-wm"><img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)"></div>
       <div class="caso-mini-body">
         <div class="caso-mini-model">$($c.modelo)</div>
         <div class="caso-mini-tag">$($c.tag)</div>

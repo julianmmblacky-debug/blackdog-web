@@ -48,10 +48,6 @@ html,body,main,.page,.page-inner,.wrap,section{max-width:100vw;overflow-x:hidden
   .foto-item figcaption{padding:10px 14px;font-size:.82rem;color:var(--muted);line-height:1.4}
   @media(max-width:860px){}
   @media(max-width:500px){.foto-grid{grid-template-columns:1fr}}
-    letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px}
-    background:var(--yellow);color:#0B0B0C;padding:12px 20px;border-radius:4px;
-    font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.08em;
-    text-transform:uppercase;text-decoration:none;font-weight:700}
   @media(max-width:600px){}
 
   @media(max-width:640px){}
@@ -93,10 +89,7 @@ html,body,main,.page,.page-inner,.wrap,section{max-width:100vw;overflow-x:hidden
   @media(max-width:700px){.cp-grid{grid-template-columns:1fr}.cp-num{font-size:2rem}}
 
   /* ── HEADER REDESIGN (Gemini-style) ── */
-  
-  /* Línea amarilla top */92%{transform:rotate(-12deg)}96%{transform:rotate(12deg)}}
-    50%{box-shadow:0 4px 24px rgba(37,211,102,.6)}}
-  
+
   /* Desktop/Mobile breakpoints */
   @media(max-width:900px){
   }
@@ -117,9 +110,7 @@ html,body,main,.page,.page-inner,.wrap,section{max-width:100vw;overflow-x:hidden
   /* Contacto */
   
   /* WhatsApp */
-    50%{box-shadow:0 4px 28px rgba(37,211,102,.65)}
-  }
-  
+
   /* Burger */
   
   /* Nav bar inferior */
@@ -304,14 +295,10 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
   @media(max-width:640px){.hd .btn.hd-cta-full{display:none}.hd-cta-icon{display:inline-flex;padding:9px;border-radius:50%;background:var(--yellow);color:#141110}.hd-cta-icon svg{width:20px;height:20px}.cards{grid-template-columns:1fr}.caso-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid #000}.step:last-child{border-bottom:0}.foot-grid{grid-template-columns:1fr;gap:34px}.wa-float{display:flex}h1 .stroke{-webkit-text-stroke:1px var(--bone)}.strip-row{gap:6px 18px;font-size:.66rem}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
 
-html{scroll-behavior:auto}}
-html{scroll-behavior:auto}}
-
 
   .glist{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:8px}
   .glist li{color:var(--bone-dim);font-size:.98rem;padding-left:18px;position:relative}
   .glist li::before{content:"—";position:absolute;left:0;color:var(--yellow);opacity:.7}
-html{scroll-behavior:auto}}
 
 
   .caso-grid-full{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:clamp(28px,4vw,44px)}
@@ -441,6 +428,18 @@ html{scroll-behavior:auto}}
 .filtro-btn:hover{color:var(--yellow);border-color:var(--yellow)}
 .filtro-btn.active{color:#141110;background:var(--yellow);border-color:var(--yellow);font-weight:700}
 .caso-sin-resultados{display:none;text-align:center;padding:40px 0;color:var(--muted);font-size:.95rem}
+
+/* Marca de agua automática — se aplica a cualquier foto envuelta en .foto-wm,
+   nueva o vieja, sin tener que editar la imagen en sí */
+.foto-wm{position:relative}
+.foto-wm::after{content:"BLACKDOG";position:absolute;right:8px;bottom:6px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;font-weight:700;color:rgba(242,194,0,.8);text-shadow:0 1px 2px rgba(0,0,0,.95),0 0 8px rgba(0,0,0,.7);pointer-events:none;text-transform:uppercase}
+
+/* Lightbox — ampliar fotos secundarias de un caso al pulsarlas */
+.lightbox-img{cursor:zoom-in}
+.lightbox-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(6,7,8,.94);align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox-overlay.open{display:flex}
+.lightbox-overlay img{max-width:min(92vw,1100px);max-height:88vh;object-fit:contain;border-radius:6px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.lightbox-close{position:absolute;top:18px;right:22px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:1.3rem;display:flex;align-items:center;justify-content:center;cursor:pointer}
 
 @media(max-width:640px){
   .hero-inner{display:flex;flex-direction:column}

@@ -1,6 +1,26 @@
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+// Lightbox — ampliar foto al pulsarla (fotos secundarias del caso individual)
+if (document.querySelectorAll('.lightbox-img').length) {
+  var overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = '<span class="lightbox-close" aria-label="Cerrar">✕</span><img alt="">';
+  document.body.appendChild(overlay);
+  var overlayImg = overlay.querySelector('img');
+  function openLightbox(src, alt) {
+    overlayImg.src = src;
+    overlayImg.alt = alt || '';
+    overlay.classList.add('open');
+  }
+  function closeLightbox() { overlay.classList.remove('open'); overlayImg.src = ''; }
+  document.querySelectorAll('.lightbox-img').forEach(function(img){
+    img.addEventListener('click', function(){ openLightbox(img.currentSrc || img.src, img.alt); });
+  });
+  overlay.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
+}
+
 // Filtros del archivo de casos (por modelo y por problema)
 document.querySelectorAll('.caso-filtros').forEach(function(filtrosEl){
   var grid = document.getElementById(filtrosEl.dataset.target);
