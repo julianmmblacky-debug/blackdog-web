@@ -132,6 +132,9 @@ foreach ($grupo in $porMarca) {
   $modelos = $grupo.Group | Select-Object -ExpandProperty modelo_slug -Unique
   $cats = $grupo.Group | ForEach-Object { $_.categorias } | Select-Object -Unique
 
+  $numCasos = $grupo.Group.Count
+  $countLabel = if ($numCasos -eq 1) { '1 caso publicado' } else { "$numCasos casos publicados" }
+
   $filtroModelos = foreach ($m in $modelos) {
     $label = ($grupo.Group | Where-Object { $_.modelo_slug -eq $m } | Select-Object -First 1).modelo -replace "^$marcaNombre\s+", ''
     "      <button class=""filtro-btn"" data-filtro=""$m"">$label</button>"
@@ -171,6 +174,7 @@ foreach ($grupo in $porMarca) {
 
   $bloque = @"
 <!-- CASOS:$($marcaUpper):START -->
+  <p class="caso-count">$countLabel</p>
   <div class="caso-filtros" data-target="casos-grid-$marca">
     <div class="filtro-row" data-filtro-group="modelo">
       <button class="filtro-btn active" data-filtro="todos">Todos</button>

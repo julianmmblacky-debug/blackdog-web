@@ -415,8 +415,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
 
 .caso-mini{display:flex;flex-direction:column;background:linear-gradient(180deg,#1e2025,#16181c);border:1px solid #2a2c32;border-radius:8px;overflow:hidden;text-decoration:none;transition:transform .2s ease,border-color .2s ease}
 .caso-mini:hover{transform:translateY(-3px);border-color:var(--yellow)}
-.caso-mini-img{aspect-ratio:4/3;max-height:300px;overflow:hidden;background:#1a1d22}
-.caso-mini-img img{width:100%;height:100%;object-fit:cover;display:block}
+.caso-mini-img{aspect-ratio:4/3;overflow:hidden;background:#111316}
+.caso-mini-img img{width:100%;height:100%;object-fit:contain;display:block}
+.caso-count{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow);margin:-8px 0 22px}
 .caso-mini-body{padding:16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
 .caso-mini-model{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.15rem;color:var(--bone);line-height:1.1}
 .caso-mini-tag{font-size:.85rem;color:var(--bone-dim)}
