@@ -38,8 +38,8 @@ function Etiqueta($slug) {
   return (Get-Culture).TextInfo.ToTitleCase(($slug -replace '-', ' '))
 }
 
-function WaLink($marcaNombre) {
-  $texto = "Hola Julian, tengo una cremallera/caja de direccion de un $marcaNombre [modelo, ano]. El problema es [sintoma]. Puedes decirme si tiene reparacion y darme una orientacion de precio?"
+function WaLink($modelo) {
+  $texto = "Hola Julian, tengo una cremallera/caja de direccion de un $modelo [ano]. El problema es [sintoma]. Vi el caso que teneis publicado y queria consultar el mio. Puedes decirme si tiene reparacion y darme una orientacion de precio?"
   return "https://wa.me/34697501984?text=" + [Uri]::EscapeDataString($texto)
 }
 
@@ -49,7 +49,7 @@ $plantilla = Read-Utf8 (Join-Path $root 'templates\caso.html')
 # ── 1) Paginas individuales de cada caso ──────────────────────────────
 foreach ($c in $casos) {
   $html = $plantilla
-  $waLink = WaLink $c.marca_nombre
+  $waLink = WaLink $c.modelo
   $wmClass = if ($c.marca_agua) { 'foto-wm' } else { '' }
 
   $referenciaBlock = ''
