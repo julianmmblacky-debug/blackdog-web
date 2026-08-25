@@ -5,7 +5,7 @@
     "marca_nombre": "Mitsubishi",
     "modelo": "Mitsubishi Montero V60",
     "modelo_slug": "montero-v60",
-    "referencia": "MR449370",
+    "referencia": "MR449370 · Koyo 0Z27038",
     "titulo": "Fuga y holgura en el distribuidor",
     "tag": "Fuga · Holgura en el distribuidor",
     "categorias": ["fuga", "holgura"],
@@ -18,7 +18,7 @@
     "llegada_fotos": [
       { "src": "/img/cremallera_mitsubishi_montero_antes_completa_1.jpg", "alt": "Cremallera Mitsubishi Montero V60 completa, antes de reparar", "caption": "Antes" },
       { "src": "/img/cremallera_mitsubishi_montero_antes_distribuidor.jpg", "alt": "Distribuidor Mitsubishi Montero V60 antes de reparar", "caption": "Antes" },
-      { "src": "/img/cremallera_mitsubishi_montero_referencia_mr449370.jpg", "alt": "Referencia MR449370 en la etiqueta de la pieza", "caption": "Referencia MR449370" },
+      { "src": "/img/cremallera_mitsubishi_montero_referencia_mr449370.jpg", "alt": "Referencia MR449370 y Koyo 0Z27038 en la etiqueta de la pieza", "caption": "Referencia MR449370 · Koyo 0Z27038" },
       { "src": "/img/cremallera_mitsubishi_montero_terminado_detalle.jpg", "alt": "Distribuidor Mitsubishi Montero V60 terminado, detalle", "caption": "Después" },
       { "src": "/img/cremallera_reparada_mitsubishi_montero_fuga_holgura_distribuidor_terminada.jpg", "alt": "Cremallera de dirección Mitsubishi Montero V60 reparada, terminada", "caption": "Después" },
       { "src": "/img/cremallera_mitsubishi_montero_terminada_embalada.jpg", "alt": "Cremallera Mitsubishi Montero V60 terminada, embalada para el envío", "caption": "Después" }
