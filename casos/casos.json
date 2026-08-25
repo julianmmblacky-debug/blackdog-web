@@ -16,6 +16,7 @@
     "respondimos": "\"Estas cremalleras suelen dar problemas en los tubos de conexión — hay que tener cuidado de no golpearlos, los racores de entrada son de conexión rápida a presión. Y en la cabeza suelen coger una holgura considerable.\"",
     "llegada_texto": "Al revisarla, el problema no era solo la fuga que había avisado el otro taller: el distribuidor tenía una holgura considerable.",
     "llegada_fotos": [
+      { "src": "/img/cremallera_volvo_xc70_completa_antes_sucia.jpg", "alt": "Cremallera Volvo XC70 completa, antes de reparar", "caption": "Antes" },
       { "src": "/img/cremallera_volvo_xc70_distribuidor_antes_oxidado.jpg", "alt": "Distribuidor Volvo XC70 antes de reparar, oxidado", "caption": "Antes" },
       { "src": "/img/cremallera_volvo_xc70_fuga_liquido_hidraulico.jpg", "alt": "Fuga de líquido hidráulico en cremallera Volvo XC70", "caption": "La fuga que avisó el cliente" },
       { "src": "/img/cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg", "alt": "Distribuidor Volvo XC70 terminado, detalle", "caption": "Después" },

@@ -14,11 +14,7 @@ $wmPath = Join-Path $root 'img\watermark-blackdog.png'
 $wm = [System.Drawing.Image]::FromFile($wmPath)
 
 $targets = @(
-  'img\cremallera_reparada_volvo_xc70_fuga_holgura_distribuidor_terminada.jpg',
-  'img\cremallera_volvo_xc70_distribuidor_antes_oxidado.jpg',
-  'img\cremallera_volvo_xc70_fuga_liquido_hidraulico.jpg',
-  'img\cremallera_volvo_xc70_referencia_p30723807.jpg',
-  'img\cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg'
+  'img\cremallera_volvo_xc70_completa_antes_sucia.jpg'
 )
 
 foreach ($rel in $targets) {
