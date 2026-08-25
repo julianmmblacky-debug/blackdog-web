@@ -1,5 +1,34 @@
 [
   {
+    "id": "montero-v60-fuga-holgura-distribuidor",
+    "marca": "mitsubishi",
+    "marca_nombre": "Mitsubishi",
+    "modelo": "Mitsubishi Montero V60",
+    "modelo_slug": "montero-v60",
+    "referencia": "MR449370",
+    "titulo": "Fuga y holgura en el distribuidor",
+    "tag": "Fuga · Holgura en el distribuidor",
+    "categorias": ["fuga", "holgura"],
+    "fecha": "2025-11-28",
+    "foto_portada": "/img/cremallera_reparada_mitsubishi_montero_fuga_holgura_distribuidor_terminada.jpg",
+    "foto_portada_alt": "Cremallera de dirección Mitsubishi Montero V60 reparada, terminada",
+    "cliente_conto": "\"Fuga de aceite.\" No había notado holguras, ruidos ni golpes. Es un vehículo de uso habitual por caminos y campo.",
+    "respondimos": "\"Seguramente tiene arreglo, no es la primera que me llega así.\"",
+    "llegada_texto": "Al abrirla, además de la fuga que avisaba el cliente, el distribuidor tenía una holgura considerable y cierto desgaste en la carcasa que hacía perder presión en el retorno.",
+    "llegada_fotos": [
+      { "src": "/img/cremallera_mitsubishi_montero_antes_completa_1.jpg", "alt": "Cremallera Mitsubishi Montero V60 completa, antes de reparar", "caption": "Antes" },
+      { "src": "/img/cremallera_mitsubishi_montero_antes_distribuidor.jpg", "alt": "Distribuidor Mitsubishi Montero V60 antes de reparar", "caption": "Antes" },
+      { "src": "/img/cremallera_mitsubishi_montero_antes_completa_2.jpg", "alt": "Cremallera Mitsubishi Montero V60 completa, otro ángulo antes de reparar", "caption": "Antes" },
+      { "src": "/img/cremallera_mitsubishi_montero_referencia_mr449370.jpg", "alt": "Referencia MR449370 en la etiqueta de la pieza", "caption": "Referencia MR449370" },
+      { "src": "/img/cremallera_mitsubishi_montero_terminado_detalle.jpg", "alt": "Distribuidor Mitsubishi Montero V60 terminado, detalle", "caption": "Después" },
+      { "src": "/img/cremallera_reparada_mitsubishi_montero_fuga_holgura_distribuidor_terminada.jpg", "alt": "Cremallera de dirección Mitsubishi Montero V60 reparada, terminada", "caption": "Después" },
+      { "src": "/img/cremallera_mitsubishi_montero_terminada_embalada.jpg", "alt": "Cremallera Mitsubishi Montero V60 terminada, embalada para el envío", "caption": "Después" }
+    ],
+    "resultado": "Se reparó el distribuidor desgastado y se corrigió la holgura. Se probó en el banco de pruebas y se dejó en reposo unos días para comprobar que no volvían a aparecer gotas antes de devolverla.",
+    "cita_final": "",
+    "galeria": []
+  },
+  {
     "id": "xc70-fuga-holgura-distribuidor",
     "marca": "volvo",
     "marca_nombre": "Volvo",

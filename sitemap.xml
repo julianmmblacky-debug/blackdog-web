@@ -93,7 +93,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.reparacion-cremallera-direccion.com/cremallera-mitsubishi/</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- CASOS:START -->
+  <url>
+    <loc>https://www.reparacion-cremallera-direccion.com/cremallera-mitsubishi/caso-montero-v60-fuga-holgura-distribuidor/</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://www.reparacion-cremallera-direccion.com/cremallera-volvo/caso-xc70-fuga-holgura-distribuidor/</loc>
     <lastmod>2026-08-24</lastmod>
