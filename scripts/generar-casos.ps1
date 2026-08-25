@@ -78,7 +78,7 @@ foreach ($c in $casos) {
 
   $citaFinalBlock = ''
   if ($c.cita_final) {
-    $citaFinalBlock = "<div class=""sec-head"" style=""margin-top:40px""><span class=""eyebrow"">Lo que nos dijo después</span></div><p class=""caso-testimonio"" style=""font-size:1.05rem"">$($c.cita_final)</p>"
+    $citaFinalBlock = "<div class=""caso-step-head"" style=""margin-top:40px""><span class=""caso-step-num"">3</span><span class=""eyebrow"" style=""margin:0"">Cómo acabó</span></div><p class=""caso-testimonio"" style=""font-size:1.05rem"">$($c.cita_final)</p>"
   }
 
   $galeriaBlock = ''
@@ -146,6 +146,7 @@ foreach ($grupo in $porMarca) {
   $tarjetas = foreach ($c in $grupo.Group) {
     $catsAttr = ($c.categorias -join ' ')
     $wmClassMini = if ($c.marca_agua) { ' foto-wm' } else { '' }
+    $tagBadgeText = if ($c.referencia) { "$($c.modelo) · ref. $($c.referencia)" } else { $c.modelo }
 
     $extraFotos = @()
     if ($c.llegada_fotos) { $extraFotos += $c.llegada_fotos }
@@ -161,7 +162,10 @@ foreach ($grupo in $porMarca) {
     }
 @"
     <a class="caso-mini reveal" href="/cremallera-$marca/caso-$($c.id)/" data-modelo="$($c.modelo_slug)" data-cat="$catsAttr">
-      <div class="caso-mini-img$wmClassMini"><img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)"></div>
+      <div class="caso-mini-img$wmClassMini">
+        <span class="caso-mini-tag-badge">$tagBadgeText</span>
+        <img src="$($c.foto_portada)" loading="lazy" alt="$($c.foto_portada_alt)">
+      </div>
       <div class="caso-mini-body">
         <div class="caso-mini-model">$($c.modelo)</div>
         <div class="caso-mini-tag">$($c.tag)</div>
