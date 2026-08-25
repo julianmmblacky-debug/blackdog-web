@@ -18,8 +18,9 @@
     "llegada_fotos": [
       { "src": "/img/cremallera_volvo_xc70_distribuidor_antes_oxidado.jpg", "alt": "Distribuidor Volvo XC70 antes de reparar, oxidado", "caption": "Antes" },
       { "src": "/img/cremallera_volvo_xc70_fuga_liquido_hidraulico.jpg", "alt": "Fuga de líquido hidráulico en cremallera Volvo XC70", "caption": "La fuga que avisó el cliente" },
-      { "src": "/img/cremallera_volvo_xc70_referencia_p30723807.jpg", "alt": "Referencia Volvo P30723807 en la etiqueta de la pieza", "caption": "Referencia P30723807" },
-      { "src": "/img/cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg", "alt": "Distribuidor Volvo XC70 terminado, detalle", "caption": "Después" }
+      { "src": "/img/cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg", "alt": "Distribuidor Volvo XC70 terminado, detalle", "caption": "Después" },
+      { "src": "/img/cremallera_reparada_volvo_xc70_fuga_holgura_distribuidor_terminada.jpg", "alt": "Cremallera de dirección Volvo XC70 reparada, terminada", "caption": "Después" },
+      { "src": "/img/cremallera_volvo_xc70_referencia_p30723807.jpg", "alt": "Referencia Volvo P30723807 en la etiqueta de la pieza", "caption": "Referencia P30723807" }
     ],
     "resultado": "Se sustituyó el distribuidor (aprovechando uno compatible de otra unidad ya reparada en el taller, para no alargar el plazo) y se hizo una reparación completa con cambio de aceite. Comprobada antes de devolverla.",
     "cita_final": "\"Se ve como nueva.\"",
