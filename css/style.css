@@ -27,8 +27,15 @@ html,body,main,.page,.page-inner,.wrap,section{max-width:100vw;overflow-x:hidden
 
   .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}
   .info-bloque{background:#1a1d22;border:1px solid #2a2c32;border-radius:8px;padding:18px 20px}
+  .info-bloque.span{grid-column:1/-1}
   .info-bloque h3{font-size:.95rem;color:var(--yellow);margin-bottom:8px;font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
   .info-bloque p{font-size:.88rem;color:var(--bone-dim);line-height:1.5}
+  .info-sym{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:10px}
+  .info-sym li{display:flex;gap:10px;align-items:flex-start}
+  .info-sym li::before{content:"";width:7px;height:7px;flex:none;margin-top:6px;background:var(--yellow);transform:rotate(45deg)}
+  .info-sym li div{display:flex;flex-direction:column;gap:2px}
+  .info-sym b{color:var(--bone);font-size:.88rem;font-weight:600}
+  .info-sym span{color:var(--bone-dim);font-size:.8rem}
   .info-precio-box{margin-top:20px;padding:20px 24px;background:linear-gradient(135deg,#1a1d22,#14161a);border:1px solid #2a2c32;border-left:3px solid var(--yellow);border-radius:6px}
   .info-precio-box h3{color:var(--bone);margin-bottom:8px}
   .info-precio-box p{color:var(--bone-dim);font-size:.92rem}
