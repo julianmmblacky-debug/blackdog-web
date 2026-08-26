@@ -21,7 +21,7 @@ while ($listener.IsListening) {
   if ($path -eq '/') { $path = '/index.html' }
   if ($path.EndsWith('/')) { $path = $path + 'index.html' }
   $fs = Join-Path $root ($path.TrimStart('/') -replace '/', '\')
-  if (-not (Test-Path $fs) -and (Test-Path (Join-Path $fs 'index.html'))) { $fs = Join-Path $fs 'index.html' }
+  if ((Test-Path $fs -PathType Container) -and (Test-Path (Join-Path $fs 'index.html'))) { $fs = Join-Path $fs 'index.html' }
   if (Test-Path $fs -PathType Leaf) {
     $ext = [IO.Path]::GetExtension($fs)
     $ctype = if ($mime.ContainsKey($ext)) { $mime[$ext] } else { 'application/octet-stream' }
