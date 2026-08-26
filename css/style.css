@@ -232,11 +232,13 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
   .hd-call svg{width:18px;height:18px}
   .hd-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:linear-gradient(180deg,#33363b,#212327);border:1px solid #45484e;border-radius:4px;cursor:pointer;flex:0 0 auto}
   .hd-burger span{display:block;height:2px;width:18px;margin:0 auto;background:var(--bone-dim);border-radius:1px;transition:transform .2s ease,opacity .2s ease}
+  .hd-burger[aria-expanded="true"]{border-color:#e24b4a}
+  .hd-burger[aria-expanded="true"] span{background:#e24b4a;width:20px}
   .hd-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .hd-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
   .hd-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .hd-mnav{display:none;flex-direction:column;background:#101113;border-top:1px solid #000;overflow:hidden;max-height:0;transition:max-height .25s ease}
-  .hd-mnav.open{max-height:80vh;overflow-y:auto}
+  .hd-mnav.open{max-height:80vh;overflow-y:auto;box-shadow:0 24px 44px -14px rgba(0,0,0,.65)}
   .hd-mnav a{padding:18px 24px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--bone-dim);border-bottom:1px solid #2a2c32;border-left:3px solid transparent;background:#17191c;transition:background-color .15s ease,border-color .15s ease}
   .hd-mnav a:nth-child(even){background:#101113}
   .hd-mnav a:active{background:#1e2124;border-left-color:var(--yellow)}
