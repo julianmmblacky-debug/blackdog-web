@@ -13,6 +13,7 @@ $mime = @{
   '.html'='text/html; charset=utf-8'; '.css'='text/css'; '.js'='application/javascript'
   '.jpg'='image/jpeg'; '.jpeg'='image/jpeg'; '.png'='image/png'; '.svg'='image/svg+xml'
   '.xml'='application/xml'; '.json'='application/json'; '.ico'='image/x-icon'
+  '.mp4'='video/mp4'; '.webm'='video/webm'; '.webp'='image/webp'; '.gif'='image/gif'
 }
 
 while ($listener.IsListening) {
@@ -27,6 +28,7 @@ while ($listener.IsListening) {
     $ctype = if ($mime.ContainsKey($ext)) { $mime[$ext] } else { 'application/octet-stream' }
     $bytes = [IO.File]::ReadAllBytes($fs)
     $ctx.Response.ContentType = $ctype
+    $ctx.Response.Headers.Add('Cache-Control', 'no-store, no-cache, must-revalidate')
     $ctx.Response.ContentLength64 = $bytes.Length
     $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
   } else {
