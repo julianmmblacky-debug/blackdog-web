@@ -189,6 +189,12 @@ function icMostrarConfirmacion(form, mensaje){
     '<p style="color:var(--bone-dim);margin:0 0 30px;line-height:1.6;font-size:1.05rem">' + mensaje + '</p>' +
     '<a href="/" style="color:var(--yellow);font-family:\'IBM Plex Mono\',monospace;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:10px 20px;border:1px solid rgba(242,194,0,.3);border-radius:4px">← Volver a inicio</a>' +
     '</div>';
+  // El formulario desaparece y la página se queda corta: en el móvil la pantalla se quedaba en el pie
+  // y no se veía el mensaje. Se sube arriba del todo (el mensaje está justo debajo de la cabecera).
+  try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
+  // El círculo de % ya no tiene sentido una vez enviada la petición
+  var badge = document.getElementById('nvProgressBadge');
+  if (badge) badge.style.display = 'none';
 }
 
 document.querySelectorAll('.icForm').forEach(function(form){
@@ -231,7 +237,7 @@ document.querySelectorAll('.icForm').forEach(function(form){
       .then(function(res){
         if (res.success) {
           trackGA4('form_submit', { location: 'intercambio-form' });
-          icMostrarConfirmacion(form, 'Te enviaremos fotos e información antes de que decidas — te contestamos por donde nos has dicho. Si lo prefieres, también puedes escribirme directamente al 697 50 19 84, es donde estoy más activo. Si llamas y no contesto, seguramente esté con las manos en el taller — te devuelvo la llamada o te escribo en cuanto lo vea.');
+          icMostrarConfirmacion(form, 'Me ha llegado tu petición. Te contesto yo mismo por donde me has dicho, lo antes posible. Si lo prefieres, también puedes escribirme directamente al 697 50 19 84, es donde estoy más activo. Si llamas y no contesto, seguramente esté con las manos en el taller — te devuelvo la llamada o te escribo en cuanto lo vea.');
         } else {
           btn.disabled = false; btn.textContent = textoOriginal;
           alert('No se pudo enviar. Prueba de nuevo o escríbeme por WhatsApp.');
