@@ -832,6 +832,7 @@ if (typeof nav === 'function') {
     else if (pct >= 40) badge.classList.add('nv-progress--orange');
     else badge.classList.add('nv-progress--red');
     if (lastPct !== null && justFilled) triggerPulse();
+    try { nvFunnelProgress(pct); } catch(e){}
     lastPct = pct;
     checkTelefonoWarn();
   }
@@ -847,6 +848,90 @@ if (typeof nav === 'function') {
     var vacio = !telefonoInput.value.trim();
     telefonoInput.classList.toggle('nv-field-warn', llamadaChecked && vacio);
   }
+  // ---- Medición del embudo del formulario ----
+  // Solo se envía: nº de paso, % de relleno y si se marchó a WhatsApp/llamada. NUNCA lo que escribe la persona.
+  // Todo va en try/catch: la medición no puede impedir que el formulario funcione.
+  // Eventos (GA4 + Clarity): form_inicio, form_paso_2/3/4, form_progreso_25/50/75/100,
+  //   form_abandono / form_abandono_a_whatsapp / form_abandono_a_llamada, form_vuelve  (+ el form_submit de siempre = enviado)
+  var fn = { started:false, sent:false, abandoned:false, maxStep:0, steps:{}, marks:{}, leaving:'' };
+  var stepOf = {};
+  try {
+    if (typeof icStepFields !== 'undefined') Object.keys(icStepFields).forEach(function(s){
+      icStepFields[s].forEach(function(n){ stepOf[n] = +s; });
+    });
+  } catch(e){}
+  function nvEvt(name, extra){
+    try {
+      var p = { location:'portada', progreso: (lastPct || 0), paso_max: fn.maxStep };
+      if (extra) for (var k in extra) p[k] = extra[k];
+      if (typeof gtag === 'function') gtag('event', name, p);
+      if (typeof window.clarity === 'function') window.clarity('event', name);
+    } catch(e){}
+  }
+  function nvStep(n){
+    try {
+      if (!n) return;
+      if (!fn.started) { fn.started = true; nvEvt('form_inicio'); }
+      if (n > fn.maxStep) fn.maxStep = n;
+      if (n >= 2 && !fn.steps[n]) { fn.steps[n] = true; nvEvt('form_paso_' + n); }
+    } catch(e){}
+  }
+  function nvFunnelProgress(pct){
+    [25, 50, 75, 100].forEach(function(m){
+      if (pct >= m && !fn.marks[m]) { fn.marks[m] = true; nvEvt('form_progreso_' + m, { progreso: pct }); }
+    });
+  }
+  function nvOnField(e){
+    try {
+      var t = e.target, nm = t && t.name;
+      if (nm && stepOf[nm]) nvStep(stepOf[nm]);
+      else if (t && t.closest && t.closest('.ic-step1')) nvStep(1);
+    } catch(x){}
+  }
+  function nvAbandon(){
+    try {
+      if (!fn.started || fn.sent || fn.abandoned) return;
+      fn.abandoned = true; // como mucho una vez por visita
+      var name = fn.leaving === 'whatsapp' ? 'form_abandono_a_whatsapp' : (fn.leaving === 'llamada' ? 'form_abandono_a_llamada' : 'form_abandono');
+      nvEvt(name, { progreso: (lastPct || 0), transport_type: 'beacon' });
+    } catch(e){}
+  }
+  // El envío real lo detecta el form_submit que ya mandaba la web
+  try {
+    var nvPrevTrack = window.trackGA4;
+    window.trackGA4 = function(ev, params){
+      try { if (ev === 'form_submit') fn.sent = true; } catch(e){}
+      return nvPrevTrack ? nvPrevTrack.apply(this, arguments) : undefined;
+    };
+  } catch(e){}
+  form.addEventListener('input', nvOnField);
+  form.addEventListener('change', nvOnField);
+  wrap.querySelectorAll('.ic-step1 button').forEach(function(b){ b.addEventListener('click', function(){ nvStep(1); }); });
+  document.addEventListener('click', function(e){
+    try {
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var h = a.getAttribute('href') || '';
+      if (h.indexOf('wa.me') !== -1) fn.leaving = 'whatsapp';
+      else if (h.indexOf('tel:') === 0) fn.leaving = 'llamada';
+    } catch(x){}
+  }, true);
+  // Si la persona sale un momento (elegir una foto, mirar otra app) y vuelve, se avisa con form_vuelve:
+  // abandonos reales = form_abandono* menos form_vuelve.
+  function nvReturn(){
+    try {
+      if (!fn.abandoned || fn.sent) return;
+      fn.abandoned = false;
+      fn.leaving = '';
+      nvEvt('form_vuelve', { progreso: (lastPct || 0) });
+    } catch(e){}
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') nvAbandon();
+    else if (document.visibilityState === 'visible') nvReturn();
+  });
+  window.addEventListener('pagehide', nvAbandon);
+
   form.addEventListener('input', calc);
   form.addEventListener('change', calc);
   wrap.querySelectorAll('.ic-step1 button').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(calc, 0); }); });
