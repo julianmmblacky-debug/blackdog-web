@@ -17,6 +17,8 @@ foreach ($f in $files) {
   $orig = $text
   $text = [regex]::Replace($text, 'style\.css\?v=\d+', "style.css?v=$newVersion")
   $text = [regex]::Replace($text, 'script\.js\?v=\d+', "script.js?v=$newVersion")
+  # CSS del diseno nuevo (portada, marcas, casos-que-resuelvo): antes se olvidaba al refrescar versiones
+  $text = [regex]::Replace($text, 'nuevo-draft\.css\?v=\d+', "nuevo-draft.css?v=$newVersion")
   if ($text -ne $orig) {
     [System.IO.File]::WriteAllText($f.FullName, $text, $Utf8NoBom)
     $count++

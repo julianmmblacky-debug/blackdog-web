@@ -290,3 +290,7 @@
   .nv-hero-sub--tall::after{filter:grayscale(.1) brightness(.95) contrast(1.05)}
   .nv-hero-sub--tall::before{background:linear-gradient(180deg,rgba(11,11,12,.72) 0px,rgba(11,11,12,.48) 150px,rgba(11,11,12,.2) 300px,rgba(11,11,12,.1) 460px,rgba(11,11,12,.1) calc(100% - 220px),rgba(11,11,12,.4) 100%)}
 }
+/* Cabecera compacta hasta 1239px en las paginas del diseno nuevo: sus botones de menu son mas anchos y por debajo de ~1240px el boton de WhatsApp quedaba fuera de la pantalla */
+@media(max-width:1239px){.hd-nav.hd-desktop-only{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}}
+/* Entre 861 y 1100px el logo de BLACKDOG se montaba encima del titulo: se coloca encima, alineado con el texto */
+@media(min-width:861px) and (max-width:1100px){.nv-hero--tall .nv-hero-watermark{left:24px;top:28px;width:160px}}

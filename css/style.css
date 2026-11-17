@@ -343,7 +343,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
   .cta-row{text-align:center;padding:0 24px clamp(46px,7vw,84px)}
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
-  @media(max-width:860px){.hd-tag{display:none}.hd-desktop-only .hd-nav{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}.about-in{grid-template-columns:1fr;gap:34px}.escudo{position:static;width:min(340px,84vw)}.steelplate{max-width:360px;margin:0 auto}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(1),.step:nth-child(2){border-bottom:1px solid #000}}
+  /* Cabecera compacta (logo + WhatsApp + menú de 3 rayas) hasta 1023px: por encima de 640px el menú completo no cabía y empujaba el botón de WhatsApp fuera de la pantalla */
+  @media(max-width:1023px){.hd-nav.hd-desktop-only{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}}
+  @media(max-width:860px){.hd-tag{display:none}.hd-nav.hd-desktop-only{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}.about-in{grid-template-columns:1fr;gap:34px}.escudo{position:static;width:min(340px,84vw)}.steelplate{max-width:360px;margin:0 auto}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(1),.step:nth-child(2){border-bottom:1px solid #000}}
   @media(max-width:640px){.hd .btn.hd-cta-full{display:none}.hd-cta-icon{display:inline-flex;padding:9px;border-radius:50%;background:var(--yellow);color:#141110}.hd-cta-icon svg{width:20px;height:20px}.cards{grid-template-columns:1fr}.caso-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid #000}.step:last-child{border-bottom:0}.foot-grid{grid-template-columns:1fr;gap:34px}.wa-float{display:flex}h1 .stroke{-webkit-text-stroke:1px var(--bone)}.strip-row{gap:6px 18px;font-size:.66rem}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
 
