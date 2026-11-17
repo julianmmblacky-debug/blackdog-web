@@ -294,3 +294,11 @@
 @media(max-width:1239px){.hd-nav.hd-desktop-only{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}}
 /* Entre 861 y 1100px el logo de BLACKDOG se montaba encima del titulo: se coloca encima, alineado con el texto */
 @media(min-width:861px) and (max-width:1100px){.nv-hero--tall .nv-hero-watermark{left:24px;top:28px;width:160px}}
+/* Insignias de la portada (40+, 20+, Cientos...) en cuadrícula: 2 columnas en el móvil, 3 en tableta (antes 2 en la primera fila y 1 en las demás) */
+@media(max-width:1100px){.nv-badges--bottom .nv-badges-in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px;justify-content:stretch}}
+@media(min-width:861px) and (max-width:1100px){.nv-badges--bottom .nv-badges-in{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.nv-badges--bottom svg{flex-shrink:0}
+/* /marcas/: el nombre de la marca grande y la etiqueta pequeña */
+.nv-brand-grid .modcta-marca strong{font-family:var(--font-display);font-size:1.45rem;letter-spacing:.01em;color:var(--bone);margin:4px 0 6px;line-height:1.1}
+.nv-brand-grid .modcta-marca:hover strong{color:var(--yellow)}
+.nv-brand-grid .nv-brand-tag{font-size:.58rem;padding:3px 7px;margin-bottom:6px}
