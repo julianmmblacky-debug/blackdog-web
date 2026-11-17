@@ -346,6 +346,14 @@ if(document.getElementById('page-inicio')){
     nav(hashId);
   } else {
     nav('inicio');
+    // Si el # apunta a un elemento de la portada (p. ej. #encuentrala-home desde otra pagina),
+    // nav() acaba de hacer scrollTo(0,0): hay que volver a bajar hasta ese elemento.
+    var anchorEl = hashId ? document.getElementById(hashId) : null;
+    if(anchorEl){
+      var goAnchor = function(){ anchorEl.scrollIntoView(); };
+      goAnchor();
+      window.addEventListener('load', goAnchor, {once:true}); // por si el layout se mueve al cargar imagenes
+    }
   }
 }
 
