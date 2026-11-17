@@ -37,7 +37,8 @@ Sitio **estático** (HTML/CSS/JS planos, sin build ni backend). Cada carpeta con
 - `auditoria-web.ps1` — **revisa las 39 páginas**: título/h1/descripción únicos, canonical, `noindex`, JSON-LD válido, enlaces/imágenes/anclas, sitemap, GTM/GA4/Clarity. Debe decir `PROBLEMAS: 0`.
 - `static-server.ps1` — servidor local en `http://localhost:8123/` (sin caché) para probar antes de publicar.
 - `generar-casos.ps1` — genera las páginas de caso desde `casos.json` + plantilla, regenera las tarjetas de cada marca y el bloque del sitemap.
-- `bump-version.ps1` — cambia el `?v=` de `style.css` y `script.js` en todas las páginas (obligatorio tras tocar CSS/JS: la caché es de 1 año).
+- `bump-version.ps1` — cambia el `?v=` de `style.css`, `nuevo-draft.css` y `script.js` en todas las páginas (obligatorio tras tocar CSS/JS: la caché es de 1 año).
+- `pruebas-sin-analitica.ps1` — hace una copia de la web en `%TEMP%\blackdog-pruebas` que NO envía datos a GA4/GTM/Clarity (probar en local con la analítica activa mete visitas y clics falsos desde "localhost"). Servirla con el `static-server.ps1` de esa copia. `?y=1400` en la URL baja hasta esa altura (útil para capturas).
 - `watermark-bake.ps1` — incrusta el logo en fotos "crudas".
 
 **Medición:** GTM `GTM-53VWX8G`, GA4 `G-26M8MHTW9L`, Microsoft Clarity `y589jke8p8` (en todas las páginas). Los clics a WhatsApp/teléfono se miden desde GTM y `script.js`.
@@ -54,6 +55,12 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
 - **Decisión de SEO:** se publicó con el **título, descripción y etiquetas og/twitter de la portada antigua** ("… Desde 135€ · BLACKDOG") para no cambiar SEO y diseño a la vez. El título sin precio se probará aparte, más adelante.
 - **Correcciones que hubo que hacer al publicar (lección):** 74+74 enlaces de las 34 páginas de marca/caso apuntaban a secciones de la portada que ya no existían (`/#encuentrala`, `/#trabajos`) → ahora `/#encuentrala-home` y `/casos-que-resuelvo/`. Y se arregló en `script.js` que `/#encuentrala-home` desde otra página dejaba la portada arriba en vez de bajar al formulario. **Si se vuelve a quitar o renombrar una sección de la portada, buscar quién enlaza a ella en TODAS las páginas** (la auditoría lo detecta).
 - **Pendiente de ese rediseño:** 3 preguntas frecuentes de la portada antigua quedaron fuera de toda la web (ver pendientes).
+- **Revisión completa y arreglos del 17-nov por la tarde** (ninguno toca título, descripción, H1 ni textos principales de la portada):
+  - `1849b41` — Tras enviar el formulario, la pantalla sube al mensaje "¡Petición recibida!" (en el móvil se quedaba en el pie y no se veía) y se oculta el círculo de %. Texto de confirmación aclarado.
+  - `0eec415` — Cabecera compacta (logo + WhatsApp + menú de 3 rayas) en tabletas y portátiles pequeños: entre 641 y ~1.240 px el botón de WhatsApp quedaba fuera de la pantalla (regla CSS mal escrita). Entre 861 y 1.100 px el logo BLACKDOG ya no pisa el título.
+  - `b7428c2` — Menú de botones del diseño nuevo en TODAS las páginas (marca, casos, informativas); insignias de la portada (40+, 20+…) en cuadrícula 2×3 en el móvil; en `/marcas/` el nombre de la marca grande y las etiquetas pasan de "Página lista / Por crear" a "Ver casos / Consúltame".
+  - `af6f43b` — **Medición:** cada clic en WhatsApp/teléfono/email se contaba DOS veces (bloque repetido en `script.js`). **Desde el 17-nov (~11:15) `contacto` y `contacto_whatsapp/telefono/email` cuentan la mitad que antes: no es que bajen los contactos.** Formulario: al marcar "¿Tienes fotos o vídeos?" ya no aparece el selector de archivos (no llegaban al correo); se explica que al enviar se abre WhatsApp, el botón lo dice y la confirmación trae un botón "¿No se ha abierto? Abrir WhatsApp".
+- **Primer formulario real tras el rediseño:** 17-nov 7:17 (Web3Forms funcionando; el formulario envía desde el 26-ago-2026).
 - **Retoques posteriores (17-nov):** se quitó del pie de la portada el texto "BORRADOR — no publicado", que había llegado a producción; y el círculo de % del formulario se oculta solo cuando llega la línea del copyright (un `IntersectionObserver` sobre `.foot-bottom` con margen de 22 px), para no taparla pero seguir visible durante el resto del pie. Nota de pruebas: en el panel del navegador de Claude los avisos del observador llegan con retraso; esperar fotogramas (`requestAnimationFrame`) antes de leer el estado. **Lección:** la auditoría automática no revisa textos; antes de publicar, buscar a mano palabras como "borrador", "no publicado", "PENDIENTE" en el HTML renderizado.
 
 ---
@@ -66,7 +73,7 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
   1. `git checkout -b nombre-del-cambio`
   2. Hacer el cambio. Si son casos: `scripts\generar-casos.ps1`. Si se tocó CSS/JS: `scripts\bump-version.ps1`.
   3. `scripts\auditoria-web.ps1` → exigir **`PROBLEMAS: 0`**.
-  4. `scripts\static-server.ps1` y probar en el navegador (móvil y escritorio, enlaces, formulario). Para probar eventos sin ensuciar GA4, sustituir `gtag`/`clarity`/`fetch` por simulaciones.
+  4. Probar en el navegador (móvil, tableta 768/1024 y escritorio, enlaces, formulario), mejor sobre la copia de `scripts\pruebas-sin-analitica.ps1` para no ensuciar GA4/Clarity. Para probar el formulario, sustituir `fetch` y `window.open` por simulaciones. Si se toca CSS de la cabecera, medir que el botón de WhatsApp se vea en todas las anchuras (375–1920).
   5. `git add …` + `git commit`.
   6. `git checkout main && git merge --ff-only nombre-del-cambio && git push origin main`
   7. Esperar ~45 s y verificar en producción con `curl` (códigos 200, título, redirecciones, `noindex` ausente).
@@ -99,7 +106,12 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
 9. **Decisión suya pendiente:** qué hacer con "Precio orientativo 135€–350€" en la lista de la portada.
 10. **Archivos internos visibles en público.** (a) El **repositorio de GitHub es público**: valorar hacerlo **privado** (Settings → Danger zone → Change visibility; Cloudflare Pages sigue funcionando si la app de GitHub tiene acceso). (b) Cloudflare Pages sirve también `scripts/`, `casos/casos.json`, `_redirects` y `_headers`; solo `NOTAS.md` está bloqueado con redirección. Alternativa limpia: una carpeta de salida separada para el sitio.
 11. **No existe `404.html`:** cualquier dirección inexistente devuelve **200 con la portada** (comprobado el 17-nov con `/esto-no-existe-xyz`) en vez de un 404. Es un "soft 404" que puede generar duplicados en Google. Solución: añadir una `404.html` real (probar antes que no rompe los recorridos actuales ni las redirecciones).
-12. **Pie de página:** el bloque "Taller" dice "C/ Blas Infante · 41860 Sevilla". Confirmar con Julián la localidad/código postal correctos.
+12. **Pie de página:** el bloque "Taller" dice "C/ Blas Infante · 41860 Sevilla". El 41860 corresponde a **Gerena** (y las coordenadas del JSON-LD también). Confirmar con Julián la localidad correcta y que coincida con su ficha de Google.
+13. **Fotos pesadas (decidido dejarlo para más adelante, 17-nov):** 61 fotos, 31 MB; 22 pasan de 500 KB y 8 de 1 MB (a 4.080 px, tal cual de la cámara). `/casos-que-resuelvo/` descarga ~20 MB si se baja hasta el final; 10 de 39 páginas pasan de 2 MB en fotos. La portada está bien (~600 KB). Hay miniaturas de 80×56 px que cargan la foto entera. Julián NO quiere que las fotos pierdan calidad ni que cambien las marcas de agua → opción recomendada: dejar los originales intactos y añadir copias de 800 px solo para miniaturas/tarjetas (`srcset`), con la ampliación abriendo siempre el original (ajustar el lightbox para usar `img.src`, no `currentSrc`). Prueba: 1,5–2,5 MB → 115–185 KB por copia. Reducir los originales con System.Drawing NO compensa (a 1.600 px quedan ~660 KB).
+14. **Otros de la revisión del 17-nov aún sin hacer:** página 404 (punto 11), columna "Más información" en el pie con enlaces a `/cremalleras-o-direcciones-hidraulicas/` y `/descatalogadas-sin-recambio/`, y los 148 enlaces internos sin barra final (cada uno hace una redirección 308), círculo de % que sale en 17 % sin tocar nada y tapa el botón en el móvil (y el círculo fijo de 14 % en `/marcas/`), filtro antispam (campo oculto) en Web3Forms y que el correo traiga solo los campos rellenados.
+15. **Retoques visuales que Julián vio en maqueta y NO eligió (17-nov):** botones del menú con la misma altura, botón activo amarillo con letra negra, títulos alineados y última tarjeta centrada en `/casos-que-resuelvo/`, casos centrados en páginas de marca con 1–2 casos, tarjetas Industriales/Competición alineadas. No volver a proponerlos salvo que él pregunte.
+16. **Decisiones de texto pendientes de Julián:** la frase del caso ML 55 en "Sobre mí" ("Esa reseña negativa sigue en esta web", pero ya no hay reseñas en la web); títulos de los 22 casos (el del W205 repite "Servotronic"; la mayoría no dice "cremallera"; varios >70 caracteres) — ¿ahora o tras el 15-dic?
+17. **Ruido de pruebas en GA4/Clarity:** las pruebas en local con la analítica activa cuentan como visitas (el 17-nov hubo bastantes por la revisión). Valorar en GA4 un filtro de tráfico interno / por nombre de host (paso en la cuenta: decisión de Julián).
 
 **Aplazados por Julián anteriormente (no proponer por iniciativa propia):**
 - Verificar la ficha de Google Business Profile (no se ha comprobado si está verificada).
@@ -123,6 +135,8 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
 - Indexación (informe del 13-nov): **17 indexadas / 39 no**: 21 "Descubierta sin indexar" (18 casos + Mitsubishi + `/descatalogadas-sin-recambio/` + `/marcas/`), 15 redirecciones de Wix (normales) y 3 errores de redirección ya corregidos.
 - Sitemap reenviado el 17-nov (39 páginas).
 
+**Ojo al comparar GA4:** desde el 17-nov (~11:15) los eventos `contacto` / `contacto_whatsapp` / `contacto_telefono` / `contacto_email` cuentan la mitad que antes (antes se contaban dobles). Para comparar con fechas anteriores, dividir lo antiguo entre 2.
+
 **Qué vigilar:** comparar **a las 4 semanas (~15-dic-2026)** con el mismo corte de 28 días. **Alarma** si la posición media pasa de **9** de forma sostenida, o si los clics bajan de **~3 al día** durante dos semanas seguidas → valorar volver atrás. Una variación de unas décimas es normal. Mirar también: indexados subiendo, clics en "dirección hidráulica" / "caja de dirección" (muchas impresiones, casi sin clic), y el embudo del formulario.
 
 ---
@@ -141,3 +155,4 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
   ```
   Esto también deshace todo lo posterior (medición del formulario, NOTAS.md…). Para deshacer solo un cambio concreto: `git revert <commit>` (ver `git log --oneline`).
 - Commits del rediseño: `1b28b2f` (borrador) → `413645f` (publicación) → `f3ab7bc` (título, enlaces y anclas) → `442dff9` (medición del formulario).
+- Arreglos de la tarde del 17-nov (se pueden deshacer uno a uno con `git revert <commit>`): `1849b41` (confirmación del formulario), `0eec415` (cabecera en tabletas), `b7428c2` (menú en todas las páginas, insignias, /marcas/), `af6f43b` (doble conteo y fotos del formulario).
