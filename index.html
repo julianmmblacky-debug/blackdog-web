@@ -848,13 +848,14 @@ if (typeof nav === 'function') {
     var vacio = !telefonoInput.value.trim();
     telefonoInput.classList.toggle('nv-field-warn', llamadaChecked && vacio);
   }
-  // El círculo se oculta cuando el pie entra en pantalla, para no tapar el copyright ni los datos de contacto
+  // El círculo se oculta solo cuando llega la línea del copyright (lo único que tapa, abajo a la izquierda).
+  // El margen negativo de 22px coincide con lo que el círculo está separado del borde inferior.
   try {
-    var nvFoot = document.querySelector('footer');
+    var nvFoot = document.querySelector('.foot-bottom') || document.querySelector('footer');
     if (nvFoot && 'IntersectionObserver' in window) {
       new IntersectionObserver(function(entries){
         entries.forEach(function(en){ badge.classList.toggle('nv-progress-badge--hide', en.isIntersecting); });
-      }, { threshold: 0 }).observe(nvFoot);
+      }, { threshold: 0, rootMargin: '0px 0px -22px 0px' }).observe(nvFoot);
     }
   } catch(e){}
 
