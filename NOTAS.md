@@ -114,7 +114,7 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
 17. **Ruido de pruebas en GA4/Clarity:** las pruebas en local con la analítica activa cuentan como visitas (el 17-nov hubo bastantes por la revisión). Valorar en GA4 un filtro de tráfico interno / por nombre de host (paso en la cuenta: decisión de Julián).
 
 **Aplazados por Julián anteriormente (no proponer por iniciativa propia):**
-- Verificar la ficha de Google Business Profile (no se ha comprobado si está verificada).
+- ~~Ficha de Google Business Profile~~ → **descartada por Julián (17-nov): no habrá ficha de Google ni reseñas públicas** (no tiene local de atención al público; trabaja por mensajería). No volver a proponerla. Nota: en "reparación cremallera dirección" Google muestra primero a un taller de Sevilla con ficha y reseñas; esta web sale 2.ª.
 - Banner de consentimiento de cookies + política de privacidad (GA4/Clarity cargan sin consentimiento previo; decisión consciente suya).
 - Biblioteca de casos por referencia de pieza (documentación continua, caso a caso).
 - Registrar la marca "Blackdog", conseguir enlaces externos, páginas por sistema-nicho (dirección activa BMW, LHM Citroën…).
