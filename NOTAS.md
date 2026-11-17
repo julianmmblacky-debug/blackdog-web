@@ -3,8 +3,10 @@
 Web de BLACKDOG (Julián Márquez, taller de reparación de cremalleras y cajas de dirección hidráulica, Sevilla; recibe piezas de toda España).
 Última actualización: **2026-11-17**. Este archivo es el punto de partida para continuar el trabajo.
 
-> Aviso: Cloudflare Pages sirve todo lo que hay en el repositorio. Este archivo es público en `/NOTAS.md`
-> (con cabecera `noindex`). **No escribir aquí contraseñas, claves, datos de clientes ni temas personales.**
+> Aviso: Cloudflare Pages sirve todo lo que hay en el repositorio. Para que este archivo **no** se pueda abrir desde la web,
+> `_redirects` envía `/NOTAS.md` a la portada (y `_headers` le pone `noindex` por si acaso). Sigue estando en el repositorio.
+> **El repositorio de GitHub (`julianmmblacky-debug/blackdog-web`) es PÚBLICO**, así que cualquiera puede leer este archivo allí
+> hasta que se haga privado (ver pendientes). **No escribir aquí contraseñas, claves, datos de clientes ni temas personales.**
 
 ---
 
@@ -52,6 +54,7 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
 - **Decisión de SEO:** se publicó con el **título, descripción y etiquetas og/twitter de la portada antigua** ("… Desde 135€ · BLACKDOG") para no cambiar SEO y diseño a la vez. El título sin precio se probará aparte, más adelante.
 - **Correcciones que hubo que hacer al publicar (lección):** 74+74 enlaces de las 34 páginas de marca/caso apuntaban a secciones de la portada que ya no existían (`/#encuentrala`, `/#trabajos`) → ahora `/#encuentrala-home` y `/casos-que-resuelvo/`. Y se arregló en `script.js` que `/#encuentrala-home` desde otra página dejaba la portada arriba en vez de bajar al formulario. **Si se vuelve a quitar o renombrar una sección de la portada, buscar quién enlaza a ella en TODAS las páginas** (la auditoría lo detecta).
 - **Pendiente de ese rediseño:** 3 preguntas frecuentes de la portada antigua quedaron fuera de toda la web (ver pendientes).
+- **Retoques posteriores (17-nov):** se quitó del pie de la portada el texto "BORRADOR — no publicado", que había llegado a producción; y el círculo de % del formulario se oculta cuando el pie entra en pantalla para no tapar el copyright. **Lección:** la auditoría automática no revisa textos; antes de publicar, buscar a mano palabras como "borrador", "no publicado", "PENDIENTE" en el HTML renderizado.
 
 ---
 
@@ -94,7 +97,9 @@ Medición del embudo (publicada 17-nov, sin datos personales): `form_inicio`, `f
 7. **Wix y DNS.** Mover el DNS a Cloudflare (o transferir el dominio) **antes** de cancelar Wix, o se cae el `www`. Además el dominio **sin `www` está roto** (apunta a servidores de Wix con el certificado HTTPS caducado): se arregla añadiéndolo en Pages con redirección al `www`. Falta saber qué paga exactamente a Wix (plan del sitio, dominio, correo), dónde está registrado el dominio y cuándo renueva. No hay registros MX (el dominio no usa correo propio).
 8. **Probar el título sin precio** de la portada, como cambio aparte y midiendo (la búsqueda "reparar cremallera de dirección precio" trae clics).
 9. **Decisión suya pendiente:** qué hacer con "Precio orientativo 135€–350€" en la lista de la portada.
-10. **Archivos internos servidos en público** (`scripts/`, `casos/casos.json`, `_redirects`, `_headers`, este archivo): no es grave, pero se puede evitar usando una carpeta de salida separada en Pages. Hoy solo `NOTAS.md` lleva `noindex`.
+10. **Archivos internos visibles en público.** (a) El **repositorio de GitHub es público**: valorar hacerlo **privado** (Settings → Danger zone → Change visibility; Cloudflare Pages sigue funcionando si la app de GitHub tiene acceso). (b) Cloudflare Pages sirve también `scripts/`, `casos/casos.json`, `_redirects` y `_headers`; solo `NOTAS.md` está bloqueado con redirección. Alternativa limpia: una carpeta de salida separada para el sitio.
+11. **No existe `404.html`:** cualquier dirección inexistente devuelve **200 con la portada** (comprobado el 17-nov con `/esto-no-existe-xyz`) en vez de un 404. Es un "soft 404" que puede generar duplicados en Google. Solución: añadir una `404.html` real (probar antes que no rompe los recorridos actuales ni las redirecciones).
+12. **Pie de página:** el bloque "Taller" dice "C/ Blas Infante · 41860 Sevilla". Confirmar con Julián la localidad/código postal correctos.
 
 **Aplazados por Julián anteriormente (no proponer por iniciativa propia):**
 - Verificar la ficha de Google Business Profile (no se ha comprobado si está verificada).

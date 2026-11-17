@@ -709,7 +709,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="foot-col"><h3>Contacto</h3><a href="https://wa.me/34697501984">WhatsApp · 697 50 19 84</a><a href="tel:+34697501984" onclick="trackGA4('call_click',{location:'footer'})">Llamar · 697 50 19 84</a><a href="mailto:julianmmblacky@gmail.com">julianmmblacky@gmail.com</a></div>
     <div class="foot-col"><h3>Taller</h3><p>C/ Blas Infante</p><p>41860 Sevilla</p><p>Lunes a viernes · 09:00–20:00</p></div>
   </div>
-  <div class="foot-bottom"><span>© BLACKDOG · Julián Márquez — Direcciones asistidas</span><span>BORRADOR — no publicado</span></div>
+  <div class="foot-bottom"><span>© BLACKDOG · Julián Márquez — Direcciones asistidas</span></div>
 </div></footer>
 <div class="nv-progress-badge" id="nvProgressBadge" role="button" tabindex="0" aria-label="Ver progreso de tu petición" onclick="document.getElementById('encuentrala-home').scrollIntoView({behavior:'smooth'})">
   <svg width="60" height="60" viewBox="0 0 64 64">
@@ -848,6 +848,16 @@ if (typeof nav === 'function') {
     var vacio = !telefonoInput.value.trim();
     telefonoInput.classList.toggle('nv-field-warn', llamadaChecked && vacio);
   }
+  // El círculo se oculta cuando el pie entra en pantalla, para no tapar el copyright ni los datos de contacto
+  try {
+    var nvFoot = document.querySelector('footer');
+    if (nvFoot && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ badge.classList.toggle('nv-progress-badge--hide', en.isIntersecting); });
+      }, { threshold: 0 }).observe(nvFoot);
+    }
+  } catch(e){}
+
   // ---- Medición del embudo del formulario ----
   // Solo se envía: nº de paso, % de relleno y si se marchó a WhatsApp/llamada. NUNCA lo que escribe la persona.
   // Todo va en try/catch: la medición no puede impedir que el formulario funcione.

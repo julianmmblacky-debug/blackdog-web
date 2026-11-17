@@ -49,6 +49,8 @@ foreach ($url in ($html.Keys | Sort-Object)) {
   if ($t -notmatch "googletagmanager\.com/gtm\.js" -or $t -notmatch "GTM-53VWX8G") { Add-Issue $url "SIN GTM" }
   if ($t -notmatch 'G-26M8MHTW9L') { Add-Issue $url "SIN GA4" }
   if ($t -notmatch 'y589jke8p8')   { Add-Issue $url "SIN Clarity" }
+  # --- textos de borrador / marcadores que no deben llegar a la web
+  foreach ($m in [regex]::Matches($t,'(?i)borrador|no publicado|PENDIENTE_CLAVE|__[A-Z_]{4,}__|lorem ipsum|(?-i:\bTODO:)')) { Add-Issue $url "texto de borrador o marcador: '$($m.Value)'" }
   # --- JSON-LD válido
   $jl = [regex]::Matches($t,'(?s)<script type="application/ld\+json">(.*?)</script>')
   $jlBad = 0
