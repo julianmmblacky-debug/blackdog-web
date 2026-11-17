@@ -139,12 +139,11 @@ function icToggleFotos(cb){
   var form = cb.closest('form');
   var wrap = form && form.querySelector('.icFotosWrap');
   if (!wrap) return;
-  var fileInput = wrap.querySelector('[name="attachment"]');
   wrap.style.display = cb.checked ? 'block' : 'none';
-  if (fileInput) {
-    fileInput.required = cb.checked;
-    if (!cb.checked) fileInput.value = '';
-  }
+  // Ya no se eligen archivos aquí (no llegaban al correo): las fotos se mandan en WhatsApp al enviar.
+  // El botón avisa de lo que va a pasar.
+  var btn = form.querySelector('button[type="submit"]');
+  if (btn) btn.textContent = cb.checked ? 'Enviar y abrir WhatsApp para mandar las fotos' : 'Enviar petición';
 }
 
 // Si el cliente adjunta foto o vídeo, el correo no puede llevarlo (los servicios gratuitos no admiten adjuntos),
@@ -180,7 +179,7 @@ function icBuildWhatsAppText(form){
   return lines.join('\n');
 }
 
-function icMostrarConfirmacion(form, mensaje){
+function icMostrarConfirmacion(form, mensaje, waUrl){
   var pageInner = form.closest('.page-inner');
   if (!pageInner) return;
   pageInner.innerHTML = '<div class="wrap" style="max-width:560px;margin:0 auto;padding:min(18vh,140px) 24px 60px;text-align:center">' +
@@ -189,6 +188,20 @@ function icMostrarConfirmacion(form, mensaje){
     '<p style="color:var(--bone-dim);margin:0 0 30px;line-height:1.6;font-size:1.05rem">' + mensaje + '</p>' +
     '<a href="/" style="color:var(--yellow);font-family:\'IBM Plex Mono\',monospace;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:10px 20px;border:1px solid rgba(242,194,0,.3);border-radius:4px">← Volver a inicio</a>' +
     '</div>';
+  // Envío con fotos: botón de respaldo por si el móvil no abrió WhatsApp solo (bloqueo de ventanas, navegador de Instagram/Facebook...)
+  if (waUrl) {
+    var volver = pageInner.querySelector('a[href="/"]');
+    var waBtn = document.createElement('a');
+    waBtn.className = 'btn btn-wa';
+    waBtn.href = waUrl;
+    waBtn.target = '_blank';
+    waBtn.rel = 'noopener';
+    waBtn.textContent = '¿No se ha abierto? Abrir WhatsApp';
+    waBtn.style.cssText = 'display:inline-flex;justify-content:center;margin:0 0 26px';
+    var caja = document.createElement('div');
+    caja.appendChild(waBtn);
+    if (volver) volver.parentNode.insertBefore(caja, volver);
+  }
   // El formulario desaparece y la página se queda corta: en el móvil la pantalla se quedaba en el pie
   // y no se veía el mensaje. Se sube arriba del todo (el mensaje está justo debajo de la cabecera).
   try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
@@ -220,8 +233,9 @@ document.querySelectorAll('.icForm').forEach(function(form){
         fetch('https://api.web3forms.com/submit', { method: 'POST', body: dataCopia }).catch(function(){});
       }
       var texto = icBuildWhatsAppText(form);
-      window.open('https://wa.me/34697501984?text=' + encodeURIComponent(texto), '_blank');
-      icMostrarConfirmacion(form, 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que adjuntar la foto o el vídeo y darle a enviar.');
+      var waUrl = 'https://wa.me/34697501984?text=' + encodeURIComponent(texto);
+      window.open(waUrl, '_blank');
+      icMostrarConfirmacion(form, 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que adjuntar la foto o el vídeo y darle a enviar.', waUrl);
       return;
     }
     if (accessKey === 'PENDIENTE_CLAVE_WEB3FORMS') {
@@ -363,36 +377,9 @@ if(document.getElementById('page-inicio')){
   }
 }
 
-// Tracking eventos de contacto
-window.dataLayer = window.dataLayer || [];
-function trackContact(tipo, destino) {
-  window.dataLayer.push({
-    'event': 'contacto',
-    'tipo_contacto': tipo,
-    'destino': destino
-  });
-}
-document.addEventListener('DOMContentLoaded', function() {
-  // Track WhatsApp clicks
-  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      trackContact('whatsapp', 'WhatsApp 697501984');
-    });
-  });
-  // Track phone clicks
-  document.querySelectorAll('a[href*="tel:"]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      trackContact('telefono', 'Tel 697501984');
-    });
-  });
-  // Track email clicks
-  document.querySelectorAll('a[href*="mailto:"]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      trackContact('email', 'email');
-    });
-  });
-});
 // Tracking eventos de contacto — GA4 + GTM
+// (2026-11-17: había una copia antigua de este bloque más arriba y cada clic en WhatsApp/teléfono/email
+//  se contaba DOS veces; se quitó la copia. Desde esa fecha esos eventos cuentan 1 por clic.)
 window.dataLayer = window.dataLayer || [];
 function trackContact(tipo, destino, pagina) {
   // GTM dataLayer
