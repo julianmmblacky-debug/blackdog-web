@@ -192,7 +192,7 @@ function icPrecioOrientativo(form){
     lineas = ['Lo normal son unos 290 € con IVA, con tu misma cremallera reparada y 1 año de garantía.'];
   }
   lineas.push('Sin fianza: pagas cuando ya está reparada, antes de enviártela.');
-  lineas.push('Los portes van aparte (unos 20 € por trayecto). Antes de decidir, no gastas nada.');
+  lineas.push('La recogemos donde nos digas (o la envías tú): solo tienes que embalarla. Portes aparte, unos 20 € por trayecto.');
   return { titulo: 'Precio orientativo' + (coche ? ' para tu ' + coche : ''), lineas: lineas };
 }
 
