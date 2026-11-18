@@ -178,9 +178,29 @@ function icBuildWhatsAppText(form, conFotos){
   return lines.join('\n');
 }
 
-function icMostrarConfirmacion(form, mensaje, waUrl){
+// Precio orientativo según lo que ha marcado (mismos precios que la página de precios).
+function icPrecioOrientativo(form){
+  var get = function(name){ var el = form.querySelector('[name="'+name+'"]'); return el ? el.value.trim() : ''; };
+  var coche = [get('Marca'), get('Modelo')].filter(Boolean).join(' ');
+  var pieza = get('Tipo de pieza');
+  var lineas;
+  if (pieza === 'Caja de dirección' || pieza === 'Columna de dirección' || pieza === 'Otra cosa') {
+    lineas = ['Normalmente entre 135 y 350 €, según cómo esté por dentro.',
+              'Los portes van aparte (unos 20 € por trayecto).'];
+  } else {
+    lineas = ['Lo normal son unos 290 € con IVA. Los casos sencillos, desde 135 €.',
+              'Los portes van aparte (unos 20 € por trayecto). Cambiarla en un taller suele costar entre 340 y 550 €.'];
+  }
+  lineas.push('El precio exacto te lo digo cuando sepa qué tiene; antes no gastas nada.');
+  return { titulo: 'Precio orientativo' + (coche ? ' para tu ' + coche : ''), lineas: lineas };
+}
+
+function icMostrarConfirmacion(form, mensaje, waUrl, opts){
+  opts = opts || {};
   var pageInner = form.closest('.page-inner');
   if (!pageInner) return;
+  var accessKey = (form.querySelector('[name="access_key"]') || {}).value || '';
+  var asuntoBase = icBuildSubject(form);
   pageInner.innerHTML = '<div class="wrap" style="max-width:560px;margin:0 auto;padding:min(18vh,140px) 24px 60px;text-align:center">' +
     '<svg width="52" height="52" viewBox="0 0 24 24" style="margin-bottom:18px"><circle cx="12" cy="12" r="11" fill="#25A35A"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
     '<p style="color:var(--bone);font-weight:700;font-size:1.5rem;margin:0 0 14px">¡Petición recibida!</p>' +
@@ -201,6 +221,74 @@ function icMostrarConfirmacion(form, mensaje, waUrl){
     caja.appendChild(waBtn);
     if (volver) volver.parentNode.insertBefore(caja, volver);
   }
+  // Precio orientativo (y, si no dejó contacto, una casilla para dejarlo ahora). Todo con textContent:
+  // la marca y el modelo los ha escrito el visitante.
+  if (opts.precio) {
+    var volver2 = pageInner.querySelector('a[href="/"]');
+    var box = document.createElement('div');
+    box.style.cssText = 'text-align:left;margin:0 0 26px;padding:18px 18px 16px;border:1px solid rgba(242,194,0,.35);border-left:4px solid var(--yellow);border-radius:10px;background:rgba(242,194,0,.06)';
+    var h = document.createElement('p');
+    h.style.cssText = 'margin:0 0 10px;color:var(--yellow);font-weight:700;font-size:1.05rem';
+    h.textContent = opts.precio.titulo;
+    box.appendChild(h);
+    opts.precio.lineas.forEach(function(t){
+      var p = document.createElement('p');
+      p.style.cssText = 'margin:0 0 8px;color:var(--bone);line-height:1.55;font-size:.98rem';
+      p.textContent = t;
+      box.appendChild(p);
+    });
+    var ver = document.createElement('a');
+    ver.href = '/precio-cambiar-cremallera-direccion/';
+    ver.textContent = 'Ver los precios con detalle →';
+    ver.style.cssText = 'display:inline-block;margin-top:4px;color:var(--yellow);font-size:.92rem';
+    box.appendChild(ver);
+    if (volver2) volver2.parentNode.insertBefore(box, volver2);
+
+    if (opts.pedirContacto) {
+      var c = document.createElement('form');
+      c.style.cssText = 'text-align:left;margin:0 0 26px';
+      var lab = document.createElement('p');
+      lab.style.cssText = 'margin:0 0 10px;color:var(--bone);font-weight:600';
+      lab.textContent = '¿Quieres que te lo confirme? Déjame tu teléfono o email:';
+      var inp = document.createElement('input');
+      inp.type = 'text'; inp.name = 'Contacto'; inp.autocomplete = 'tel';
+      inp.placeholder = 'Teléfono o email';
+      inp.setAttribute('aria-label', 'Teléfono o email');
+      inp.style.cssText = 'width:100%;box-sizing:border-box;padding:12px 14px;margin:0 0 10px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:var(--bone);font-size:1rem';
+      var b = document.createElement('button');
+      b.type = 'submit'; b.className = 'btn btn-wa';
+      b.textContent = 'Enviar';
+      b.style.cssText = 'width:100%;justify-content:center';
+      var ok = document.createElement('p');
+      ok.style.cssText = 'display:none;margin:10px 0 0;color:#25A35A;font-weight:600';
+      c.appendChild(lab); c.appendChild(inp); c.appendChild(b); c.appendChild(ok);
+      c.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var v = inp.value.trim();
+        if (!v) { inp.style.borderColor = '#e24b4a'; inp.focus(); return; }
+        b.disabled = true; b.textContent = 'Enviando...';
+        var fd = new FormData();
+        fd.append('access_key', accessKey);
+        fd.append('subject', asuntoBase + ' — contacto añadido después');
+        fd.append('Contacto', v);
+        fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
+          .then(function(r){ return r.json(); })
+          .then(function(res){
+            if (!res.success) throw new Error('no');
+            icEvento('form_contacto_despues');
+            inp.style.display = 'none'; b.style.display = 'none'; lab.style.display = 'none';
+            ok.style.display = 'block';
+            ok.textContent = 'Recibido. Te contesto yo mismo lo antes posible.';
+          })
+          .catch(function(){
+            b.disabled = false; b.textContent = 'Enviar';
+            ok.style.display = 'block'; ok.style.color = '#e2a14a';
+            ok.textContent = 'No se pudo enviar. Prueba otra vez o llámame al 697 50 19 84.';
+          });
+      });
+      if (volver2) volver2.parentNode.insertBefore(c, volver2);
+    }
+  }
   // El formulario desaparece y la página se queda corta: en el móvil la pantalla se quedaba en el pie
   // y no se veía el mensaje. Se sube arriba del todo (el mensaje está justo debajo de la cabecera).
   try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
@@ -211,12 +299,10 @@ function icMostrarConfirmacion(form, mensaje, waUrl){
 
 // Aviso dentro del formulario (en vez del globo del navegador, que en el móvil apenas se ve):
 // si falta algo obligatorio, o si no hay ni teléfono ni email para contestar.
-function icAviso(form, texto, waUrl){
+function icAviso(form, texto){
   var box = form.querySelector('.icAviso');
   if (!box) return;
   box.querySelector('.icAvisoTexto').textContent = texto;
-  var wa = box.querySelector('.icAvisoWa');
-  if (waUrl) { wa.href = waUrl; wa.style.display = 'flex'; } else { wa.style.display = 'none'; }
   box.style.display = 'block';
   box.scrollIntoView({behavior:'smooth', block:'center'});
 }
@@ -229,20 +315,6 @@ var icNombresCampo = { 'Marca':'la marca', 'Modelo':'el modelo', 'Anio':'el año
 document.querySelectorAll('.icForm').forEach(function(form){
   form.addEventListener('input', function(e){
     if (e.target && e.target.style && e.target.style.borderColor) e.target.style.borderColor = '';
-    var tel = form.querySelector('[name="Telefono"]'), mail = form.querySelector('[name="Email"]');
-    if ((tel && tel.value.trim()) || (mail && mail.value.trim())) icOcultarAviso(form);
-  });
-  var waAviso = form.querySelector('.icAvisoWa');
-  if (waAviso) waAviso.addEventListener('click', function(){
-    icEvento('form_a_whatsapp_sin_contacto');
-    // Copia por email de lo que ha rellenado, para que quede registro aunque luego no envíe el WhatsApp
-    var accessKey = form.querySelector('[name="access_key"]').value;
-    if (accessKey !== 'PENDIENTE_CLAVE_WEB3FORMS') {
-      var copia = new FormData(form);
-      copia.delete('attachment');
-      copia.set('subject', icBuildSubject(form) + ' — sin teléfono (ha ido a WhatsApp)');
-      fetch('https://api.web3forms.com/submit', { method: 'POST', body: copia }).catch(function(){});
-    }
   });
 });
 document.querySelectorAll('.icForm').forEach(function(form){
@@ -286,19 +358,17 @@ document.querySelectorAll('.icForm').forEach(function(form){
       icMostrarConfirmacion(form, 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que adjuntar la foto o el vídeo y darle a enviar.', waUrl);
       return;
     }
-    // 2) Sin teléfono ni email no podría contestarle: se le ofrece mandarlo todo por WhatsApp
+    // 2) Sin teléfono ni email se envía igual (a Julián le llega lo que ha escrito) y en pantalla
+    //    se le enseña el precio orientativo, que es lo que suele buscar; ahí puede dejar el contacto si quiere.
     var telV = (form.querySelector('[name="Telefono"]') || {}).value || '';
     var mailV = (form.querySelector('[name="Email"]') || {}).value || '';
-    if (!telV.trim() && !mailV.trim()) {
-      var waSin = 'https://wa.me/34697501984?text=' + encodeURIComponent(icBuildWhatsAppText(form, false));
-      icAviso(form, 'Para poder contestarte necesito tu teléfono o tu email. ¿Prefieres mandármelo por WhatsApp? Ya va todo lo que has escrito.', waSin);
-      icEvento('form_sin_contacto');
-      return;
-    }
+    var sinContacto = !telV.trim() && !mailV.trim();
     if (accessKey === 'PENDIENTE_CLAVE_WEB3FORMS') {
       alert('Falta conectar la clave de Web3Forms todavía — esto es solo una vista previa del formulario.');
       return;
     }
+    if (sinContacto && subjectField) subjectField.value = subjectField.value + ' — SIN teléfono ni email';
+    var precio = icPrecioOrientativo(form);
     var data = new FormData(form);
     var btn = form.querySelector('button[type="submit"]');
     var textoOriginal = btn.textContent;
@@ -307,8 +377,14 @@ document.querySelectorAll('.icForm').forEach(function(form){
       .then(function(r){ return r.json(); })
       .then(function(res){
         if (res.success) {
+          if (sinContacto) {
+            trackGA4('form_submit', { location: 'intercambio-form-sin-contacto' });
+            icEvento('form_sin_contacto');
+            icMostrarConfirmacion(form, 'Me ha llegado lo que has escrito, pero no me has dejado teléfono ni email, así que no puedo contestarte. Aquí tienes un precio orientativo:', null, { precio: precio, pedirContacto: true });
+            return;
+          }
           trackGA4('form_submit', { location: 'intercambio-form' });
-          icMostrarConfirmacion(form, 'Me ha llegado tu petición. Te contesto yo mismo por donde me has dicho, lo antes posible. Si lo prefieres, también puedes escribirme directamente al 697 50 19 84, es donde estoy más activo. Si llamas y no contesto, seguramente esté con las manos en el taller — te devuelvo la llamada o te escribo en cuanto lo vea.');
+          icMostrarConfirmacion(form, 'Me ha llegado tu petición. Te contesto yo mismo por donde me has dicho, lo antes posible. Si lo prefieres, también puedes escribirme directamente al 697 50 19 84, es donde estoy más activo. Si llamas y no contesto, seguramente esté con las manos en el taller — te devuelvo la llamada o te escribo en cuanto lo vea.', null, { precio: precio });
         } else {
           btn.disabled = false; btn.textContent = textoOriginal;
           alert('No se pudo enviar. Prueba de nuevo o escríbeme por WhatsApp.');
