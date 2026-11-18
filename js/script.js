@@ -184,14 +184,15 @@ function icPrecioOrientativo(form){
   var coche = [get('Marca'), get('Modelo')].filter(Boolean).join(' ');
   var pieza = get('Tipo de pieza');
   var lineas;
-  if (pieza === 'Caja de dirección' || pieza === 'Columna de dirección' || pieza === 'Otra cosa') {
-    lineas = ['Normalmente entre 135 y 350 €, según cómo esté por dentro.',
-              'Los portes van aparte (unos 20 € por trayecto).'];
+  if (pieza === 'Caja de dirección') {
+    lineas = ['Lo normal son unos 390 € con IVA, con tu misma caja reparada y 1 año de garantía.'];
+  } else if (pieza === 'Columna de dirección' || pieza === 'Otra cosa') {
+    lineas = ['Depende mucho de la pieza: te digo el precio en cuanto sepa qué tiene.'];
   } else {
-    lineas = ['Lo normal son unos 290 € con IVA. Los casos sencillos, desde 135 €.',
-              'Los portes van aparte (unos 20 € por trayecto).'];
+    lineas = ['Lo normal son unos 290 € con IVA, con tu misma cremallera reparada y 1 año de garantía.'];
   }
-  lineas.push('El precio exacto te lo digo cuando sepa qué tiene; antes no gastas nada.');
+  lineas.push('Sin fianza: pagas cuando ya está reparada, antes de enviártela.');
+  lineas.push('Los portes van aparte (unos 20 € por trayecto). Antes de decidir, no gastas nada.');
   return { titulo: 'Precio orientativo' + (coche ? ' para tu ' + coche : ''), lineas: lineas };
 }
 
