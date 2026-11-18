@@ -148,7 +148,7 @@ function icToggleFotos(cb){
 
 // Si el cliente adjunta foto o vídeo, el correo no puede llevarlo (los servicios gratuitos no admiten adjuntos),
 // así que la petición completa se manda por WhatsApp en su lugar — ahí sí puede ir el archivo.
-function icBuildWhatsAppText(form){
+function icBuildWhatsAppText(form, conFotos){
   var get = function(name){ var el = form.querySelector('[name="'+name+'"]'); return el ? el.value.trim() : ''; };
   var getChecked = function(name){
     return Array.prototype.slice.call(form.querySelectorAll('[name="'+name+'"]:checked')).map(function(cb){return cb.value;}).join(', ');
@@ -174,8 +174,7 @@ function icBuildWhatsAppText(form){
   if (get('Email')) lines.push('Email: ' + get('Email'));
   var prefiere = getChecked('Prefiere contacto por');
   if (prefiere) lines.push('Prefiere contacto por: ' + prefiere);
-  lines.push('');
-  lines.push('📎 Te adjunto foto/vídeo a continuación.');
+  if (conFotos !== false) { lines.push(''); lines.push('📎 Te adjunto foto/vídeo a continuación.'); }
   return lines.join('\n');
 }
 
@@ -210,9 +209,58 @@ function icMostrarConfirmacion(form, mensaje, waUrl){
   if (badge) badge.style.display = 'none';
 }
 
+// Aviso dentro del formulario (en vez del globo del navegador, que en el móvil apenas se ve):
+// si falta algo obligatorio, o si no hay ni teléfono ni email para contestar.
+function icAviso(form, texto, waUrl){
+  var box = form.querySelector('.icAviso');
+  if (!box) return;
+  box.querySelector('.icAvisoTexto').textContent = texto;
+  var wa = box.querySelector('.icAvisoWa');
+  if (waUrl) { wa.href = waUrl; wa.style.display = 'flex'; } else { wa.style.display = 'none'; }
+  box.style.display = 'block';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+}
+function icOcultarAviso(form){ var box = form.querySelector('.icAviso'); if (box) box.style.display = 'none'; }
+function icEvento(nombre){
+  try { trackGA4(nombre, {}); } catch(e){}
+  try { if (typeof window.clarity === 'function') window.clarity('event', nombre); } catch(e){}
+}
+var icNombresCampo = { 'Marca':'la marca', 'Modelo':'el modelo', 'Anio':'el año', 'Cuanto puede esperar':'cuánto puede esperar' };
+document.querySelectorAll('.icForm').forEach(function(form){
+  form.addEventListener('input', function(e){
+    if (e.target && e.target.style && e.target.style.borderColor) e.target.style.borderColor = '';
+    var tel = form.querySelector('[name="Telefono"]'), mail = form.querySelector('[name="Email"]');
+    if ((tel && tel.value.trim()) || (mail && mail.value.trim())) icOcultarAviso(form);
+  });
+  var waAviso = form.querySelector('.icAvisoWa');
+  if (waAviso) waAviso.addEventListener('click', function(){
+    icEvento('form_a_whatsapp_sin_contacto');
+    // Copia por email de lo que ha rellenado, para que quede registro aunque luego no envíe el WhatsApp
+    var accessKey = form.querySelector('[name="access_key"]').value;
+    if (accessKey !== 'PENDIENTE_CLAVE_WEB3FORMS') {
+      var copia = new FormData(form);
+      copia.delete('attachment');
+      copia.set('subject', icBuildSubject(form) + ' — sin teléfono (ha ido a WhatsApp)');
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: copia }).catch(function(){});
+    }
+  });
+});
 document.querySelectorAll('.icForm').forEach(function(form){
   form.addEventListener('submit', function(e){
     e.preventDefault();
+    // 1) Lo obligatorio (marca, modelo, año…): aviso claro dentro del formulario
+    var faltan = Array.prototype.filter.call(form.querySelectorAll('[required]'), function(el){
+      return el.offsetParent !== null && !(el.value && el.value.trim());
+    });
+    if (faltan.length) {
+      faltan.forEach(function(el){ el.style.borderColor = '#e24b4a'; });
+      var lista = faltan.map(function(el){ return icNombresCampo[el.name] || el.name.toLowerCase(); });
+      icAviso(form, 'Falta por rellenar: ' + lista.join(', ') + '.');
+      icEvento('form_faltan_datos');
+      try { faltan[0].focus({preventScroll:true}); } catch(x){}
+      return;
+    }
+    icOcultarAviso(form);
     if (!icCheckEmailRequired(form)) {
       form.querySelector('.icEmailInput').focus();
       form.querySelector('.icEmailInput').scrollIntoView({behavior:'smooth', block:'center'});
@@ -236,6 +284,15 @@ document.querySelectorAll('.icForm').forEach(function(form){
       var waUrl = 'https://wa.me/34697501984?text=' + encodeURIComponent(texto);
       window.open(waUrl, '_blank');
       icMostrarConfirmacion(form, 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que adjuntar la foto o el vídeo y darle a enviar.', waUrl);
+      return;
+    }
+    // 2) Sin teléfono ni email no podría contestarle: se le ofrece mandarlo todo por WhatsApp
+    var telV = (form.querySelector('[name="Telefono"]') || {}).value || '';
+    var mailV = (form.querySelector('[name="Email"]') || {}).value || '';
+    if (!telV.trim() && !mailV.trim()) {
+      var waSin = 'https://wa.me/34697501984?text=' + encodeURIComponent(icBuildWhatsAppText(form, false));
+      icAviso(form, 'Para poder contestarte necesito tu teléfono o tu email. ¿Prefieres mandármelo por WhatsApp? Ya va todo lo que has escrito.', waSin);
+      icEvento('form_sin_contacto');
       return;
     }
     if (accessKey === 'PENDIENTE_CLAVE_WEB3FORMS') {
