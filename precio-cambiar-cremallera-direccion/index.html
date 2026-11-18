@@ -608,7 +608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('orCaso').textContent= n>=4? (NOM.pieza[p][0].toUpperCase()+NOM.pieza[p].slice(1)+' de '+NOM.coche[sel.coche]+': '+lista(txtS)+' · '+NOM.prisa[sel.prisa]) : 'Elige tus respuestas y la comparativa se ajusta a tu caso';
     var t='Responde las 4 preguntas y te digo qué tiene más sentido en tu caso.';
     if(n>=4){
-      if(sel.prisa==='parado') t='Con el coche parado, lo primero es el plazo: mándame una foto hoy y te digo cuándo la tienes. Si no puedes esperar, también te consigo una ya reconstruida para montarla ya. Una de desguace parece la vía rápida, pero no se sabe cómo está hasta montarla, y si falla pagas el montaje otra vez.';
+      if(sel.prisa==='parado') t='Con el coche parado, lo primero es el plazo: mándame una foto hoy y te digo cuándo la tienes. Si no puedes esperar, escríbeme y vemos la opción más rápida para tu modelo. Una de desguace parece la vía rápida, pero no se sabe cómo está hasta montarla, y si falla pagas el montaje otra vez.';
       else if(s.indexOf('agua')>-1) t='Con agua dentro, el óxido avanza rápido por dentro aunque por fuera no se vea. Cuanto antes la revise, más fácil es salvar el eje y la carcasa.';
       else if(s.indexOf('oxido')>-1||s.indexOf('golpe')>-1) t='Eje oxidado o con golpe: muchas veces el eje se puede rectificar. Mándame fotos del eje y de la carcasa y te digo qué opción tiene.';
       else if(clas) t='En un clásico, reparar la original es casi siempre lo mejor: conservas la pieza de tu coche y, si un sello o una junta ya no se fabrica, lo hago a medida.';
