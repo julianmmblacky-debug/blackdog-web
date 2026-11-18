@@ -309,7 +309,8 @@
 .nv-brand-card .nv-brand-foto img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
 .nv-brand-card:hover .nv-brand-foto img{transform:scale(1.04)}
 .nv-brand-card .nv-brand-casos{position:absolute;left:8px;bottom:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:#141110;background:var(--yellow);border-radius:4px;padding:3px 7px;line-height:1.3}
-.nv-brand-card .nv-brand-foto--vacia{display:flex;align-items:center;justify-content:center;color:#3a3d44;background:linear-gradient(160deg,#1b1e23,#121417)}
+.nv-brand-card .nv-brand-foto--vacia{display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;color:#3a3d44;background:linear-gradient(160deg,#1b1e23,#121417)}
+.nv-brand-card .nv-brand-vacia-txt{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);text-align:center;padding:0 8px;line-height:1.4}
 .nv-brand-card .nv-brand-body{display:block;padding:10px 12px 12px}
 .nv-brand-grid .nv-brand-card strong{font-size:1.2rem;margin:0 0 4px}
 .nv-brand-card .nv-brand-mods{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:.78rem;line-height:1.45;color:var(--bone-dim)}

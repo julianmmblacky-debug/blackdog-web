@@ -135,7 +135,7 @@ foreach ($grupo in $porMarca) {
   $cats = $grupo.Group | ForEach-Object { $_.categorias } | Select-Object -Unique
 
   $numCasos = $grupo.Group.Count
-  $countLabel = if ($numCasos -eq 1) { '1 caso publicado' } else { "$numCasos casos publicados" }
+  $countLabel = 'Algunos de los casos que he reparado'
 
   $filtroModelos = foreach ($m in $modelos) {
     $label = ($grupo.Group | Where-Object { $_.modelo_slug -eq $m } | Select-Object -First 1).modelo -replace "^$marcaNombre\s+", ''
