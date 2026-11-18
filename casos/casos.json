@@ -16,12 +16,12 @@
     "respondimos": "\"Seguramente tiene arreglo, no es la primera que me llega así.\"",
     "llegada_texto": "Al abrirla, además de la fuga que avisaba el cliente, el distribuidor tenía una holgura considerable y cierto desgaste en la carcasa que hacía perder presión en el retorno.",
     "llegada_fotos": [
-      { "src": "/img/cremallera_mitsubishi_montero_antes_completa_1.jpg", "alt": "Cremallera Mitsubishi Montero V60 completa, antes de reparar", "caption": "Antes" },
+      { "src": "/img/cremallera_mitsubishi_montero_antes_completa_1.jpg", "alt": "Cremallera de dirección Mitsubishi Montero V60 completa, antes de reparar", "caption": "Antes" },
       { "src": "/img/cremallera_mitsubishi_montero_antes_distribuidor.jpg", "alt": "Distribuidor Mitsubishi Montero V60 antes de reparar", "caption": "Antes" },
       { "src": "/img/cremallera_mitsubishi_montero_referencia_mr449370.jpg", "alt": "Referencia MR449370 y Koyo 0Z27038 en la etiqueta de la pieza", "caption": "Referencia MR449370 · Koyo 0Z27038" },
       { "src": "/img/cremallera_mitsubishi_montero_terminado_detalle.jpg", "alt": "Distribuidor Mitsubishi Montero V60 terminado, detalle", "caption": "Después" },
       { "src": "/img/cremallera_reparada_mitsubishi_montero_fuga_holgura_distribuidor_terminada.jpg", "alt": "Cremallera de dirección Mitsubishi Montero V60 reparada, terminada", "caption": "Después" },
-      { "src": "/img/cremallera_mitsubishi_montero_terminada_embalada.jpg", "alt": "Cremallera Mitsubishi Montero V60 terminada, embalada para el envío", "caption": "Después" }
+      { "src": "/img/cremallera_mitsubishi_montero_terminada_embalada.jpg", "alt": "Cremallera de dirección Mitsubishi Montero V60 terminada, embalada para el envío", "caption": "Después" }
     ],
     "resultado": "Se reparó el distribuidor desgastado y se corrigió la holgura. Se probó en el banco de pruebas y se dejó en reposo unos días para comprobar que no volvían a aparecer gotas antes de devolverla.",
     "cita_final": "",
@@ -44,7 +44,7 @@
     "respondimos": "\"Estas cremalleras suelen dar problemas en los tubos de conexión — hay que tener cuidado de no golpearlos, los racores de entrada son de conexión rápida a presión. Y en la cabeza suelen coger una holgura considerable.\"",
     "llegada_texto": "Al revisarla, el problema no era solo la fuga que había avisado el otro taller: el distribuidor tenía una holgura considerable.",
     "llegada_fotos": [
-      { "src": "/img/cremallera_volvo_xc70_completa_antes_sucia.jpg", "alt": "Cremallera Volvo XC70 completa, antes de reparar", "caption": "Antes" },
+      { "src": "/img/cremallera_volvo_xc70_completa_antes_sucia.jpg", "alt": "Cremallera de dirección Volvo XC70 completa, antes de reparar", "caption": "Antes" },
       { "src": "/img/cremallera_volvo_xc70_distribuidor_antes_oxidado.jpg", "alt": "Distribuidor Volvo XC70 antes de reparar, oxidado", "caption": "Antes" },
       { "src": "/img/cremallera_volvo_xc70_fuga_liquido_hidraulico.jpg", "alt": "Fuga de líquido hidráulico en cremallera Volvo XC70", "caption": "La fuga que avisó el cliente" },
       { "src": "/img/cremallera_volvo_xc70_distribuidor_terminado_detalle.jpg", "alt": "Distribuidor Volvo XC70 terminado, detalle", "caption": "Después" },
@@ -89,11 +89,11 @@
     "categorias": ["holgura", "eje-desgastado"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_toyota_land_cruiser_silentblock_poliuretano_1.jpg",
-    "foto_portada_alt": "Cremallera Toyota Land Cruiser reparada con silentblock y poliuretano",
+    "foto_portada_alt": "Cremallera de dirección Toyota Land Cruiser reparada con silentblock y poliuretano",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Holgura y óxido en el interior de la cremallera.",
     "llegada_fotos": [
-      { "src": "/img/cremallera_reparada_toyota_land_cruiser_silentblock_poliuretano_2.jpg", "alt": "Cremallera Toyota Land Cruiser reparada, vista general", "caption": "" }
+      { "src": "/img/cremallera_reparada_toyota_land_cruiser_silentblock_poliuretano_2.jpg", "alt": "Cremallera de dirección Toyota Land Cruiser reparada, vista general", "caption": "" }
     ],
     "resultado": "Reconstrucción completa con silentblock y gomas de poliuretano nuevas antes de devolverla.",
     "cita_final": "", "galeria": []
@@ -109,7 +109,7 @@
     "categorias": ["direccion-activa"],
     "fecha": "2026-08-24",
     "foto_portada": "/img/cremallera_bmw_activa_pocedente_de_otro_taller_para_que_la_reparemos_nosotros.jpg",
-    "foto_portada_alt": "Cremallera BMW activa procedente de otro taller",
+    "foto_portada_alt": "Cremallera de dirección BMW activa procedente de otro taller",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Cremallera de dirección activa que llegó de otro taller, tras un intento de reparación previa sin éxito.",
     "llegada_fotos": [],
@@ -126,7 +126,7 @@
     "categorias": ["direccion-activa"],
     "fecha": "2026-08-24",
     "foto_portada": "/img/cremallera_bmw_activa_mal_embalada_y_conectores_rotos.jpg",
-    "foto_portada_alt": "Cremallera BMW activa mal embalada con conectores rotos",
+    "foto_portada_alt": "Cremallera de dirección BMW activa mal embalada con conectores rotos",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Unidad enviada por el cliente que llegó mal embalada, con los conectores del sensor rotos en el transporte.",
     "llegada_fotos": [],
@@ -144,7 +144,7 @@
     "categorias": ["fuga"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_audi_a4_b6_koyo_fuga_aceite.jpg",
-    "foto_portada_alt": "Cremallera Audi A4 B6 reparada, fuga de aceite",
+    "foto_portada_alt": "Cremallera de dirección Audi A4 B6 reparada, fuga de aceite",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pérdida de aceite.",
     "llegada_fotos": [],
@@ -161,11 +161,11 @@
     "categorias": ["fuga", "eje-desgastado"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_volkswagen_transporter_t5_terminada.jpg",
-    "foto_portada_alt": "Cremallera Volkswagen Transporter T5 terminada",
+    "foto_portada_alt": "Cremallera de dirección Volkswagen Transporter T5 terminada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pérdida de líquido de la dirección asistida. La pieza ya había sido reparada antes por otro taller, con el eje rectificado y bastante óxido en el interior.",
     "llegada_fotos": [
-      { "src": "/img/cremallera_reparada_volkswagen_transporter_t5_antes_oxidada.jpg", "alt": "Cremallera Volkswagen Transporter T5 antes de reparar, oxidada", "caption": "Antes" }
+      { "src": "/img/cremallera_reparada_volkswagen_transporter_t5_antes_oxidada.jpg", "alt": "Cremallera de dirección Volkswagen Transporter T5 antes de reparar, oxidada", "caption": "Antes" }
     ],
     "resultado": "Volver a rectificar la habría dejado débil de material, así que se cambió el eje completo por uno original — sellos y casquillos originales en vez de fabricados a medida.",
     "cita_final": "", "galeria": []
@@ -198,7 +198,7 @@
     "categorias": ["fuga", "holgura"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_citroen_c5_holgura_fuga_aceite.jpg",
-    "foto_portada_alt": "Cremallera Citroën C5 reparada, holgura y fuga de aceite",
+    "foto_portada_alt": "Cremallera de dirección Citroën C5 reparada, holgura y fuga de aceite",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Holgura y pérdida de aceite.",
     "llegada_fotos": [],
@@ -215,7 +215,7 @@
     "categorias": ["fuga"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_citroen_berlingo_bx_peugeot_partner_caja_valvulas.jpg",
-    "foto_portada_alt": "Cremallera Citroën Berlingo BX Peugeot Partner reparada",
+    "foto_portada_alt": "Cremallera de dirección Citroën Berlingo BX Peugeot Partner reparada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pérdida de aceite y desgaste en la caja de válvulas — cremallera compartida por Berlingo, BX y Peugeot Partner.",
     "llegada_fotos": [],
@@ -233,15 +233,15 @@
     "categorias": ["fuga"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_corvette_fuga_aceite_1.jpg",
-    "foto_portada_alt": "Cremallera Corvette reparada, fuga de aceite",
+    "foto_portada_alt": "Cremallera de dirección Corvette reparada, fuga de aceite",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pérdida de aceite.",
     "llegada_fotos": [],
     "resultado": "Reparación integral, con sellos fabricados a medida — al no ser un modelo habitual en España, muchos recambios no se encuentran en el mercado nacional.",
     "cita_final": "",
     "galeria": [
-      { "src": "/img/cremallera_reparada_corvette_fuga_aceite_2.jpg", "alt": "Cremallera Corvette terminada, vista general" },
-      { "src": "/img/cremallera_reparada_corvette_fuga_aceite_3.jpg", "alt": "Cremallera Corvette terminada, detalle" }
+      { "src": "/img/cremallera_reparada_corvette_fuga_aceite_2.jpg", "alt": "Cremallera de dirección Corvette terminada, vista general" },
+      { "src": "/img/cremallera_reparada_corvette_fuga_aceite_3.jpg", "alt": "Cremallera de dirección Corvette terminada, detalle" }
     ]
   },
 
@@ -255,7 +255,7 @@
     "categorias": ["fuga"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_honda_civic_fuga_aceite.jpg",
-    "foto_portada_alt": "Cremallera Honda Civic reparada, fuga de aceite",
+    "foto_portada_alt": "Cremallera de dirección Honda Civic reparada, fuga de aceite",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pérdida de aceite.",
     "llegada_fotos": [],
@@ -272,7 +272,7 @@
     "categorias": ["fuga"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_honda_accord_showa_fuga_aceite.jpg",
-    "foto_portada_alt": "Cremallera Honda Accord Showa reparada, fuga de aceite",
+    "foto_portada_alt": "Cremallera de dirección Honda Accord Showa reparada, fuga de aceite",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pérdida de aceite.",
     "llegada_fotos": [],
@@ -289,12 +289,12 @@
     "tag": "Holgura · Rodamiento roto",
     "categorias": ["holgura"],
     "fecha": "2026-08-20",
-    "foto_portada": "/img/caja_direccion_reparada_jaguar_j40_terminada.jpg",
-    "foto_portada_alt": "Caja de dirección Jaguar J40 terminada y pintada",
+    "foto_portada": "/img/cremallera_direccion_reparada_jaguar_j40_terminada.jpg",
+    "foto_portada_alt": "Cremallera de dirección Jaguar J40 terminada y pintada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "La dirección pedía por la cabeza de distribución — holgura en el eje de dirección y rodamiento del eje sin fin roto. Desmontaje laborioso: tuercas remachadas y soldadas por la corrosión tras años de humedad.",
     "llegada_fotos": [
-      { "src": "/img/caja_direccion_reparada_jaguar_j40_eje_sinfin_rodamiento.jpg", "alt": "Caja de dirección Jaguar J40 con holgura en el eje y rodamiento del sinfín roto", "caption": "Antes" }
+      { "src": "/img/cremallera_direccion_reparada_jaguar_j40_eje_sinfin_rodamiento.jpg", "alt": "Cremallera de dirección Jaguar J40 con holgura en el eje y rodamiento del sinfín roto", "caption": "Antes" }
     ],
     "resultado": "Cambio de bolas, rodamientos de agujas y rectificado del eje. Todas las juntas y collarines nuevos, fabricados a medida donde ya no hay recambio. Limpieza, pintado y comprobación final.",
     "cita_final": "", "galeria": []
@@ -308,15 +308,15 @@
     "tag": "Clásico · Sin pintar",
     "categorias": ["otros"],
     "fecha": "2026-08-20",
-    "foto_portada": "/img/caja_direccion_reparada_jaguar_sin_pintar_original_1.jpg",
-    "foto_portada_alt": "Caja de dirección Jaguar clásica reparada, sin pintar",
+    "foto_portada": "/img/cremallera_direccion_reparada_jaguar_sin_pintar_original_1.jpg",
+    "foto_portada_alt": "Cremallera de dirección Jaguar clásica reparada, sin pintar",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Petición del cliente: reparar la pieza original en vez de sustituirla, y entregarla sin pintar.",
     "llegada_fotos": [],
     "resultado": "Reparada tal y como se pidió, sin pintar.",
     "cita_final": "",
     "galeria": [
-      { "src": "/img/caja_direccion_reparada_jaguar_sin_pintar_original_2.jpg", "alt": "Caja de dirección Jaguar clásica reparada, otro ángulo" }
+      { "src": "/img/cremallera_direccion_reparada_jaguar_sin_pintar_original_2.jpg", "alt": "Cremallera de dirección Jaguar clásica reparada, otro ángulo" }
     ]
   },
   {
@@ -328,8 +328,8 @@
     "tag": "Holgura",
     "categorias": ["holgura"],
     "fecha": "2026-08-20",
-    "foto_portada": "/img/caja_direccion_reparada_jaguar_rara_holgura.jpg",
-    "foto_portada_alt": "Caja de dirección Jaguar modelo poco habitual, reparada",
+    "foto_portada": "/img/cremallera_direccion_reparada_jaguar_rara_holgura.jpg",
+    "foto_portada_alt": "Cremallera de dirección Jaguar modelo poco habitual, reparada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Mismo tipo de holgura que en los demás casos de Jaguar.",
     "llegada_fotos": [],
@@ -342,12 +342,12 @@
     "marca": "mercedes", "marca_nombre": "Mercedes",
     "modelo": "Mercedes W205 · Servotronic", "modelo_slug": "w205",
     "referencia": "",
-    "titulo": "Servotronic",
+    "titulo": "Reparada sobre la pieza original",
     "tag": "Servotronic",
     "categorias": ["servotronic"],
     "fecha": "2026-08-24",
     "foto_portada": "/img/cremallera_direccion_reparada_por_nosotros_para_mercedes_w205_con_servotronic.jpg",
-    "foto_portada_alt": "Cremallera Mercedes W205 con Servotronic reparada",
+    "foto_portada_alt": "Cremallera de dirección Mercedes W205 con Servotronic reparada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Cremallera con Servotronic.",
     "llegada_fotos": [],
@@ -364,7 +364,7 @@
     "categorias": [],
     "fecha": "2026-08-24",
     "foto_portada": "/img/cremallera_direccion_reparada_mercedes_sprinter_por_nosotros.jpg",
-    "foto_portada_alt": "Cremallera dirección Mercedes Sprinter reparada",
+    "foto_portada_alt": "Cremallera de dirección Mercedes Sprinter reparada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Cremallera de dirección de una furgoneta Sprinter.",
     "llegada_fotos": [],
@@ -373,6 +373,7 @@
   },
   {
     "id": "w107-clasico-holgura",
+    "pieza": "Caja de dirección",
     "marca": "mercedes", "marca_nombre": "Mercedes",
     "modelo": "Mercedes W107 (clásico)", "modelo_slug": "w107",
     "referencia": "",
@@ -399,7 +400,7 @@
     "categorias": ["eje-desgastado"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_renault_kangoo_4x4_oxidada_eje_sustitucion.jpg",
-    "foto_portada_alt": "Cremallera Renault Kangoo 4x4 reparada, óxido y eje de sustitución",
+    "foto_portada_alt": "Cremallera de dirección Renault Kangoo 4x4 reparada, óxido y eje de sustitución",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Venía oxidada, con pérdidas y holguras en los dientes.",
     "llegada_fotos": [],
@@ -417,11 +418,11 @@
     "categorias": ["holgura"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_reparada_alfa_romeo_terminada.jpg",
-    "foto_portada_alt": "Cremallera Alfa Romeo terminada",
+    "foto_portada_alt": "Cremallera de dirección Alfa Romeo Spider terminada",
     "cliente_conto": "", "respondimos": "",
     "llegada_texto": "Pieza procedente de un Alfa Romeo Spider para montar en otro Alfa. Sin avería confirmada ni holguras detectadas, pero el cliente quería una restauración completa antes de montarla para evitar sorpresas.",
     "llegada_fotos": [
-      { "src": "/img/cremallera_reparada_alfa_romeo_antes_desmontada.jpg", "alt": "Cremallera Alfa Romeo antes de reparar, desmontada", "caption": "Antes" }
+      { "src": "/img/cremallera_reparada_alfa_romeo_antes_desmontada.jpg", "alt": "Cremallera de dirección Alfa Romeo Spider antes de reparar, desmontada", "caption": "Antes" }
     ],
     "resultado": "Al ser una pieza poco común, algunos sellos fueron difíciles de encontrar y se fabricaron a medida. En el ajuste final apareció una holgura que se resolvió antes de darla por terminada.",
     "cita_final": "", "galeria": []

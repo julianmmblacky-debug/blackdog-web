@@ -93,6 +93,8 @@ foreach ($c in $casos) {
     '__MARCA_NOMBRE__'         = $c.marca_nombre
     '__ID__'                   = $c.id
     '__MODELO__'                = $c.modelo
+    '__PIEZA__'                 = $(if ($c.pieza) { $c.pieza } else { 'Cremallera de dirección' })
+    '__PIEZA_LOWER__'           = $(if ($c.pieza) { $c.pieza.ToLower() } else { 'cremallera de dirección' })
     '__TITULO__'                = $c.titulo
     '__TITULO_LOWER__'          = $c.titulo.ToLower()
     '__FOTO_PORTADA__'          = $c.foto_portada
