@@ -268,10 +268,11 @@ function icMostrarConfirmacion(form, mensaje, waUrl, opts){
         var v = inp.value.trim();
         if (!v) { inp.style.borderColor = '#e24b4a'; inp.focus(); return; }
         b.disabled = true; b.textContent = 'Enviando...';
-        var fd = new FormData();
-        fd.append('access_key', accessKey);
-        fd.append('subject', asuntoBase + ' — contacto añadido después');
-        fd.append('Contacto', v);
+        // Se reenvía todo lo que escribió + el contacto, para que el segundo correo se entienda solo
+        var fd = new FormData(form);
+        fd.delete('attachment');
+        fd.set('subject', asuntoBase + ' — contacto añadido después');
+        fd.set('Contacto', v);
         fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
           .then(function(r){ return r.json(); })
           .then(function(res){
