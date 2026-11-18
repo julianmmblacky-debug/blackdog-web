@@ -529,3 +529,8 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
 .hd-nav{gap:10px!important}
 .hd-nav a{position:relative;background:rgba(242,194,0,.2)!important;backdrop-filter:blur(12px);border:1px solid rgba(242,194,0,.45)!important;border-radius:10px;padding:10px 16px!important;color:var(--bone)!important;box-shadow:0 8px 22px -10px rgba(242,194,0,.5);transition:background .15s ease,border-color .15s ease}
 .hd-nav a:hover,.hd-nav a.active{background:rgba(242,194,0,.55)!important;border-color:rgba(242,194,0,.9)!important;color:#1a6cff!important;font-weight:900;-webkit-text-stroke:.6px #1a6cff;box-shadow:0 0 26px 4px rgba(242,194,0,.55),0 8px 24px -8px rgba(242,194,0,.75),inset 0 -3px 0 #fff}
+
+/* Lista compacta de modelos en páginas de marca */
+.mod-chips{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0}
+.mod-chips .mod-chips-tit{flex:0 0 100%;margin:0 0 4px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow)}
+.mod-chips span{font-size:.82rem;padding:4px 10px;border:1px solid #2f3238;border-radius:999px;background:#16181c;color:var(--bone-dim);white-space:nowrap}
