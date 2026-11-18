@@ -285,18 +285,18 @@
     "marca": "jaguar", "marca_nombre": "Jaguar",
     "modelo": "Jaguar J40", "modelo_slug": "j40",
     "referencia": "",
-    "titulo": "Holgura y rodamiento roto",
-    "tag": "Holgura · Rodamiento roto",
+    "titulo": "Adwest, presión en el retorno",
+    "tag": "Adwest · Presión en el retorno",
     "categorias": ["holgura"],
     "fecha": "2026-08-20",
     "foto_portada": "/img/cremallera_direccion_reparada_jaguar_j40_terminada.jpg",
     "foto_portada_alt": "Cremallera de dirección Jaguar J40 terminada y pintada",
     "cliente_conto": "", "respondimos": "",
-    "llegada_texto": "La dirección pedía por la cabeza de distribución — holgura en el eje de dirección y rodamiento del eje sin fin roto. Desmontaje laborioso: tuercas remachadas y soldadas por la corrosión tras años de humedad.",
+    "llegada_texto": "Cremallera Adwest con problemas de presión en el retorno. En el J40 el circuito de la dirección va unido al de la suspensión hidráulica trasera, así que hay que revisarlo entero. Desmontaje laborioso: tuercas remachadas y soldadas por la corrosión tras años de humedad.",
     "llegada_fotos": [
-      { "src": "/img/cremallera_direccion_reparada_jaguar_j40_eje_sinfin_rodamiento.jpg", "alt": "Cremallera de dirección Jaguar J40 con holgura en el eje y rodamiento del sinfín roto", "caption": "Antes" }
+      { "src": "/img/cremallera_direccion_jaguar_j40_adwest_antes.jpg", "alt": "Cremallera de dirección Adwest de Jaguar J40, antes de reparar", "caption": "Antes" }
     ],
-    "resultado": "Cambio de bolas, rodamientos de agujas y rectificado del eje. Todas las juntas y collarines nuevos, fabricados a medida donde ya no hay recambio. Limpieza, pintado y comprobación final.",
+    "resultado": "Reparación completa de la cremallera: juntas y collarines nuevos, fabricados a medida donde ya no hay recambio. Limpieza, pintado y comprobación final.",
     "cita_final": "", "galeria": []
   },
   {
