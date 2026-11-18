@@ -144,6 +144,9 @@ function icToggleFotos(cb){
   // El botón avisa de lo que va a pasar.
   var btn = form.querySelector('button[type="submit"]');
   if (btn) btn.textContent = cb.checked ? 'Enviar y abrir WhatsApp para mandar las fotos' : 'Enviar petición';
+  // Con fotos el envío ya va por WhatsApp: sobra el segundo botón
+  var waBtn = form.querySelector('.icEnviarWa');
+  if (waBtn) waBtn.style.display = cb.checked ? 'none' : '';
 }
 
 // Si el cliente adjunta foto o vídeo, el correo no puede llevarlo (los servicios gratuitos no admiten adjuntos),
@@ -200,8 +203,6 @@ function icMostrarConfirmacion(form, mensaje, waUrl, opts){
   opts = opts || {};
   var pageInner = form.closest('.page-inner');
   if (!pageInner) return;
-  var accessKey = (form.querySelector('[name="access_key"]') || {}).value || '';
-  var asuntoBase = icBuildSubject(form);
   pageInner.innerHTML = '<div class="wrap" style="max-width:560px;margin:0 auto;padding:min(18vh,140px) 24px 60px;text-align:center">' +
     '<svg width="52" height="52" viewBox="0 0 24 24" style="margin-bottom:18px"><circle cx="12" cy="12" r="11" fill="#25A35A"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
     '<p style="color:var(--bone);font-weight:700;font-size:1.5rem;margin:0 0 14px">¡Petición recibida!</p>' +
@@ -222,7 +223,7 @@ function icMostrarConfirmacion(form, mensaje, waUrl, opts){
     caja.appendChild(waBtn);
     if (volver) volver.parentNode.insertBefore(caja, volver);
   }
-  // Precio orientativo (y, si no dejó contacto, una casilla para dejarlo ahora). Todo con textContent:
+  // Precio orientativo según lo que ha marcado. Con textContent:
   // la marca y el modelo los ha escrito el visitante.
   if (opts.precio) {
     var volver2 = pageInner.querySelector('a[href="/"]');
@@ -245,51 +246,6 @@ function icMostrarConfirmacion(form, mensaje, waUrl, opts){
     box.appendChild(ver);
     if (volver2) volver2.parentNode.insertBefore(box, volver2);
 
-    if (opts.pedirContacto) {
-      var c = document.createElement('form');
-      c.style.cssText = 'text-align:left;margin:0 0 26px';
-      var lab = document.createElement('p');
-      lab.style.cssText = 'margin:0 0 10px;color:var(--bone);font-weight:600';
-      lab.textContent = '¿Quieres que te lo confirme? Déjame tu teléfono o email:';
-      var inp = document.createElement('input');
-      inp.type = 'text'; inp.name = 'Contacto'; inp.autocomplete = 'tel';
-      inp.placeholder = 'Teléfono o email';
-      inp.setAttribute('aria-label', 'Teléfono o email');
-      inp.style.cssText = 'width:100%;box-sizing:border-box;padding:12px 14px;margin:0 0 10px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:var(--bone);font-size:1rem';
-      var b = document.createElement('button');
-      b.type = 'submit'; b.className = 'btn btn-wa';
-      b.textContent = 'Enviar';
-      b.style.cssText = 'width:100%;justify-content:center';
-      var ok = document.createElement('p');
-      ok.style.cssText = 'display:none;margin:10px 0 0;color:#25A35A;font-weight:600';
-      c.appendChild(lab); c.appendChild(inp); c.appendChild(b); c.appendChild(ok);
-      c.addEventListener('submit', function(ev){
-        ev.preventDefault();
-        var v = inp.value.trim();
-        if (!v) { inp.style.borderColor = '#e24b4a'; inp.focus(); return; }
-        b.disabled = true; b.textContent = 'Enviando...';
-        // Se reenvía todo lo que escribió + el contacto, para que el segundo correo se entienda solo
-        var fd = new FormData(form);
-        fd.delete('attachment');
-        fd.set('subject', asuntoBase + ' — contacto añadido después');
-        fd.set('Contacto', v);
-        fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
-          .then(function(r){ return r.json(); })
-          .then(function(res){
-            if (!res.success) throw new Error('no');
-            icEvento('form_contacto_despues');
-            inp.style.display = 'none'; b.style.display = 'none'; lab.style.display = 'none';
-            ok.style.display = 'block';
-            ok.textContent = 'Recibido. Te contesto yo mismo lo antes posible.';
-          })
-          .catch(function(){
-            b.disabled = false; b.textContent = 'Enviar';
-            ok.style.display = 'block'; ok.style.color = '#e2a14a';
-            ok.textContent = 'No se pudo enviar. Prueba otra vez o llámame al 697 50 19 84.';
-          });
-      });
-      if (volver2) volver2.parentNode.insertBefore(c, volver2);
-    }
   }
   // El formulario desaparece y la página se queda corta: en el móvil la pantalla se quedaba en el pie
   // y no se veía el mensaje. Se sube arriba del todo (el mensaje está justo debajo de la cabecera).
@@ -317,24 +273,72 @@ var icNombresCampo = { 'Marca':'la marca', 'Modelo':'el modelo', 'Anio':'el año
 document.querySelectorAll('.icForm').forEach(function(form){
   form.addEventListener('input', function(e){
     if (e.target && e.target.style && e.target.style.borderColor) e.target.style.borderColor = '';
+    // En cuanto pone teléfono o email, fuera el aviso de "necesito tu teléfono o tu email"
+    if (form.dataset.avisoContacto && icTieneContacto(form)) { icOcultarAviso(form); delete form.dataset.avisoContacto; }
   });
 });
+function icTieneContacto(form){
+  var tel = (form.querySelector('[name="Telefono"]') || {}).value || '';
+  var mail = (form.querySelector('[name="Email"]') || {}).value || '';
+  return !!(tel.trim() || mail.trim());
+}
+// Lo obligatorio (marca, modelo, año…): aviso claro dentro del formulario, no el globo del navegador
+function icComprobarObligatorios(form){
+  var faltan = Array.prototype.filter.call(form.querySelectorAll('[required]'), function(el){
+    return el.offsetParent !== null && !(el.value && el.value.trim());
+  });
+  if (!faltan.length) return true;
+  faltan.forEach(function(el){ el.style.borderColor = '#e24b4a'; });
+  var lista = faltan.map(function(el){ return icNombresCampo[el.name] || el.name.toLowerCase(); });
+  icAviso(form, 'Falta por rellenar: ' + lista.join(', ') + '.');
+  icEvento('form_faltan_datos');
+  try { faltan[0].focus({preventScroll:true}); } catch(x){}
+  return false;
+}
+// Envío por WhatsApp (con fotos, o porque el cliente lo prefiere): se abre su WhatsApp con todo escrito
+// y a Julián le llega además una copia por correo, por si luego no le da a enviar allí.
+function icEnviarPorWhatsApp(form, conFotos){
+  var subjectField = form.querySelector('.icSubject');
+  var asunto = icBuildSubject(form);
+  if (subjectField) subjectField.value = asunto;
+  var accessKey = form.querySelector('[name="access_key"]').value;
+  trackGA4('form_submit', { location: conFotos ? 'intercambio-form-whatsapp' : 'intercambio-form-whatsapp-boton' });
+  if (accessKey !== 'PENDIENTE_CLAVE_WEB3FORMS') {
+    var dataCopia = new FormData(form);
+    dataCopia.delete('attachment');
+    dataCopia.set('subject', asunto + (conFotos ? ' — copia (foto enviada por WhatsApp)' : ' — copia (enviada por WhatsApp)'));
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: dataCopia }).catch(function(){});
+  }
+  var precio = icPrecioOrientativo(form);
+  var waUrl = 'https://wa.me/34697501984?text=' + encodeURIComponent(icBuildWhatsAppText(form, conFotos));
+  window.open(waUrl, '_blank');
+  icMostrarConfirmacion(form, conFotos
+    ? 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que adjuntar la foto o el vídeo y darle a enviar.'
+    : 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que darle a enviar.', waUrl, { precio: precio });
+}
 document.querySelectorAll('.icForm').forEach(function(form){
+  var waBtn = form.querySelector('.icEnviarWa');
+  if (waBtn) waBtn.addEventListener('click', function(){
+    if (!icComprobarObligatorios(form)) return;
+    icOcultarAviso(form);
+    icEnviarPorWhatsApp(form, false);
+  });
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    // 1) Lo obligatorio (marca, modelo, año…): aviso claro dentro del formulario
-    var faltan = Array.prototype.filter.call(form.querySelectorAll('[required]'), function(el){
-      return el.offsetParent !== null && !(el.value && el.value.trim());
-    });
-    if (faltan.length) {
-      faltan.forEach(function(el){ el.style.borderColor = '#e24b4a'; });
-      var lista = faltan.map(function(el){ return icNombresCampo[el.name] || el.name.toLowerCase(); });
-      icAviso(form, 'Falta por rellenar: ' + lista.join(', ') + '.');
-      icEvento('form_faltan_datos');
-      try { faltan[0].focus({preventScroll:true}); } catch(x){}
+    if (!icComprobarObligatorios(form)) return;
+    icOcultarAviso(form);
+    var tieneFotos = form.querySelector('.icTieneFotos');
+    if (tieneFotos && tieneFotos.checked) { icEnviarPorWhatsApp(form, true); return; }
+    // Por correo hace falta teléfono o email: sin eso Julián no puede contestar
+    if (!icTieneContacto(form)) {
+      var tel = form.querySelector('[name="Telefono"]');
+      if (tel) tel.style.borderColor = '#e24b4a';
+      icAviso(form, 'Para contestarte necesito tu teléfono o tu email. Ponlo arriba, en "Cómo contactarte".');
+      form.dataset.avisoContacto = '1';
+      icEvento('form_sin_contacto');
+      try { tel.focus({preventScroll:true}); } catch(x){}
       return;
     }
-    icOcultarAviso(form);
     if (!icCheckEmailRequired(form)) {
       form.querySelector('.icEmailInput').focus();
       form.querySelector('.icEmailInput').scrollIntoView({behavior:'smooth', block:'center'});
@@ -342,34 +346,11 @@ document.querySelectorAll('.icForm').forEach(function(form){
     }
     var subjectField = form.querySelector('.icSubject');
     if (subjectField) subjectField.value = icBuildSubject(form);
-    var tieneFotos = form.querySelector('.icTieneFotos');
     var accessKey = form.querySelector('[name="access_key"]').value;
-    if (tieneFotos && tieneFotos.checked) {
-      trackGA4('form_submit', { location: 'intercambio-form-whatsapp' });
-      // Copia de respaldo por email (sin el archivo) para que siempre quede registro,
-      // aunque el cliente abra WhatsApp y luego no llegue a darle a enviar allí.
-      if (accessKey !== 'PENDIENTE_CLAVE_WEB3FORMS') {
-        var dataCopia = new FormData(form);
-        dataCopia.delete('attachment');
-        if (subjectField) dataCopia.set('subject', subjectField.value + ' — copia (foto enviada por WhatsApp)');
-        fetch('https://api.web3forms.com/submit', { method: 'POST', body: dataCopia }).catch(function(){});
-      }
-      var texto = icBuildWhatsAppText(form);
-      var waUrl = 'https://wa.me/34697501984?text=' + encodeURIComponent(texto);
-      window.open(waUrl, '_blank');
-      icMostrarConfirmacion(form, 'Abrimos WhatsApp con tu petición ya escrita — solo tienes que adjuntar la foto o el vídeo y darle a enviar.', waUrl);
-      return;
-    }
-    // 2) Sin teléfono ni email se envía igual (a Julián le llega lo que ha escrito) y en pantalla
-    //    se le enseña el precio orientativo, que es lo que suele buscar; ahí puede dejar el contacto si quiere.
-    var telV = (form.querySelector('[name="Telefono"]') || {}).value || '';
-    var mailV = (form.querySelector('[name="Email"]') || {}).value || '';
-    var sinContacto = !telV.trim() && !mailV.trim();
     if (accessKey === 'PENDIENTE_CLAVE_WEB3FORMS') {
       alert('Falta conectar la clave de Web3Forms todavía — esto es solo una vista previa del formulario.');
       return;
     }
-    if (sinContacto && subjectField) subjectField.value = subjectField.value + ' — SIN teléfono ni email';
     var precio = icPrecioOrientativo(form);
     var data = new FormData(form);
     var btn = form.querySelector('button[type="submit"]');
@@ -379,12 +360,6 @@ document.querySelectorAll('.icForm').forEach(function(form){
       .then(function(r){ return r.json(); })
       .then(function(res){
         if (res.success) {
-          if (sinContacto) {
-            trackGA4('form_submit', { location: 'intercambio-form-sin-contacto' });
-            icEvento('form_sin_contacto');
-            icMostrarConfirmacion(form, 'Me ha llegado lo que has escrito, pero no me has dejado teléfono ni email, así que no puedo contestarte. Aquí tienes un precio orientativo:', null, { precio: precio, pedirContacto: true });
-            return;
-          }
           trackGA4('form_submit', { location: 'intercambio-form' });
           icMostrarConfirmacion(form, 'Me ha llegado tu petición. Te contesto yo mismo por donde me has dicho, lo antes posible. Si lo prefieres, también puedes escribirme directamente al 697 50 19 84, es donde estoy más activo. Si llamas y no contesto, seguramente esté con las manos en el taller — te devuelvo la llamada o te escribo en cuanto lo vea.', null, { precio: precio });
         } else {
