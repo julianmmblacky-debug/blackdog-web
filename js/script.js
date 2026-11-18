@@ -189,7 +189,7 @@ function icPrecioOrientativo(form){
               'Los portes van aparte (unos 20 € por trayecto).'];
   } else {
     lineas = ['Lo normal son unos 290 € con IVA. Los casos sencillos, desde 135 €.',
-              'Los portes van aparte (unos 20 € por trayecto). Cambiarla en un taller suele costar entre 340 y 550 €.'];
+              'Los portes van aparte (unos 20 € por trayecto).'];
   }
   lineas.push('El precio exacto te lo digo cuando sepa qué tiene; antes no gastas nada.');
   return { titulo: 'Precio orientativo' + (coche ? ' para tu ' + coche : ''), lineas: lineas };
