@@ -329,8 +329,6 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
   .foot-col a,.foot-col p{display:block;color:var(--bone-dim);font-size:.98rem;margin-bottom:9px;transition:color .15s}
   .foot-col a:hover{color:var(--yellow)}
   .foot-bottom{border-top:1px solid var(--line);margin-top:40px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--font-mono);font-size:.7rem;color:#83858c;letter-spacing:.06em}
-  .wa-float{display:none;position:fixed;right:16px;bottom:16px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--wa-green);align-items:center;justify-content:center;box-shadow:0 10px 30px -6px rgba(37,163,90,.55)}
-  .wa-float svg{width:30px;height:30px;color:#fff}
   .caso-photo{width:100%;height:auto;max-height:320px;object-fit:contain;display:block;background:#1a1d22}
   .opiniones{background:radial-gradient(120% 100% at 50% 0%,#17181b,#0B0B0C);border-top:1px solid #000;border-bottom:1px solid #000}
   .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -346,7 +344,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid 
   /* Cabecera compacta (logo + WhatsApp + menú de 3 rayas) hasta 1239px: por debajo el menú de botones no cabe y empujaba el botón de WhatsApp fuera de la pantalla */
   @media(max-width:1239px){.hd-nav.hd-desktop-only{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}}
   @media(max-width:860px){.hd-tag{display:none}.hd-nav.hd-desktop-only{display:none}.hd-burger{display:flex}.hd-mnav{display:flex}.about-in{grid-template-columns:1fr;gap:34px}.escudo{position:static;width:min(340px,84vw)}.steelplate{max-width:360px;margin:0 auto}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(1),.step:nth-child(2){border-bottom:1px solid #000}}
-  @media(max-width:640px){.hd .btn.hd-cta-full{display:none}.hd-cta-icon{display:inline-flex;padding:9px;border-radius:50%;background:var(--yellow);color:#141110}.hd-cta-icon svg{width:20px;height:20px}.cards{grid-template-columns:1fr}.caso-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid #000}.step:last-child{border-bottom:0}.foot-grid{grid-template-columns:1fr;gap:34px}.wa-float{display:flex}h1 .stroke{-webkit-text-stroke:1px var(--bone)}.strip-row{gap:6px 18px;font-size:.66rem}}
+  @media(max-width:640px){.hd .btn.hd-cta-full{display:none}.hd-cta-icon{display:inline-flex;padding:9px;border-radius:50%;background:var(--yellow);color:#141110}.hd-cta-icon svg{width:20px;height:20px}.cards{grid-template-columns:1fr}.caso-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid #000}.step:last-child{border-bottom:0}.foot-grid{grid-template-columns:1fr;gap:34px}h1 .stroke{-webkit-text-stroke:1px var(--bone)}.strip-row{gap:6px 18px;font-size:.66rem}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
 
 
