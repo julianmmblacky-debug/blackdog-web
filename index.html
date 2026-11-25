@@ -403,7 +403,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="intercambio-row" style="grid-template-columns:1fr 1fr 1fr 1fr">
         <input type="text" name="Marca" placeholder="Marca (ej. BMW) *" required>
         <input type="text" name="Modelo" placeholder="Modelo *" required>
-        <input type="text" name="Anio" placeholder="Año aproximado *" required>
+        <input type="text" name="Anio" placeholder="Año aprox. (si lo sabes)">
         <input type="text" name="Motor" placeholder="Motor (si lo sabes)">
       </div>
 
@@ -794,8 +794,8 @@ if (typeof nav === 'function') {
   if (!form || !wrap) return;
   var badgeEl = document.getElementById('nvProgressBadge');
   if (badgeEl) badgeEl.addEventListener('click', function(){ trackGA4('peticion_progreso_click', {location:'floating_badge'}); });
-  var required = ['Marca','Modelo','Anio','Telefono'];
-  var optional = ['Motor','Tipo de pieza','Referencia','Ciudad','Sintoma','Desmontada','Urgencia','Observaciones','Email','Prefiere contacto por'];
+  var required = ['Marca','Modelo','Telefono'];
+  var optional = ['Anio','Motor','Tipo de pieza','Referencia','Ciudad','Sintoma','Desmontada','Urgencia','Observaciones','Email','Prefiere contacto por'];
   var fill = document.getElementById('nvProgressFill');
   var text = document.getElementById('nvProgressText');
   var badge = document.getElementById('nvProgressBadge');
