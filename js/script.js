@@ -198,11 +198,11 @@ function icPrecioOrientativo(form){
   var pieza = get('Tipo de pieza');
   var lineas;
   if (pieza === 'Caja de dirección') {
-    lineas = ['Lo normal son unos 390 € con IVA, con tu misma caja reparada y 1 año de garantía.'];
+    lineas = ['Lo normal son unos 390 € con IVA, con tu misma caja reparada y 2 años de garantía.'];
   } else if (pieza === 'Columna de dirección' || pieza === 'Otra cosa') {
     lineas = ['Depende mucho de la pieza: te digo el precio en cuanto sepa qué tiene.'];
   } else {
-    lineas = ['Lo normal son unos 290 € con IVA, con tu misma cremallera reparada y 1 año de garantía.'];
+    lineas = ['Lo normal son unos 290 € con IVA, con tu misma cremallera reparada y 2 años de garantía.'];
   }
   lineas.push('Sin fianza: pagas cuando ya está reparada, antes de enviártela.');
   lineas.push('La recogemos donde nos digas (o la envías tú): solo tienes que embalarla. Portes aparte, unos 20 € por trayecto.');
