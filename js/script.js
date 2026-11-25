@@ -100,7 +100,8 @@ function icCheckEmailRequired(form){
 }
 document.querySelectorAll('.icForm').forEach(function(form){
   form.addEventListener('input', function(){ icUpdateProgress(form); icCheckEmailRequired(form); icUpdateFieldHighlights(form); });
-  form.addEventListener('change', function(){ icUpdateProgress(form); icCheckEmailRequired(form); icUpdateFieldHighlights(form); });
+  form.addEventListener('change', function(){ icUpdateProgress(form); icCheckEmailRequired(form); icUpdateFieldHighlights(form); icSyncWaBoton(form); });
+  icSyncWaBoton(form);
 });
 
 // Por defecto se marca "Reparar mi pieza original" para que se vea claro desde el primer vistazo
@@ -145,8 +146,17 @@ function icToggleFotos(cb){
   var btn = form.querySelector('button[type="submit"]');
   if (btn) btn.textContent = cb.checked ? 'Enviar y abrir WhatsApp para mandar las fotos' : 'Enviar petición';
   // Con fotos el envío ya va por WhatsApp: sobra el segundo botón
-  var waBtn = form.querySelector('.icEnviarWa');
-  if (waBtn) waBtn.style.display = cb.checked ? 'none' : '';
+  icSyncWaBoton(form);
+}
+// El botón verde "O envíala por WhatsApp" solo se ve si WhatsApp está marcado como preferencia
+// y no se están mandando fotos (con fotos el botón principal ya abre WhatsApp).
+function icSyncWaBoton(form){
+  var btn = form.querySelector('.icEnviarWa');
+  if (!btn) return;
+  var wa = form.querySelector('[name="Prefiere contacto por"][value="WhatsApp"]');
+  var fotos = form.querySelector('.icTieneFotos');
+  var ocultar = (wa && !wa.checked) || (fotos && fotos.checked);
+  btn.style.display = ocultar ? 'none' : '';
 }
 
 // Si el cliente adjunta foto o vídeo, el correo no puede llevarlo (los servicios gratuitos no admiten adjuntos),
