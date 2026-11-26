@@ -99,6 +99,7 @@ function icCheckEmailRequired(form){
   return !falta;
 }
 document.querySelectorAll('.icForm').forEach(function(form){
+  form.addEventListener('focusin', icCargarTabla, { once: true });
   form.addEventListener('input', function(){ icUpdateProgress(form); icCheckEmailRequired(form); icUpdateFieldHighlights(form); });
   form.addEventListener('change', function(){ icUpdateProgress(form); icCheckEmailRequired(form); icUpdateFieldHighlights(form); icSyncWaBoton(form); });
   icSyncWaBoton(form);
@@ -144,7 +145,7 @@ function icToggleFotos(cb){
   // Ya no se eligen archivos aquí (no llegaban al correo): las fotos se mandan en WhatsApp al enviar.
   // El botón avisa de lo que va a pasar.
   var btn = form.querySelector('button[type="submit"]');
-  if (btn) btn.textContent = cb.checked ? 'Enviar y abrir WhatsApp para mandar las fotos' : 'Enviar petición';
+  if (btn) btn.textContent = cb.checked ? 'Enviar y abrir WhatsApp para mandar las fotos' : 'Ver precio';
   // Con fotos el envío ya va por WhatsApp: sobra el segundo botón
   icSyncWaBoton(form);
 }
@@ -176,6 +177,8 @@ function icBuildWhatsAppText(form, conFotos){
   var otro = get('Otro motivo');
   if (sintomas || otro) lines.push('Síntomas: ' + [sintomas, otro].filter(Boolean).join(' — '));
   if (get('Desmontada')) lines.push('¿Desmontada?: ' + get('Desmontada'));
+  var pr = icPrecioOrientativo(form);
+  if (pr && pr.rango) lines.push('Precio que me ha salido en la web: ' + pr.rango + ' (aproximado)');
   if (get('Urgencia')) lines.push('Urgencia: ' + get('Urgencia'));
   if (get('Cuanto puede esperar')) lines.push('¿Cuánto puede esperar?: ' + get('Cuanto puede esperar'));
   var quebusca = getChecked('Que busca');
@@ -191,22 +194,83 @@ function icBuildWhatsAppText(form, conFotos){
   return lines.join('\n');
 }
 
-// Precio orientativo según lo que ha marcado (mismos precios que la página de precios).
+// Tabla de precios (data/precios.json): se carga la primera vez que se toca el formulario.
+// Si no carga, se usan los valores por defecto de abajo y el formulario funciona igual.
+var IC_TABLA = null;
+function icCargarTabla(){
+  if (IC_TABLA !== null) return;
+  IC_TABLA = false;
+  try {
+    fetch('/data/precios.json').then(function(r){ return r.json(); })
+      .then(function(j){ IC_TABLA = j; }).catch(function(){ IC_TABLA = false; });
+  } catch (e) {}
+}
+function icNorm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function icRedondea5(n){ return Math.round(n / 5) * 5; }
+
+// Precio aproximado según el coche, lo que le pasa y si la tiene desmontada.
+// Regla: banda del coche (80 % de la referencia de tienda, entre suelo y techo);
+// fuga abajo, ruido y holgura arriba; un pequeño descuento si ya está desmontada.
 function icPrecioOrientativo(form){
   var get = function(name){ var el = form.querySelector('[name="'+name+'"]'); return el ? el.value.trim() : ''; };
   var coche = [get('Marca'), get('Modelo')].filter(Boolean).join(' ');
+  var titulo = 'Precio aproximado' + (coche ? ' para tu ' + coche : '');
   var pieza = get('Tipo de pieza');
   var lineas;
   if (pieza === 'Caja de dirección') {
-    lineas = ['Lo normal son unos 390 € con IVA, con tu misma caja reparada y 2 años de garantía.'];
-  } else if (pieza === 'Columna de dirección' || pieza === 'Otra cosa') {
-    lineas = ['Depende mucho de la pieza: te digo el precio en cuanto sepa qué tiene.'];
-  } else {
-    lineas = ['Lo normal son unos 290 € con IVA, con tu misma cremallera reparada y 2 años de garantía.'];
+    return { titulo: titulo, rango: null, lineas: [
+      'Lo normal son unos 390 € con IVA, con tu misma caja reparada por mí y 2 años de garantía.',
+      'Sin fianza: pagas cuando ya está reparada.',
+      'La recogemos donde nos digas (o la envías tú): solo tienes que embalarla. Portes aparte, unos 20 € por trayecto.'
+    ] };
   }
-  lineas.push('Sin fianza: pagas cuando ya está reparada, antes de enviártela.');
+  if (pieza === 'Columna de dirección' || pieza === 'Otra cosa') {
+    return { titulo: titulo, rango: null, lineas: ['Depende mucho de la pieza: te digo el precio en cuanto sepa qué tiene. Mándame fotos por WhatsApp.'] };
+  }
+  var t = IC_TABLA || {};
+  var factor = t.factor || 0.8, suelo = t.suelo || 270, techo = t.techo || 390, ancho = t.ancho || 40;
+  var pesos = t.pesos || { fuga: 0, dura: 0.4, ruido: 0.8, holgura: 1, golpe: 1 };
+  var texto = icNorm([get('Marca'), get('Modelo'), get('Motor'), get('Observaciones'), get('Otro motivo')].join(' '));
+  var sinCifra = (t.sin_cifra || ['activa', 'electrica', 'clasico', 'sin recambio']).some(function(k){ return texto.indexOf(icNorm(k)) > -1; });
+  if (sinCifra) {
+    return { titulo: 'Te digo el precio con fotos', rango: null, sinCifra: true, lineas: [
+      'Este tipo de pieza (dirección activa o eléctrica, clásico o sin recambio) cambia mucho de un caso a otro.',
+      'Mándame fotos por WhatsApp y te respondo con el precio.'
+    ] };
+  }
+  var marca = icNorm(get('Marca')), modelo = icNorm(get('Modelo'));
+  var ref = t.ref_por_defecto || 420;
+  var coincidente = null;
+  (t.modelos || []).some(function(m){
+    var okMarca = m.marca.some(function(x){ return marca.indexOf(x) > -1; });
+    var okMod = m.claves.some(function(c){ return modelo.indexOf(icNorm(c)) > -1; });
+    if (okMarca && okMod) { ref = m.ref; coincidente = m; return true; }
+    return false;
+  });
+  var map = { 'Fuga de aceite': 'fuga', 'Dirección dura': 'dura', 'Ruido': 'ruido', 'Holgura': 'holgura', 'Ha tenido un golpe': 'golpe' };
+  var marcados = Array.prototype.slice.call(form.querySelectorAll('[name="Sintoma"]:checked'))
+    .map(function(c){ return map[c.value]; }).filter(Boolean);
+  var peso = marcados.length ? Math.max.apply(null, marcados.map(function(k){ return pesos[k] || 0; })) : null;
+  var desmontada = get('Desmontada') === 'Sí';
+  // Rango para una referencia de tienda dada: banda del coche, posición según la avería, descuento si está desmontada
+  var rangoPara = function(r){
+    var base = Math.min(Math.max(icRedondea5(factor * r), suelo), techo);
+    var low = base >= techo ? techo - ancho : base;
+    var high = Math.min(low + ancho, techo);
+    var d1 = low, h1 = high;
+    if (peso !== null) { var p = low + peso * (high - low); d1 = icRedondea5(p - 15); h1 = icRedondea5(p + 15); }
+    if (desmontada) { var dd = t.descuento_desmontada || 15; d1 -= dd; h1 -= dd; }
+    d1 = Math.min(Math.max(d1, suelo), techo);
+    h1 = Math.min(Math.max(h1, d1), techo);
+    return [d1, h1];
+  };
+  var r0 = rangoPara(ref);
+  lineas = ['Tu cremallera, reparada por mí, con 2 años de garantía.'];
+  lineas.push('Aproximado, a partir de casos parecidos al tuyo que he reparado. Lo confirmo yo cuando vea tu pieza o tus fotos.');
+  if (desmontada) lineas.push('Como ya la tienes desmontada, te ajusto el precio.');
+  lineas.push('Sin fianza: pagas cuando ya está reparada.' + (peso !== null && peso >= 0.8 ? ' En una tienda se adelantan 95 a 180 € hasta devolver la tuya.' : ''));
   lineas.push('La recogemos donde nos digas (o la envías tú): solo tienes que embalarla. Portes aparte, unos 20 € por trayecto.');
-  return { titulo: 'Precio orientativo' + (coche ? ' para tu ' + coche : ''), lineas: lineas };
+  return { titulo: titulo, rango: r0[0] + ' – ' + r0[1] + ' €', lineas: lineas, enTabla: !!coincidente };
 }
 
 function icMostrarConfirmacion(form, mensaje, waUrl, opts){
@@ -243,6 +307,16 @@ function icMostrarConfirmacion(form, mensaje, waUrl, opts){
     h.style.cssText = 'margin:0 0 10px;color:var(--yellow);font-weight:700;font-size:1.05rem';
     h.textContent = opts.precio.titulo;
     box.appendChild(h);
+    if (opts.precio.rango) {
+      var big = document.createElement('p');
+      big.style.cssText = 'margin:0 0 6px;font-family:"Anton",sans-serif;font-size:2.3rem;line-height:1.1;color:var(--bone)';
+      big.textContent = opts.precio.rango + ' ';
+      var iva = document.createElement('small');
+      iva.style.cssText = 'font-family:"Hanken Grotesk",sans-serif;font-size:.85rem;color:var(--bone-dim);font-weight:500';
+      iva.textContent = 'con IVA';
+      big.appendChild(iva);
+      box.appendChild(big);
+    }
     opts.precio.lineas.forEach(function(t){
       var p = document.createElement('p');
       p.style.cssText = 'margin:0 0 8px;color:var(--bone);line-height:1.55;font-size:.98rem';
@@ -256,6 +330,19 @@ function icMostrarConfirmacion(form, mensaje, waUrl, opts){
     box.appendChild(ver);
     if (volver2) volver2.parentNode.insertBefore(box, volver2);
 
+  }
+  // Para seguir: el cliente te manda el resultado por WhatsApp (con el coche, la avería y el precio ya escritos)
+  if (opts.waResultado) {
+    var volver3 = pageInner.querySelector('a[href="/"]');
+    var wr = document.createElement('a');
+    wr.className = 'btn btn-wa';
+    wr.href = opts.waResultado;
+    wr.target = '_blank';
+    wr.rel = 'noopener';
+    wr.textContent = 'Enviarme este resultado por WhatsApp';
+    wr.style.cssText = 'display:flex;justify-content:center;margin:0 0 22px';
+    wr.addEventListener('click', function(){ try { trackGA4('whatsapp_click', { location: 'resultado-precio' }); } catch (e) {} });
+    if (volver3) volver3.parentNode.insertBefore(wr, volver3);
   }
   // El formulario desaparece y la página se queda corta: en el móvil la pantalla se quedaba en el pie
   // y no se veía el mensaje. Se sube arriba del todo (el mensaje está justo debajo de la cabecera).
@@ -339,48 +426,34 @@ document.querySelectorAll('.icForm').forEach(function(form){
     icOcultarAviso(form);
     var tieneFotos = form.querySelector('.icTieneFotos');
     if (tieneFotos && tieneFotos.checked) { icEnviarPorWhatsApp(form, true); return; }
-    // Por correo hace falta teléfono o email: sin eso Julián no puede contestar
-    if (!icTieneContacto(form)) {
-      var tel = form.querySelector('[name="Telefono"]');
-      if (tel) tel.style.borderColor = '#e24b4a';
-      icAviso(form, 'Para contestarte necesito tu teléfono o tu email. Ponlo arriba, en "Cómo contactarte".');
-      form.dataset.avisoContacto = '1';
-      icEvento('form_sin_contacto');
-      try { tel.focus({preventScroll:true}); } catch(x){}
-      return;
-    }
-    if (!icCheckEmailRequired(form)) {
-      form.querySelector('.icEmailInput').focus();
-      form.querySelector('.icEmailInput').scrollIntoView({behavior:'smooth', block:'center'});
-      return;
-    }
+    // El cliente no deja contacto: ve el precio al momento y a Julián le llega la consulta en silencio.
+    // Si quiere seguir, manda el resultado por WhatsApp (ahí sale su teléfono).
+    var precio = icPrecioOrientativo(form);
     var subjectField = form.querySelector('.icSubject');
-    if (subjectField) subjectField.value = icBuildSubject(form);
+    var precioField = form.querySelector('.icPrecioMostrado');
+    // Para ir afinando la tabla con las consultas: el correo dice si el modelo ya estaba en la tabla o es nuevo
+    var etiquetaTabla = precio.rango ? (precio.enTabla ? ' · modelo en tabla' : ' · MODELO NUEVO (precio por defecto)') : '';
+    if (precioField) precioField.value = precio.rango ? precio.rango + ' (aprox.)' + etiquetaTabla : precio.titulo;
+    if (subjectField) subjectField.value = 'PRECIO VISTO — ' + icBuildSubject(form).replace('BLACKDOG — ', '') + (precio.rango ? ' · ' + precio.rango : ' · sin cifra') + (precio.rango && !precio.enTabla ? ' · MODELO NUEVO' : '');
     var accessKey = form.querySelector('[name="access_key"]').value;
     if (accessKey === 'PENDIENTE_CLAVE_WEB3FORMS') {
       alert('Falta conectar la clave de Web3Forms todavía — esto es solo una vista previa del formulario.');
       return;
     }
-    var precio = icPrecioOrientativo(form);
+    var waResultado = 'https://wa.me/34697501984?text=' + encodeURIComponent(icBuildWhatsAppText(form, false));
     var data = new FormData(form);
     var btn = form.querySelector('button[type="submit"]');
-    var textoOriginal = btn.textContent;
-    btn.disabled = true; btn.textContent = 'Enviando...';
-    fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
-      .then(function(r){ return r.json(); })
-      .then(function(res){
-        if (res.success) {
-          trackGA4('form_submit', { location: 'intercambio-form' });
-          icMostrarConfirmacion(form, 'Me ha llegado tu petición. Te contesto yo mismo por donde me has dicho, lo antes posible. Si lo prefieres, también puedes escribirme directamente al 697 50 19 84, es donde estoy más activo. Si llamas y no contesto, seguramente esté con las manos en el taller — te devuelvo la llamada o te escribo en cuanto lo vea.', null, { precio: precio });
-        } else {
-          btn.disabled = false; btn.textContent = textoOriginal;
-          alert('No se pudo enviar. Prueba de nuevo o escríbeme por WhatsApp.');
-        }
-      })
-      .catch(function(){
-        btn.disabled = false; btn.textContent = textoOriginal;
-        alert('No se pudo enviar. Prueba de nuevo o escríbeme por WhatsApp.');
-      });
+    btn.disabled = true;
+    // El precio se enseña SIEMPRE y al momento: el aviso a Julián va en segundo plano y,
+    // si fallara el correo, el cliente no se entera ni se queda sin su precio.
+    try {
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: data, keepalive: true })
+        .then(function(r){ return r.json(); })
+        .then(function(res){ if (res && res.success) { try { trackGA4('form_submit', { location: 'intercambio-form' }); } catch (e) {} } })
+        .catch(function(){});
+    } catch (e) {}
+    icEvento('precio_visto');
+    icMostrarConfirmacion(form, 'Si quieres seguir, mándame este resultado por WhatsApp y lo confirmo yo mismo.', null, { precio: precio, waResultado: waResultado });
   });
 });
 

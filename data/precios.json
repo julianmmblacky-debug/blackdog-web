@@ -1,0 +1,76 @@
+{
+  "_nota": "Tabla de precios del formulario. Editable sin tocar el diseno. 'ref' = precio de referencia de una pieza reconstruida de marca seria en tienda (Autodoc, 26-nov-2026; mediana de Lizarte, ERA y Ridex Reman, o del resto de marcas si hay pocas). Los modelos son de serie: mezclan generaciones. Precio base = factor x ref, entre suelo y techo. Revisar una vez al mes y afinar modelo a modelo con las consultas reales.",
+  "version": "2026-11-26b",
+  "factor": 0.8,
+  "suelo": 270,
+  "techo": 390,
+  "ancho": 40,
+  "ref_por_defecto": 420,
+  "descuento_desmontada": 15,
+  "pesos": { "fuga": 0, "dura": 0.4, "ruido": 0.8, "holgura": 1, "golpe": 1 },
+  "sin_cifra": ["activa", "electrica", "electrico", "eps", "clasico", "sin recambio", "descatalogada", "columna", "w107", "j40", "xjs", "corvette", "spider"],
+  "modelos": [
+    { "marca": ["bmw"], "claves": ["e39"], "ref": 372 },
+    { "marca": ["bmw"], "claves": ["e36"], "ref": 396 },
+    { "marca": ["bmw"], "claves": ["e46", "320", "318", "316", "325", "330"], "ref": 407 },
+    { "marca": ["bmw"], "claves": ["e60"], "ref": 437 },
+    { "marca": ["bmw"], "claves": ["e53"], "ref": 446 },
+    { "marca": ["bmw"], "claves": ["e70"], "ref": 450 },
+    { "marca": ["bmw"], "claves": ["x5"], "ref": 448 },
+    { "marca": ["bmw"], "claves": ["x3", "e83"], "ref": 408 },
+
+    { "marca": ["mercedes"], "claves": ["w164", "ml"], "ref": 560 },
+    { "marca": ["mercedes"], "claves": ["w211"], "ref": 567 },
+    { "marca": ["mercedes"], "claves": ["w210"], "ref": 390 },
+    { "marca": ["mercedes"], "claves": ["clase c", "w203", "w204", "w205", "c200", "c220"], "ref": 500 },
+    { "marca": ["mercedes"], "claves": ["vito", "viano"], "ref": 484 },
+    { "marca": ["mercedes"], "claves": ["sprinter"], "ref": 450 },
+
+    { "marca": ["audi"], "claves": ["a4"], "ref": 388 },
+    { "marca": ["audi"], "claves": ["a6"], "ref": 489 },
+    { "marca": ["audi"], "claves": ["a3"], "ref": 409 },
+
+    { "marca": ["vw", "volkswagen"], "claves": ["transporter", "t5", "multivan", "caravelle"], "ref": 370 },
+    { "marca": ["vw", "volkswagen"], "claves": ["golf"], "ref": 409 },
+    { "marca": ["vw", "volkswagen"], "claves": ["passat"], "ref": 384 },
+
+    { "marca": ["seat"], "claves": ["leon"], "ref": 409 },
+    { "marca": ["seat"], "claves": ["cordoba", "ibiza"], "ref": 300 },
+
+    { "marca": ["ford"], "claves": ["focus"], "ref": 473 },
+    { "marca": ["ford"], "claves": ["mondeo"], "ref": 366 },
+
+    { "marca": ["toyota"], "claves": ["land cruiser", "landcruiser"], "ref": 480 },
+    { "marca": ["toyota"], "claves": ["rav"], "ref": 285 },
+
+    { "marca": ["citroen"], "claves": ["c5"], "ref": 410 },
+    { "marca": ["citroen", "peugeot"], "claves": ["berlingo", "partner"], "ref": 315 },
+    { "marca": ["peugeot"], "claves": ["307"], "ref": 327 },
+    { "marca": ["peugeot"], "claves": ["406"], "ref": 364 },
+
+    { "marca": ["renault"], "claves": ["megane"], "ref": 208 },
+    { "marca": ["renault"], "claves": ["laguna"], "ref": 342 },
+    { "marca": ["renault"], "claves": ["clio"], "ref": 193 },
+    { "marca": ["renault"], "claves": ["kangoo"], "ref": 370 },
+
+    { "marca": ["nissan"], "claves": ["qashqai"], "ref": 365 },
+    { "marca": ["nissan"], "claves": ["navara"], "ref": 334 },
+    { "marca": ["nissan"], "claves": ["patrol"], "ref": 585 },
+
+    { "marca": ["opel"], "claves": ["astra"], "ref": 321 },
+    { "marca": ["opel"], "claves": ["vectra"], "ref": 366 },
+    { "marca": ["opel"], "claves": ["corsa"], "ref": 191 },
+
+    { "marca": ["kia"], "claves": ["sportage"], "ref": 483 },
+    { "marca": ["hyundai"], "claves": ["santa"], "ref": 199 },
+    { "marca": ["fiat"], "claves": ["ducato"], "ref": 407 },
+    { "marca": ["suzuki"], "claves": ["vitara"], "ref": 386 },
+    { "marca": ["jeep"], "claves": ["cherokee"], "ref": 497 },
+
+    { "marca": ["mitsubishi"], "claves": ["montero", "pajero"], "ref": 440 },
+    { "marca": ["volvo"], "claves": ["xc90"], "ref": 430 },
+    { "marca": ["volvo"], "claves": ["xc70"], "ref": 420 },
+    { "marca": ["honda"], "claves": ["civic"], "ref": 470 },
+    { "marca": ["honda"], "claves": ["accord"], "ref": 470 }
+  ]
+}
