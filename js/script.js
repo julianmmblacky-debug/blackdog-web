@@ -362,8 +362,8 @@ function icAviso(form, texto){
   box.scrollIntoView({behavior:'smooth', block:'center'});
 }
 function icOcultarAviso(form){ var box = form.querySelector('.icAviso'); if (box) box.style.display = 'none'; }
-function icEvento(nombre){
-  try { trackGA4(nombre, {}); } catch(e){}
+function icEvento(nombre, params){
+  try { trackGA4(nombre, params || {}); } catch(e){}
   try { if (typeof window.clarity === 'function') window.clarity('event', nombre); } catch(e){}
 }
 var icNombresCampo = { 'Marca':'la marca', 'Modelo':'el modelo', 'Anio':'el año', 'Cuanto puede esperar':'cuánto puede esperar' };
@@ -452,7 +452,22 @@ document.querySelectorAll('.icForm').forEach(function(form){
         .then(function(res){ if (res && res.success) { try { trackGA4('form_submit', { location: 'intercambio-form' }); } catch (e) {} } })
         .catch(function(){});
     } catch (e) {}
-    icEvento('precio_visto');
+    // Cada consulta queda registrada para revisarla después: correo (arriba), Analytics (qué coche y avería)
+    // y Clarity (etiquetas para encontrar la grabación de esa visita). Sin datos personales.
+    var sintomasTxt = Array.prototype.slice.call(form.querySelectorAll('[name="Sintoma"]:checked')).map(function(c){ return c.value; }).join('+');
+    var limpia = function(n, max){ var el = form.querySelector('[name="'+n+'"]'); return (el ? el.value : '').trim().toLowerCase().slice(0, max); };
+    var datosConsulta = {
+      marca: limpia('Marca', 30), modelo: limpia('Modelo', 40), sintoma: (sintomasTxt || 'sin marcar').slice(0, 60),
+      desmontada: limpia('Desmontada', 3) || 'no sabe', precio: precio.rango || 'sin cifra', en_tabla: precio.enTabla ? 'si' : 'no'
+    };
+    icEvento('precio_visto', datosConsulta);
+    try {
+      if (typeof window.clarity === 'function') {
+        window.clarity('set', 'consulta_coche', (datosConsulta.marca + ' ' + datosConsulta.modelo).trim());
+        window.clarity('set', 'consulta_averia', datosConsulta.sintoma);
+        window.clarity('set', 'consulta_precio', datosConsulta.precio);
+      }
+    } catch (e) {}
     icMostrarConfirmacion(form, 'Si quieres seguir, mándame este resultado por WhatsApp y lo confirmo yo mismo.', null, { precio: precio, waResultado: waResultado });
   });
 });
